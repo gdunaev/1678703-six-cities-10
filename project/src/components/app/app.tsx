@@ -6,9 +6,19 @@ import {OfferPage} from '../../pages/offer-page/offer-page';
 import {LoginPage} from '../../pages/login-page/login-page';
 import {FavoritesPage} from '../../pages/favorites-page/favorites-page';
 import {PrivateRoute} from '../private-route/private-route';
+import { LoadingScreen } from '../loading-screen/loading-screen';
+import { useAppSelector } from '../../hooks/index';
 
 
 export function App(): JSX.Element {
+
+  const {isDataLoaded} = useAppSelector((state) => state);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -32,5 +42,3 @@ export function App(): JSX.Element {
     </BrowserRouter>
   );
 }
-
-//AuthorizationStatus.Auth - TEST!

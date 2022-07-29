@@ -5,34 +5,15 @@ import { MapOffers } from '../../components/map/map-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { changeCity } from '../../store/action';
 import { Header } from '../../components/header/header';
-// import { NotFoundPage } from '../not-found-page/not-found-page';
-// import { Offer } from '../../types/offer';
-import {LoadingScreen} from '../../components/loading-screen/loading-screen';
 
 export function MainPage(): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
-  const { offers, isDataLoaded } = useAppSelector((state) => state);
+  const offers = useAppSelector((state) => state.offers);
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line no-console
-  // console.log('44', isDataLoaded);
-
-  if (isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
-  }
-  // if (!offers && isDataLoaded) {
-
-  //   // eslint-disable-next-line no-console
-  //   console.log('11', offers);
-  //   return <NotFoundPage />;
-  // }
-
-  // eslint-disable-next-line no-console
-  // console.log('22', offers);
-
-  const selectedOffers = offers ? offers.filter((offer) => offer.city.name === cityName) : [];
+  const selectedOffers = offers
+    ? offers.filter((offer) => offer.city.name === cityName)
+    : [];
 
   let quantityOffers = 0;
   if (selectedOffers) {

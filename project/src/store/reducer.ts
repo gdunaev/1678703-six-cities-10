@@ -1,12 +1,21 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, loadOffers, offersSorting, requireAuthorization, selectOfferId, loadFavoritesOffers, setError, setDataLoadedStatus} from './action';
-import { DEFAULT_CITY, SortingType, AuthorizationStatus} from '../const';
-import {Offers} from '../types/offer';
+import { createReducer } from '@reduxjs/toolkit';
+import {
+  changeCity,
+  loadOffers,
+  offersSorting,
+  requireAuthorization,
+  selectOfferId,
+  loadFavoritesOffers,
+  setError,
+  setDataLoadedStatus,
+} from './action';
+import { DEFAULT_CITY, SortingType, AuthorizationStatus } from '../const';
+import { Offers } from '../types/offer';
 
 type authorizationStatus = {
   status: string;
   email: string;
-}
+};
 type InitalState = {
   offers: Offers | undefined;
   city: string;
@@ -16,7 +25,7 @@ type InitalState = {
   favoritesOffers: Offers | undefined;
   error: string;
   isDataLoaded: boolean;
-}
+};
 
 const initialState: InitalState = {
   offers: undefined,
