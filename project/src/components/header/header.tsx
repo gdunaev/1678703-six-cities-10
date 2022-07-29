@@ -3,6 +3,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';
 import {useAppSelector} from '../../hooks/index';
+import {NotFoundPage} from '../../pages/not-found-page/not-found-page';
 
 
 type HeaderProps = {
@@ -18,6 +19,10 @@ export function Header(props: HeaderProps): JSX.Element{
   const [isNavigationLogin, setNavigationLogin] = useState(false);
   const {status, email} = useAppSelector((state) => state.authorizationStatus);
   const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
+
+  if(!favoritesOffers) {
+    return <NotFoundPage />;
+  }
   const quantityFavoritesOffers = String(favoritesOffers.length);
 
   if (isNavigationLogin) {

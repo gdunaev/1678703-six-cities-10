@@ -1,25 +1,43 @@
-import {OffersListMain} from '../../components/offers-list-main/offers-list-main';
-import {City} from '../../components/city/city';
-import {ArrayCities} from '../../const';
-import {MapOffers} from '../../components/map/map-offers';
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {changeCity} from '../../store/action';
+import { OffersListMain } from '../../components/offers-list-main/offers-list-main';
+import { City } from '../../components/city/city';
+import { ArrayCities } from '../../const';
+import { MapOffers } from '../../components/map/map-offers';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { changeCity } from '../../store/action';
 import { Header } from '../../components/header/header';
+// import { NotFoundPage } from '../not-found-page/not-found-page';
+// import { Offer } from '../../types/offer';
+import {LoadingScreen} from '../../components/loading-screen/loading-screen';
 
-
-export function MainPage(): JSX.Element{
-
+export function MainPage(): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
+  const { offers, isDataLoaded } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
-  const offers = useAppSelector((state) => state.offers);
-  const selectedOffers = offers.filter((offer) => offer.city.name === cityName);
+  // eslint-disable-next-line no-console
+  // console.log('44', isDataLoaded);
+
+  if (isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+  // if (!offers && isDataLoaded) {
+
+  //   // eslint-disable-next-line no-console
+  //   console.log('11', offers);
+  //   return <NotFoundPage />;
+  // }
+
+  // eslint-disable-next-line no-console
+  // console.log('22', offers);
+
+  const selectedOffers = offers ? offers.filter((offer) => offer.city.name === cityName) : [];
 
   let quantityOffers = 0;
-  if(selectedOffers) {
+  if (selectedOffers) {
     quantityOffers = selectedOffers.length;
   }
-
-  const dispatch = useAppDispatch();
 
   const handleChangeCity = (currentCity: string) => {
     dispatch(changeCity(currentCity));
@@ -52,8 +70,7 @@ export function MainPage(): JSX.Element{
       </div>
 
       <div className="page page--gray page--main">
-
-        <Header mainPage favoritePage={false}/>
+        <Header mainPage favoritePage={false} />
 
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
@@ -73,12 +90,19 @@ export function MainPage(): JSX.Element{
           </div>
           <div className="cities">
             <div className="cities__places-container container">
-              <OffersListMain quantityOffers={quantityOffers} offers={selectedOffers} cityName={cityName}/>
+              <OffersListMain
+                quantityOffers={quantityOffers}
+                offers={selectedOffers}
+                cityName={cityName}
+              />
 
               <div className="cities__right-section">
-
-                <MapOffers offers={selectedOffers} currentOffer={undefined} cityName={cityName} main/>
-
+                <MapOffers
+                  offers={selectedOffers}
+                  currentOffer={undefined}
+                  cityName={cityName}
+                  main
+                />
               </div>
             </div>
           </div>

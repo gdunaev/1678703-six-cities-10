@@ -1,5 +1,5 @@
 import {Cities} from './types/city';
-import { HousingType } from './types/offer';
+import { Offers } from './types/offer';
 
 export enum AppRoute {
   Main = '/',
@@ -9,13 +9,6 @@ export enum AppRoute {
   Login = '/login',
   NotFoundPage = '/not_found'
 }
-
-export const Housing: HousingType = {
-  'apartment': 'Apartment',
-  'room': 'Room',
-  'house': 'House',
-  'hotel': 'Hotel',
-};
 
 export enum SortingType {
   Popular = 'Popular',
@@ -88,7 +81,8 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: 'requireAuthorization',
   SELECT_OFFER_ID: 'selectOfferId',
   LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
-  SET_ERROR: 'setError'
+  SET_ERROR: 'setError',
+  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus'
 };
 
 export const PERCENT_RATING = 20;
@@ -106,3 +100,39 @@ export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const TIMEOUT_SHOW_ERROR = 5000;
 
+export const DefaultOffers: Offers = [
+  {
+    'bedrooms': 0,
+    'city': {
+      'location': {
+        'latitude': 0,
+        'longitude': 0,
+        'zoom': 0
+      },
+      'name': ''
+    },
+    'description': '',
+    'goods': [''],
+    'host': {
+      'avatarUrl': '',
+      'id': 0,
+      'isPro': true,
+      'name': ''
+    },
+    'id': 0,
+    'images': [''],
+    'isFavorite': true,
+    'isPremium': true,
+    'location': {
+      'latitude': 0,
+      'longitude': 0,
+      'zoom': 0
+    },
+    'maxAdults': 0,
+    'previewImage': '',
+    'price': 0,
+    'rating': 0,
+    'title': '',
+    'type': ''
+  },
+];
