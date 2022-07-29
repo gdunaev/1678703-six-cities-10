@@ -1,14 +1,24 @@
 import {MainPage} from '../../pages/main-page/main-page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { AppRoute } from '../../const';
+import {NotFoundPage} from '../../pages/not-found-page/not-found-page';
 import {OfferPage} from '../../pages/offer-page/offer-page';
-import LoginPage from '../../pages/login-page/login-page';
+import {LoginPage} from '../../pages/login-page/login-page';
 import {FavoritesPage} from '../../pages/favorites-page/favorites-page';
-import PrivateRoute from '../private-route/private-route';
+import {PrivateRoute} from '../private-route/private-route';
+import { LoadingScreen } from '../loading-screen/loading-screen';
+import { useAppSelector } from '../../hooks/index';
 
 
 export function App(): JSX.Element {
+
+  const {isDataLoaded} = useAppSelector((state) => state);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -22,7 +32,7 @@ export function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
@@ -32,5 +42,3 @@ export function App(): JSX.Element {
     </BrowserRouter>
   );
 }
-
-//AuthorizationStatus.Auth - TEST!

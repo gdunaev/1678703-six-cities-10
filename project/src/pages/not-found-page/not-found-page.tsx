@@ -1,7 +1,7 @@
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 
-function NotFoundPage(): JSX.Element{
+export function NotFoundPage(): JSX.Element{
 
   return (
     <section>
@@ -10,5 +10,3 @@ function NotFoundPage(): JSX.Element{
     </section>
   );
 }
-
-export default NotFoundPage;

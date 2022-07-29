@@ -5,7 +5,6 @@ import {OffersSortingForm} from '../offers-sorting-form/offers-sorting-form';
 
 type OffersListMainProps = {
   quantityOffers: number;
-  onOfferHover: (idOffer: string) => void;
   cityName: string;
   offers: Offers;
 }
@@ -13,11 +12,8 @@ type OffersListMainProps = {
 
 export function OffersListMain(props: OffersListMainProps): JSX.Element{
 
-  const {quantityOffers, onOfferHover, cityName, offers} = props;
+  const {quantityOffers, cityName, offers} = props;
 
-  const handleOfferHover = (idOffer: string) => {
-    onOfferHover(idOffer);
-  };
 
   return (
     <section className="cities__places places">
@@ -28,7 +24,7 @@ export function OffersListMain(props: OffersListMainProps): JSX.Element{
 
       <OffersSortingForm/>
 
-      <OffersList onOfferListHover={handleOfferHover} offers={offers}/>
+      <OffersList offers={offers}/>
 
     </section>
   );

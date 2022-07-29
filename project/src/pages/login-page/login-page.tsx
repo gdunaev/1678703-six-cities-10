@@ -1,6 +1,15 @@
 import {Link} from 'react-router-dom';
+import {useAppSelector} from '../../hooks/index';
+import {Navigate} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
-function LoginPage(): JSX.Element{
+export function LoginPage(): JSX.Element{
+
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus.status);
+
+  if (authorizationStatus) {
+    return <Navigate to={AppRoute.Main} />;
+  }
 
   return (
     <>
@@ -13,7 +22,7 @@ function LoginPage(): JSX.Element{
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <Link className="header__logo-link" to="#">
+                <Link className="header__logo-link" to="/">
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
                 </Link>
               </div>
@@ -32,7 +41,7 @@ function LoginPage(): JSX.Element{
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required/>
+                  <input className="login__input form__input" type="password" pattern = "[A-Za-z]{1,}[0-9]{1,}" name="password" placeholder="Password" required/>
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
               </form>
@@ -50,5 +59,3 @@ function LoginPage(): JSX.Element{
     </>
   );
 }
-
-export default LoginPage;

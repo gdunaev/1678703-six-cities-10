@@ -1,6 +1,6 @@
-// import {useEffect} from 'react';
 import {Review} from '../review/review';
 import { comments } from '../../mocks/comments';
+import {getCommentsSorting} from '../../utils';
 
 type ReviewsListProps = {
   id: string | undefined;
@@ -11,27 +11,22 @@ export function ReviewsList(props: ReviewsListProps): JSX.Element {
 
   const {id} = props;
   const commentsOffer = comments.filter((comment) => String(comment.id) === id);
+  const sortinedComments = getCommentsSorting(commentsOffer);
+  const commentsQuantity = sortinedComments.length ? sortinedComments.length : 0;
 
-  // useEffect(() => {
-  //   if (id !== commentsId) {
-  //     onLoadCommentsOffer(id);
-  //   }
-  // }, []);
 
   const getReviewsComponent = () => {
-    if (commentsOffer.length === 0) {
+    if (commentsQuantity === 0) {
       return '';
     }
-    return commentsOffer.map((comment, currentId) => {
-      const keyValue = `${comment}-${currentId}`;
+    return sortinedComments.map((value, currentId) => {
+      const keyValue = `${value}-${currentId}`;
       return (
-        <Review key={keyValue} review={comment}/>
+        <Review key={keyValue} review={value} />
       );
     });
   };
-  // console.log('222', commentsOffer)
 
-  const commentsQuantity = commentsOffer.length !== 0 ? `${commentsOffer.length}` : '';
 
   return (
     <>

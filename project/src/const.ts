@@ -1,5 +1,5 @@
 import {Cities} from './types/city';
-import { HousingType } from './types/offer';
+import { Offers } from './types/offer';
 
 export enum AppRoute {
   Main = '/',
@@ -10,13 +10,6 @@ export enum AppRoute {
   NotFoundPage = '/not_found'
 }
 
-export const Housing: HousingType = {
-  'apartment': 'Apartment',
-  'room': 'Room',
-  'house': 'House',
-  'hotel': 'Hotel',
-};
-
 export enum SortingType {
   Popular = 'Popular',
   LowToHigh = 'Price: low to high',
@@ -24,9 +17,10 @@ export enum SortingType {
   TopRated = 'Top rated first',
 }
 
-export enum ApiPaths {
+export enum APIRoute {
   Hotels = '/hotels',
-  Login = '/login'
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export enum AuthorizationStatus {
@@ -84,18 +78,61 @@ export const ActionType = {
   CHANGE_CITY: 'changeCity',
   LOAD_OFFERS: 'loadOffers',
   OFFERS_SORTING: 'offersSorting',
+  REQUIRE_AUTHORIZATION: 'requireAuthorization',
+  SELECT_OFFER_ID: 'selectOfferId',
+  LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
+  SET_ERROR: 'setError',
+  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus'
 };
 
 export const PERCENT_RATING = 20;
-
 export const QUANTITY_OTHER_PLACES = 3;
-
 export const DEFAULT_CITY = 'Paris';
 
 export const QUANTITY_IMAGES = 6;
-
+export const QUANTITY_COMMENTS = 3;
 export const TEXT_SIGN_IN = 'Sign In';
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
+export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
+export const REQUEST_TIMEOUT = 5000;
+export const TIMEOUT_SHOW_ERROR = 5000;
+
+export const DefaultOffers: Offers = [
+  {
+    'bedrooms': 0,
+    'city': {
+      'location': {
+        'latitude': 0,
+        'longitude': 0,
+        'zoom': 0
+      },
+      'name': ''
+    },
+    'description': '',
+    'goods': [''],
+    'host': {
+      'avatarUrl': '',
+      'id': 0,
+      'isPro': true,
+      'name': ''
+    },
+    'id': 0,
+    'images': [''],
+    'isFavorite': true,
+    'isPremium': true,
+    'location': {
+      'latitude': 0,
+      'longitude': 0,
+      'zoom': 0
+    },
+    'maxAdults': 0,
+    'previewImage': '',
+    'price': 0,
+    'rating': 0,
+    'title': '',
+    'type': ''
+  },
+];

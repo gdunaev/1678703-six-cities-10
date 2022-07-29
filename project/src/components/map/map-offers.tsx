@@ -3,13 +3,15 @@ import {Icon, Marker, LatLng} from 'leaflet';
 import {useMap} from '../../hooks/useMap';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 import 'leaflet/dist/leaflet.css';
-import {Offers, Offer} from '../../types/offer';
+import {Offers} from '../../types/offer';
 import { ArrayCities } from '../../const';
+import {useAppSelector} from '../../hooks/index';
+import {Offer} from '../../types/offer';
 
 type MapProps = {
   cityName: string;
   offers: Offers;
-  selectedOffer: Offer | undefined;
+  currentOffer: Offer | undefined;
   main: boolean;
 };
 
@@ -26,7 +28,11 @@ const currentCustomIcon = new Icon({
 });
 
 export function MapOffers(props: MapProps): JSX.Element {
-  const {cityName, offers, selectedOffer, main} = props;
+  const {cityName, offers, main, currentOffer} = props;
+
+  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
+  const selectedOffer = currentOffer ? currentOffer : offers.find((value) => value.id === selectedOfferId);
+
 
   const mapRef = useRef(null);
 

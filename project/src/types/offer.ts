@@ -52,11 +52,4 @@ export type ReviewType = {
   user: User;
 };
 
-export type HousingType = {
-  apartment: string;
-  room: string;
-  house: string;
-  hotel: string;
-};
-
 export type Offers = Offer[];
