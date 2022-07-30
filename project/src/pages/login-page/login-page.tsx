@@ -1,8 +1,5 @@
 import {Link} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {Navigate} from 'react-router-dom';
-import {AppRoute} from '../../const';
-import { AuthorizationStatus } from '../../const';
+import {useAppDispatch, } from '../../hooks/index';
 import {FormEvent, useRef} from 'react';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
@@ -10,16 +7,10 @@ import { validatePassword } from '../../utils';
 
 export function LoginPage(): JSX.Element{
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus.status);
   const dispatch = useAppDispatch();
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    return <Navigate to={AppRoute.Main} />;
-  }
-  // const navigate = useNavigate();
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));

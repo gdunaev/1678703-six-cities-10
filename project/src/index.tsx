@@ -6,6 +6,7 @@ import {store} from './store/index';
 import {ToastContainer} from 'react-toastify';
 import {checkAuthAction, fetchOffersAction} from './store/api-actions';
 
+
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOffersAction());
 

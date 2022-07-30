@@ -1,5 +1,5 @@
 import {MainPage} from '../../pages/main-page/main-page';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import {NotFoundPage} from '../../pages/not-found-page/not-found-page';
 import {OfferPage} from '../../pages/offer-page/offer-page';
@@ -8,6 +8,8 @@ import {FavoritesPage} from '../../pages/favorites-page/favorites-page';
 import {PrivateRoute} from '../private-route/private-route';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks/index';
+import {HistoryRouter} from '../history-route/history-route';
+import {browserHistory} from '../../browser-history';
 
 
 export function App(): JSX.Element {
@@ -21,7 +23,7 @@ export function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -39,6 +41,6 @@ export function App(): JSX.Element {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }

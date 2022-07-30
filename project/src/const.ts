@@ -81,7 +81,8 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: 'requireAuthorization',
   SELECT_OFFER_ID: 'selectOfferId',
   LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
-  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus'
+  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
+  REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
 export const PERCENT_RATING = 20;
