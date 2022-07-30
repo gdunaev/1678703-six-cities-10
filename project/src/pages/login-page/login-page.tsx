@@ -29,7 +29,7 @@ export function LoginPage(): JSX.Element{
 
     if (loginRef.current !== null && passwordRef.current !== null) {
       // eslint-disable-next-line no-console
-      console.log('11', loginRef.current.value, passwordRef.current.value);
+      // console.log('11', loginRef.current.value, passwordRef.current.value);
 
       onSubmit({
         login: loginRef.current.value,
@@ -69,7 +69,7 @@ export function LoginPage(): JSX.Element{
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" pattern = "[A-Za-z]{1,}[0-9]{1,}" name="password" placeholder="Password" required ref={passwordRef}/>
+                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required ref={passwordRef}/>
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
               </form>
