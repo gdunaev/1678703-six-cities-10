@@ -49,7 +49,7 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
 
       // eslint-disable-next-line no-console
-      console.log('11', action.payload);
+      // console.log('11', action.payload);
       state.authorizationStatus = action.payload;
     })
     .addCase(selectOfferId, (state, action) => {
