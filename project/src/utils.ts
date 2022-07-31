@@ -2,8 +2,7 @@ import {SortingType, PERCENT_RATING} from './const';
 import {Offers, Offer} from './types/offer';
 import {CommentsType, CommentType} from './types/comments';
 import {QUANTITY_COMMENTS} from './const';
-// import dayjs from 'dayjs';
-// import {Dayjs} from ''
+
 
 let typeLowHigh = true;
 
@@ -47,3 +46,18 @@ export const getRating = (rating: number) => ({
 });
 
 export const getCommentsSorting = (comments: CommentsType) => comments.slice().sort(compareDates).slice(0, QUANTITY_COMMENTS);
+
+
+export const validatePassword = (password: string) => {
+
+  if(!password) {
+    return false;
+  }
+  const regExpLetter = /[A-Za-z]/;
+  const regExpNumber = /[0-9]/;
+
+  if(password.search(regExpLetter) > -1 && password.search(regExpNumber) > -1) {
+    return true;
+  }
+  return false;
+};

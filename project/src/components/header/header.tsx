@@ -2,7 +2,8 @@ import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';
-import {useAppSelector} from '../../hooks/index';
+import {useAppDispatch, useAppSelector} from '../../hooks/index';
+import { logoutAction } from '../../store/api-actions';
 
 
 type HeaderProps = {
@@ -19,6 +20,7 @@ export function Header(props: HeaderProps): JSX.Element{
   const {status, email} = useAppSelector((state) => state.authorizationStatus);
   const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
   const quantityFavoritesOffers = favoritesOffers ? String(favoritesOffers.length) : '0';
+  const dispatch = useAppDispatch();
 
   if (isNavigationLogin) {
     if(status !== AuthorizationStatus.Auth) {
@@ -39,7 +41,9 @@ export function Header(props: HeaderProps): JSX.Element{
   const handleLogoClick = () => {
     setNavigation(true);
   };
-
+  const handleLogoutClick = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -76,7 +80,7 @@ export function Header(props: HeaderProps): JSX.Element{
               </li>
               { status === AuthorizationStatus.Auth &&
               <li className="header__nav-item">
-                <Link className="header__nav-link" to="#">
+                <Link className="header__nav-link" to="#" onClick={handleLogoutClick}>
                   <span className="header__signout">Sign out</span>
                 </Link>
               </li>}

@@ -6,7 +6,6 @@ import {
   requireAuthorization,
   selectOfferId,
   loadFavoritesOffers,
-  setError,
   setDataLoadedStatus,
 } from './action';
 import { DEFAULT_CITY, SortingType, AuthorizationStatus } from '../const';
@@ -23,7 +22,6 @@ type InitalState = {
   authorizationStatus: authorizationStatus;
   selectedOfferId: number;
   favoritesOffers: Offers | undefined;
-  error: string;
   isDataLoaded: boolean;
 };
 
@@ -37,7 +35,6 @@ const initialState: InitalState = {
   },
   selectedOfferId: -1,
   favoritesOffers: undefined,
-  error: '',
   isDataLoaded: false,
 };
 
@@ -50,6 +47,9 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
+
+      // eslint-disable-next-line no-console
+      // console.log('11', action.payload);
       state.authorizationStatus = action.payload;
     })
     .addCase(selectOfferId, (state, action) => {
@@ -57,9 +57,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadFavoritesOffers, (state, action) => {
       state.favoritesOffers = action.payload;
-    })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;

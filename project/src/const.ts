@@ -81,8 +81,8 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: 'requireAuthorization',
   SELECT_OFFER_ID: 'selectOfferId',
   LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
-  SET_ERROR: 'setError',
-  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus'
+  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
+  REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
 export const PERCENT_RATING = 20;
@@ -98,7 +98,6 @@ export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
-export const TIMEOUT_SHOW_ERROR = 5000;
 
 export const DefaultOffers: Offers = [
   {

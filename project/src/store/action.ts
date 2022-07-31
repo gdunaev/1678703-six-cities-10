@@ -26,10 +26,11 @@ export const loadFavoritesOffers = createAction(ActionType.LOAD_FAVORITES_OFFERS
   payload: value,
 }));
 
-export const setError = createAction(ActionType.SET_ERROR, (value) => ({
-  payload: value,
-}));
-
 export const setDataLoadedStatus = createAction(ActionType.SET_DATA_LOADED_STATUS, (value) => ({
   payload: value,
 }));
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (value) => ({
+  payload: value,
+}));
+
