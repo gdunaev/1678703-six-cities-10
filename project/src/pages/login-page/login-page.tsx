@@ -58,7 +58,7 @@ export function LoginPage(): JSX.Element{
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" pattern = "[A-Za-z0-9]{2,}" name="password" placeholder="Password, min 1 letter and 1 number" required ref={passwordRef}/>
+                  <input className="login__input form__input" type="password" name="password" placeholder="Password, min 1 letter and 1 number" required ref={passwordRef}/>
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
               </form>

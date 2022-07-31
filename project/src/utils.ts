@@ -53,23 +53,10 @@ export const validatePassword = (password: string) => {
   if(!password) {
     return false;
   }
-  const passwordArray = password.split('');
   const regExpLetter = /[A-Za-z]/;
-  let isLetter = false;
   const regExpNumber = /[0-9]/;
-  let isNumber = false;
 
-  for (const value of passwordArray) {
-    if (regExpLetter.test(value)) {
-      isLetter = true;
-      continue;
-    }
-    if (regExpNumber.test(value)) {
-      isNumber = true;
-      continue;
-    }
-  }
-  if(isLetter && isNumber){
+  if(password.search(regExpLetter) > -1 && password.search(regExpNumber) > -1) {
     return true;
   }
   return false;
