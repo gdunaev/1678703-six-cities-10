@@ -21,6 +21,7 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  // HotelsId = '/hotels/',
 }
 
 export enum AuthorizationStatus {
@@ -83,6 +84,7 @@ export const ActionType = {
   LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
   SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
+  LOAD_OFFER: 'loadOffer',
 };
 
 export const PERCENT_RATING = 20;

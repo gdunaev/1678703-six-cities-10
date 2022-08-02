@@ -10,8 +10,10 @@ import {OfferCard} from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
 import { Header } from '../../components/header/header';
 import {useAppSelector} from '../../hooks/index';
-import {useState} from 'react';
-
+import {useState, useEffect} from 'react';
+import { fetchDetailedOfferAction } from '../../store/api-actions';
+import { store } from '../../store';
+import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -35,12 +37,30 @@ function getImagesSection(images: string[]): JSX.Element {
 export function OfferPage(): JSX.Element {
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus.status);
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const detailedOffer = useAppSelector((state) => state.detailedOffer);
   const { id } = useParams();
   const [isNavigationLogin, setNavigationLogin] = useState(false);
-  const currentOffer = offers.find((offer) => String(offer.id) === id);
+  const currentId = Number(id);
 
-  if (!currentOffer) {
-    return <NotFoundPage />;
+
+  useEffect(() => {
+    if (!detailedOffer || detailedOffer.id !== currentId) {
+      store.dispatch(fetchDetailedOfferAction(id as string));
+    }
+  }, [detailedOffer, currentId]);
+
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  if (!detailedOffer) {
+    return (
+      <NotFoundPage />
+    );
   }
 
   if (isNavigationLogin && !authorizationStatus) {
@@ -60,7 +80,7 @@ export function OfferPage(): JSX.Element {
     host,
     description,
     city,
-  } = currentOffer;
+  } = detailedOffer;
 
   const cityName = city.name;
 
@@ -68,10 +88,10 @@ export function OfferPage(): JSX.Element {
   const housingType = type.charAt(0).toUpperCase() + type.slice(1);
   const isGoods = goods.length !== 0;
 
-  const otherOffers = offers.filter((offer) => offer.city.name === cityName && offer.id !== Number(currentOffer.id));
+  const otherOffers = offers.filter((offer) => offer.city.name === cityName && offer.id !== Number(detailedOffer.id));
 
   const otherOffersMap = otherOffers.slice();
-  otherOffersMap.push(currentOffer);
+  otherOffersMap.push(detailedOffer);
 
   const getOtherOffersComponent = () => {
     if (otherOffers.length === 0) {
@@ -180,8 +200,8 @@ export function OfferPage(): JSX.Element {
 
                   {isGoods && (
                     <ul className="property__inside-list">
-                      {goods.map((good, currentId) => {
-                        const keyValue = `${currentId}-${good}`;
+                      {goods.map((good, goodId) => {
+                        const keyValue = `${goodId}-${good}`;
                         return (
                           <li key={keyValue} className="property__inside-item">
                             {good}
@@ -222,7 +242,7 @@ export function OfferPage(): JSX.Element {
               </div>
             </div>
 
-            <MapOffers offers={otherOffersMap} cityName={cityName} currentOffer={currentOffer} main={false}/>
+            <MapOffers offers={otherOffersMap} cityName={cityName} currentOffer={detailedOffer} main={false}/>
 
           </section>
           <div className="container">

@@ -34,3 +34,6 @@ export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (value
   payload: value,
 }));
 
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (value) => ({
+  payload: value,
+}));
