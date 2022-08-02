@@ -15,10 +15,14 @@ export const fetchDetailedOfferAction = createAsyncThunk<void, string, {
 }>(
   'data/fetchDetailedOffer',
   async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer>(`/hotels/${id}`);
-    dispatch(setDataLoadedStatus(false));
-    dispatch(loadOffer(data));
-    dispatch(setDataLoadedStatus(true));
+    try {
+      const {data} = await api.get<Offer>(`/hotels/${id}`);
+      dispatch(setDataLoadedStatus(false));
+      dispatch(loadOffer(data));
+      dispatch(setDataLoadedStatus(true));
+    } catch {
+      dispatch(setDataLoadedStatus(false));
+    }
   },
 );
 

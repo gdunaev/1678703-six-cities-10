@@ -6,14 +6,17 @@ import { ImagesOffer } from '../../components/images-offer/images-offer';
 import { QUANTITY_IMAGES, AppRoute } from '../../const';
 import {NotFoundPage} from '../not-found-page/not-found-page';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
-import {OfferCard} from '../../components/offer-card/offer-card';
+import { OfferCard } from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
 import { Header } from '../../components/header/header';
-import {useAppSelector} from '../../hooks/index';
-import {useState, useEffect} from 'react';
+import { useAppSelector, } from '../../hooks/index';
+import { useState, useEffect } from 'react';
 import { fetchDetailedOfferAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
+import { AuthorizationStatus } from '../../const';
+import { Offer } from '../../types/offer';
+// import { setDataLoadedStatus } from '../../store/action';
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -33,16 +36,21 @@ function getImagesSection(images: string[]): JSX.Element {
   return <div className="property__gallery"></div>;
 }
 
-
 export function OfferPage(): JSX.Element {
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus.status
+  );
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus.status);
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+
+
   const detailedOffer = useAppSelector((state) => state.detailedOffer);
   const { id } = useParams();
   const [isNavigationLogin, setNavigationLogin] = useState(false);
   const currentId = Number(id);
 
+  // eslint-disable-next-line no-console
+  console.log('11', detailedOffer, isDataLoaded);
 
   useEffect(() => {
     if (!detailedOffer || detailedOffer.id !== currentId) {
@@ -50,11 +58,8 @@ export function OfferPage(): JSX.Element {
     }
   }, [detailedOffer, currentId]);
 
-
   if (!isDataLoaded) {
-    return (
-      <LoadingScreen />
-    );
+    return <LoadingScreen />;
   }
 
   if (!detailedOffer) {
@@ -80,7 +85,7 @@ export function OfferPage(): JSX.Element {
     host,
     description,
     city,
-  } = detailedOffer;
+  } = detailedOffer as Offer;
 
   const cityName = city.name;
 
@@ -88,21 +93,19 @@ export function OfferPage(): JSX.Element {
   const housingType = type.charAt(0).toUpperCase() + type.slice(1);
   const isGoods = goods.length !== 0;
 
-  const otherOffers = offers.filter((offer) => offer.city.name === cityName && offer.id !== Number(detailedOffer.id));
+  const otherOffers = offers.filter(
+    (offer) => offer.city.name === cityName && offer.id !== Number(id)
+  );
 
   const otherOffersMap = otherOffers.slice();
-  otherOffersMap.push(detailedOffer);
+  otherOffersMap.push(detailedOffer as Offer);
 
   const getOtherOffersComponent = () => {
     if (otherOffers.length === 0) {
       return '';
     }
     return otherOffers.map((otherOffer) => (
-      <OfferCard
-        key={otherOffer.id}
-        offer={otherOffer}
-        isOtherOffer
-      />
+      <OfferCard key={otherOffer.id} offer={otherOffer} isOtherOffer />
     ));
   };
 
@@ -137,15 +140,12 @@ export function OfferPage(): JSX.Element {
       </div>
 
       <div className="page">
-
-        <Header mainPage={false} favoritePage={false}/>
+        <Header mainPage={false} favoritePage={false} />
 
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-
               {getImagesSection(images)}
-
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
@@ -233,17 +233,21 @@ export function OfferPage(): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-
                   <ReviewsList id={id} />
 
-                  {authorizationStatus && <FormOffer />}
-
+                  {authorizationStatus === AuthorizationStatus.Auth && (
+                    <FormOffer />
+                  )}
                 </section>
               </div>
             </div>
 
-            <MapOffers offers={otherOffersMap} cityName={cityName} currentOffer={detailedOffer} main={false}/>
-
+            <MapOffers
+              offers={otherOffersMap}
+              cityName={cityName}
+              currentOffer={detailedOffer}
+              main={false}
+            />
           </section>
           <div className="container">
             <section className="near-places places">
@@ -251,9 +255,7 @@ export function OfferPage(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-
                 {getOtherOffersComponent()}
-
               </div>
             </section>
           </div>
