@@ -85,6 +85,7 @@ export const ActionType = {
   SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
   LOAD_OFFER: 'loadOffer',
+  LOAD_FAIL: 'loadFail',
 };
 
 export const PERCENT_RATING = 20;

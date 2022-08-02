@@ -8,6 +8,7 @@ import {
   loadFavoritesOffers,
   setDataLoadedStatus,
   loadOffer,
+  loadFail,
 } from './action';
 import { DEFAULT_CITY, SortingType, AuthorizationStatus } from '../const';
 import { Offers, Offer} from '../types/offer';
@@ -25,6 +26,7 @@ type InitalState = {
   favoritesOffers: Offers | undefined;
   isDataLoaded: boolean;
   detailedOffer: Offer | undefined;
+  isLoadFail: boolean;
 };
 
 const initialState: InitalState = {
@@ -39,6 +41,7 @@ const initialState: InitalState = {
   favoritesOffers: undefined,
   isDataLoaded: false,
   detailedOffer: undefined,
+  isLoadFail: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -66,6 +69,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.detailedOffer = action.payload;
+    })
+    .addCase(loadFail, (state, action) => {
+      state.isLoadFail = action.payload;
     })
     .addCase(offersSorting, (state, action) => {
       state.sorting = action.payload;

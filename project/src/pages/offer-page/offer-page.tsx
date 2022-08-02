@@ -16,7 +16,6 @@ import { store } from '../../store';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 import { AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
-// import { setDataLoadedStatus } from '../../store/action';
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -41,28 +40,23 @@ export function OfferPage(): JSX.Element {
     (state) => state.authorizationStatus.status
   );
 
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
-
-
+  const isLoadFail = useAppSelector((state) => state.isLoadFail);
   const detailedOffer = useAppSelector((state) => state.detailedOffer);
   const { id } = useParams();
   const [isNavigationLogin, setNavigationLogin] = useState(false);
   const currentId = Number(id);
 
-  // eslint-disable-next-line no-console
-  console.log('11', detailedOffer, isDataLoaded);
-
   useEffect(() => {
     if (!detailedOffer || detailedOffer.id !== currentId) {
       store.dispatch(fetchDetailedOfferAction(id as string));
     }
-  }, [detailedOffer, currentId]);
+  }, []);
 
-  if (!isDataLoaded) {
+  if (!detailedOffer && !isLoadFail) {
     return <LoadingScreen />;
   }
 
-  if (!detailedOffer) {
+  if (!detailedOffer && isLoadFail) {
     return (
       <NotFoundPage />
     );
