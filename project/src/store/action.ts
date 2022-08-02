@@ -41,3 +41,7 @@ export const loadOffer = createAction(ActionType.LOAD_OFFER, (value) => ({
 export const loadFail = createAction(ActionType.LOAD_FAIL, (value) => ({
   payload: value,
 }));
+
+export const loadOtherOffers = createAction(ActionType.LOAD_OTHER_OFFERS, (value) => ({
+  payload: value,
+}));

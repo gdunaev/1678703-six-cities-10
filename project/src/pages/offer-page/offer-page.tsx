@@ -1,6 +1,5 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { FormOffer } from '../../components/form-offer/form-offer';
-import { offers } from '../../mocks/offers';
 import { getRating } from '../../utils';
 import { ImagesOffer } from '../../components/images-offer/images-offer';
 import { QUANTITY_IMAGES, AppRoute } from '../../const';
@@ -11,10 +10,10 @@ import { MapOffers } from '../../components/map/map-offers';
 import { Header } from '../../components/header/header';
 import { useAppSelector, } from '../../hooks/index';
 import { useState, useEffect } from 'react';
-import { fetchDetailedOfferAction } from '../../store/api-actions';
+import { fetchDetailedOfferAction, fetchOtherOffersAction} from '../../store/api-actions';
 import { store } from '../../store';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, QUANTITY_OTHER_PLACES } from '../../const';
 import { Offer } from '../../types/offer';
 
 function getImagesSection(images: string[]): JSX.Element {
@@ -36,19 +35,28 @@ function getImagesSection(images: string[]): JSX.Element {
 }
 
 export function OfferPage(): JSX.Element {
+
+  const { id } = useParams();
   const authorizationStatus = useAppSelector(
     (state) => state.authorizationStatus.status
   );
 
   const isLoadFail = useAppSelector((state) => state.isLoadFail);
   const detailedOffer = useAppSelector((state) => state.detailedOffer);
-  const { id } = useParams();
+  const otherOffers = useAppSelector((state) => state.otherOffers);
+
   const [isNavigationLogin, setNavigationLogin] = useState(false);
   const currentId = Number(id);
 
   useEffect(() => {
     if (!detailedOffer || detailedOffer.id !== currentId) {
       store.dispatch(fetchDetailedOfferAction(id as string));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!detailedOffer || detailedOffer.id !== currentId) {
+      store.dispatch(fetchOtherOffersAction(id as string));
     }
   }, []);
 
@@ -82,30 +90,28 @@ export function OfferPage(): JSX.Element {
   } = detailedOffer as Offer;
 
   const cityName = city.name;
-
   const ratingStyle = getRating(rating);
   const housingType = type.charAt(0).toUpperCase() + type.slice(1);
   const isGoods = goods.length !== 0;
-
-  const otherOffers = offers.filter(
-    (offer) => offer.city.name === cityName && offer.id !== Number(id)
-  );
-
-  const otherOffersMap = otherOffers.slice();
+  const arrayOtherOffers = otherOffers ? otherOffers.slice(0, QUANTITY_OTHER_PLACES) : [];
+  const otherOffersMap = arrayOtherOffers.slice();
   otherOffersMap.push(detailedOffer as Offer);
 
+
   const getOtherOffersComponent = () => {
-    if (otherOffers.length === 0) {
+    if (arrayOtherOffers.length === 0) {
       return '';
     }
-    return otherOffers.map((otherOffer) => (
+    return arrayOtherOffers.map((otherOffer) => (
       <OfferCard key={otherOffer.id} offer={otherOffer} isOtherOffer />
     ));
   };
 
+
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);
   };
+
 
   return (
     <>

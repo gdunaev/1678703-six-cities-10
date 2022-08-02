@@ -9,6 +9,7 @@ import {
   setDataLoadedStatus,
   loadOffer,
   loadFail,
+  loadOtherOffers,
 } from './action';
 import { DEFAULT_CITY, SortingType, AuthorizationStatus } from '../const';
 import { Offers, Offer} from '../types/offer';
@@ -27,6 +28,7 @@ type InitalState = {
   isDataLoaded: boolean;
   detailedOffer: Offer | undefined;
   isLoadFail: boolean;
+  otherOffers: Offers | undefined;
 };
 
 const initialState: InitalState = {
@@ -42,6 +44,7 @@ const initialState: InitalState = {
   isDataLoaded: false,
   detailedOffer: undefined,
   isLoadFail: false,
+  otherOffers: undefined,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -53,9 +56,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
-
-      // eslint-disable-next-line no-console
-      // console.log('11', action.payload);
       state.authorizationStatus = action.payload;
     })
     .addCase(selectOfferId, (state, action) => {
@@ -72,6 +72,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadFail, (state, action) => {
       state.isLoadFail = action.payload;
+    })
+    .addCase(loadOtherOffers, (state, action) => {
+      state.otherOffers = action.payload;
     })
     .addCase(offersSorting, (state, action) => {
       state.sorting = action.payload;
