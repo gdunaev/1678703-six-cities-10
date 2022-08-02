@@ -23,6 +23,7 @@ export enum APIRoute {
   Logout = '/logout',
   DetailOffer = '/hotels/id',
   OtherOffers = '/hotels/id/nearby',
+  CommentsOffer = '/comments/id',
 }
 
 export enum AuthorizationStatus {
@@ -88,6 +89,7 @@ export const ActionType = {
   LOAD_OFFER: 'loadOffer',
   LOAD_FAIL: 'loadFail',
   LOAD_OTHER_OFFERS: 'loadOtherOffers',
+  LOAD_COMMENTS: 'loadComments',
 };
 
 export const PERCENT_RATING = 20;
@@ -95,7 +97,7 @@ export const QUANTITY_OTHER_PLACES = 3;
 export const DEFAULT_CITY = 'Paris';
 
 export const QUANTITY_IMAGES = 6;
-export const QUANTITY_COMMENTS = 3;
+export const QUANTITY_COMMENTS = 10;
 export const TEXT_SIGN_IN = 'Sign In';
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';

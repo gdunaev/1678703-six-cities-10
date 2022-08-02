@@ -45,20 +45,17 @@ export function OfferPage(): JSX.Element {
   const detailedOffer = useAppSelector((state) => state.detailedOffer);
   const otherOffers = useAppSelector((state) => state.otherOffers);
 
+
   const [isNavigationLogin, setNavigationLogin] = useState(false);
   const currentId = Number(id);
 
   useEffect(() => {
     if (!detailedOffer || detailedOffer.id !== currentId) {
       store.dispatch(fetchDetailedOfferAction(id as string));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!detailedOffer || detailedOffer.id !== currentId) {
       store.dispatch(fetchOtherOffersAction(id as string));
     }
   }, []);
+
 
   if (!detailedOffer && !isLoadFail) {
     return <LoadingScreen />;

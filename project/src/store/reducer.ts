@@ -10,13 +10,19 @@ import {
   loadOffer,
   loadFail,
   loadOtherOffers,
+  loadComments,
 } from './action';
 import { DEFAULT_CITY, SortingType, AuthorizationStatus } from '../const';
 import { Offers, Offer} from '../types/offer';
+import {CommentsType} from '../types/comments';
 
 type authorizationStatus = {
   status: string;
   email: string;
+};
+type commentsType = {
+  id: string;
+  data: CommentsType;
 };
 type InitalState = {
   offers: Offers | undefined;
@@ -29,6 +35,7 @@ type InitalState = {
   detailedOffer: Offer | undefined;
   isLoadFail: boolean;
   otherOffers: Offers | undefined;
+  comments: commentsType | undefined;
 };
 
 const initialState: InitalState = {
@@ -45,6 +52,7 @@ const initialState: InitalState = {
   detailedOffer: undefined,
   isLoadFail: false,
   otherOffers: undefined,
+  comments: undefined,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -75,6 +83,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOtherOffers, (state, action) => {
       state.otherOffers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(offersSorting, (state, action) => {
       state.sorting = action.payload;

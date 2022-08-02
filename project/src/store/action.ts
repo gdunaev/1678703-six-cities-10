@@ -45,3 +45,7 @@ export const loadFail = createAction(ActionType.LOAD_FAIL, (value) => ({
 export const loadOtherOffers = createAction(ActionType.LOAD_OTHER_OFFERS, (value) => ({
   payload: value,
 }));
+
+export const loadComments = createAction(ActionType.LOAD_COMMENTS, (value) => ({
+  payload: value,
+}));
