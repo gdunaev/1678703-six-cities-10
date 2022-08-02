@@ -233,7 +233,7 @@ export function OfferPage(): JSX.Element {
                   <ReviewsList id={id} />
 
                   {authorizationStatus === AuthorizationStatus.Auth && (
-                    <FormOffer />
+                    <FormOffer id={id}/>
                   )}
                 </section>
               </div>

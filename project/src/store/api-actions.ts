@@ -7,15 +7,27 @@ import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
-import { CommentsType } from '../types/comments';
+import { CommentsType, SendingCommentType } from '../types/comments';
 
+
+export const setCommentAction = createAsyncThunk<void, SendingCommentType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'comment/setComment',
+  async ({id, formData:{comment, rating}}, {dispatch, extra: api}) => {
+    await api.post<CommentsType>(APIRoute.CommentsOffer.replace('id', id), {comment, rating});
+    dispatch(fetchCommentsAction(id));
+  },
+);
 
 export const fetchCommentsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchComments',
+  'comment/fetchComments',
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<CommentsType>(APIRoute.CommentsOffer.replace('id', id));
 

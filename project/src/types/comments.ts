@@ -15,4 +15,14 @@ export type CommentType = {
     user: Host,
   };
 
+export type FormDataType = {
+    rating: number;
+    comment: string;
+  };
+
+export type SendingCommentType = {
+    id: string;
+    formData: FormDataType;
+  };
+
 export type CommentsType = CommentType[];

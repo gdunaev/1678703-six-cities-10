@@ -1,23 +1,41 @@
 
 import { useState, ChangeEvent, MouseEvent, FormEvent} from 'react';
+import { store } from '../../store';
+import {setCommentAction} from '../../store/api-actions';
 
-export function FormOffer(): JSX.Element {
 
+type FormOfferProps = {
+  id: string | undefined;
+};
+
+
+export function FormOffer(props: FormOfferProps): JSX.Element {
+
+  const {id} = props;
   const [formData, setFormData] = useState({
+    comment: '',
     rating: 0,
-    text: '',
   });
 
+  const currentId = id ? id : '';
   const handleRatingClick = (evt: MouseEvent<HTMLInputElement>) => {
     setFormData({...formData, 'rating': Number((evt.target as HTMLInputElement).value)});
   };
 
   const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData({...formData, 'text': evt.target.value});
+    setFormData({...formData, 'comment': evt.target.value});
   };
 
   const handleCommentSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    // eslint-disable-next-line no-console
+    console.log('11', formData);
+    const comment = {
+      id: currentId,
+      formData,
+    };
+    store.dispatch(setCommentAction(comment));
   };
 
   return (
@@ -64,7 +82,7 @@ export function FormOffer(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled = {false}>Submit</button>
       </div>
     </form>
   );
