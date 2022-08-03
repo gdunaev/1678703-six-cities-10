@@ -50,6 +50,6 @@ export const loadComments = createAction(ActionType.LOAD_COMMENTS, (value) => ({
   payload: value,
 }));
 
-export const setCommentLoadedStatus = createAction(ActionType.SET_COMMENT_LOADED_STATUS, (value) => ({
+export const commentLoadingStatus = createAction(ActionType.COMMENT_LOADING_STATUS, (value) => ({
   payload: value,
 }));

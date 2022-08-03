@@ -23,13 +23,7 @@ export enum APIRoute {
   Logout = '/logout',
   DetailOffer = '/hotels/id',
   OtherOffers = '/hotels/id/nearby',
-  CommentsOffer = '/comments1/id',
-}
-
-export enum LoadingCommentStatus {
-  Start = 'start',
-  Block = 'block',
-  Finish = 'finish',
+  CommentsOffer = '/comments/id',
 }
 
 export enum AuthorizationStatus {
@@ -96,7 +90,7 @@ export const ActionType = {
   LOAD_FAIL: 'loadFail',
   LOAD_OTHER_OFFERS: 'loadOtherOffers',
   LOAD_COMMENTS: 'loadComments',
-  SET_COMMENT_LOADED_STATUS: 'setCommentLoadedStatus',
+  COMMENT_LOADING_STATUS: 'commentLoadingStatus',
 };
 
 export const PERCENT_RATING = 20;

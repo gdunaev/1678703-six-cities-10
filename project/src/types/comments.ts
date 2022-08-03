@@ -23,6 +23,7 @@ export type FormDataType = {
 export type SendingCommentType = {
     id: string;
     formData: FormDataType;
+    useStateForm: ()=> void;
   };
 
 export type CommentsType = CommentType[];
