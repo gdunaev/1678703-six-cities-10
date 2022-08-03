@@ -6,7 +6,7 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from '../store/index';
 import {setCommentLoadedStatus} from '../store/action';
-import {APIRoute} from '../const';
+import {APIRoute, LoadingCommentStatus} from '../const';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -44,7 +44,7 @@ export const createAPI = (): AxiosInstance => {
         const method = error.response.config.method;
 
         if(url && url.includes(commentUrl) && method === 'post') {
-          store.dispatch(setCommentLoadedStatus(true));
+          store.dispatch(setCommentLoadedStatus(LoadingCommentStatus.Start));
         }
         toast.warn(error.response.data.error);
       }

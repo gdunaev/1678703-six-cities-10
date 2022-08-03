@@ -13,7 +13,7 @@ import {
   loadOtherOffers,
   loadComments,
 } from './action';
-import { DEFAULT_CITY, SortingType, AuthorizationStatus } from '../const';
+import { DEFAULT_CITY, SortingType, AuthorizationStatus, LoadingCommentStatus} from '../const';
 import { Offers, Offer} from '../types/offer';
 import {CommentsType} from '../types/comments';
 
@@ -33,7 +33,7 @@ type InitalState = {
   selectedOfferId: number;
   favoritesOffers: Offers | undefined;
   isDataLoaded: boolean;
-  isCommentLoaded: boolean;
+  loadingCommentStatus: string;
   detailedOffer: Offer | undefined;
   isLoadFail: boolean;
   otherOffers: Offers | undefined;
@@ -51,7 +51,7 @@ const initialState: InitalState = {
   selectedOfferId: -1,
   favoritesOffers: undefined,
   isDataLoaded: false,
-  isCommentLoaded: false,
+  loadingCommentStatus: LoadingCommentStatus.Start,
   detailedOffer: undefined,
   isLoadFail: false,
   otherOffers: undefined,
@@ -79,7 +79,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isDataLoaded = action.payload;
     })
     .addCase(setCommentLoadedStatus, (state, action) => {
-      state.isCommentLoaded = action.payload;
+      state.loadingCommentStatus = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
       state.detailedOffer = action.payload;

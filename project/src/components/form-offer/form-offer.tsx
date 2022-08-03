@@ -1,9 +1,10 @@
 
-import { useState, ChangeEvent, MouseEvent, FormEvent} from 'react';
+import { useState, ChangeEvent, MouseEvent, FormEvent, useRef, HTMLTextAreaElement} from 'react';
 import { store } from '../../store';
 import {setCommentAction, } from '../../store/api-actions';
 import {setCommentLoadedStatus} from '../../store/action';
 import { useAppSelector, } from '../../hooks/index';
+import {LoadingCommentStatus} from '../../const';
 
 type FormOfferProps = {
   id: string | undefined;
@@ -17,7 +18,9 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
     comment: '',
     rating: 0,
   });
-  const isCommentLoaded = useAppSelector((state) => state.isCommentLoaded);
+  const commentRef = useRef<HTMLTextAreaElement | undefined>(null);
+  const loadingCommentStatus = useAppSelector((state) => state.loadingCommentStatus);
+  const isCommentLoaded = loadingCommentStatus === LoadingCommentStatus.Block;
 
   const currentId = id ? id : '';
   const handleRatingClick = (evt: MouseEvent<HTMLInputElement>) => {
@@ -30,6 +33,11 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
 
   // eslint-disable-next-line no-console
   // console.log('11', isCommentLoaded);
+  const clearForm = () => {
+    if(commentRef) {
+      commentRef.current.value = '';
+    }
+  };
 
   const handleCommentSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -38,8 +46,9 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
       id: currentId,
       formData,
     };
-    store.dispatch(setCommentLoadedStatus(true));
+    store.dispatch(setCommentLoadedStatus(LoadingCommentStatus.Block));
     store.dispatch(setCommentAction(comment));
+    clearForm();
   };
 
   return (
@@ -81,7 +90,7 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" disabled = {isCommentLoaded} placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleCommentChange}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" disabled = {isCommentLoaded} placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleCommentChange} ref={commentRef}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

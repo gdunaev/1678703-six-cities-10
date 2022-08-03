@@ -4,7 +4,7 @@ import {AppDispatch, State} from '../types/state';
 import {Offers, Offer} from '../types/offer';
 import {loadOffers, requireAuthorization, setDataLoadedStatus, redirectToRoute, loadOffer, loadFail, loadOtherOffers, loadComments, setCommentLoadedStatus} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
+import {APIRoute, AuthorizationStatus, AppRoute, LoadingCommentStatus} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { CommentsType, SendingCommentType } from '../types/comments';
@@ -19,7 +19,7 @@ export const setCommentAction = createAsyncThunk<void, SendingCommentType, {
   async ({id, formData:{comment, rating}}, {dispatch, extra: api}) => {
     await api.post<CommentsType>(APIRoute.CommentsOffer.replace('id', id), {comment, rating});
     dispatch(fetchCommentsAction(id));
-    dispatch(setCommentLoadedStatus(false));
+    dispatch(setCommentLoadedStatus(LoadingCommentStatus.Finish));
   },
 );
 

@@ -23,7 +23,13 @@ export enum APIRoute {
   Logout = '/logout',
   DetailOffer = '/hotels/id',
   OtherOffers = '/hotels/id/nearby',
-  CommentsOffer = '/comments/id',
+  CommentsOffer = '/comments1/id',
+}
+
+export enum LoadingCommentStatus {
+  Start = 'start',
+  Block = 'block',
+  Finish = 'finish',
 }
 
 export enum AuthorizationStatus {
