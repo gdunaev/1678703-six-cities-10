@@ -49,3 +49,7 @@ export const loadOtherOffers = createAction(ActionType.LOAD_OTHER_OFFERS, (value
 export const loadComments = createAction(ActionType.LOAD_COMMENTS, (value) => ({
   payload: value,
 }));
+
+export const setCommentLoadedStatus = createAction(ActionType.SET_COMMENT_LOADED_STATUS, (value) => ({
+  payload: value,
+}));

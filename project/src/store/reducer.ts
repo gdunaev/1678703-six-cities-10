@@ -7,6 +7,7 @@ import {
   selectOfferId,
   loadFavoritesOffers,
   setDataLoadedStatus,
+  setCommentLoadedStatus,
   loadOffer,
   loadFail,
   loadOtherOffers,
@@ -32,6 +33,7 @@ type InitalState = {
   selectedOfferId: number;
   favoritesOffers: Offers | undefined;
   isDataLoaded: boolean;
+  isCommentLoaded: boolean;
   detailedOffer: Offer | undefined;
   isLoadFail: boolean;
   otherOffers: Offers | undefined;
@@ -49,6 +51,7 @@ const initialState: InitalState = {
   selectedOfferId: -1,
   favoritesOffers: undefined,
   isDataLoaded: false,
+  isCommentLoaded: false,
   detailedOffer: undefined,
   isLoadFail: false,
   otherOffers: undefined,
@@ -74,6 +77,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
+    })
+    .addCase(setCommentLoadedStatus, (state, action) => {
+      state.isCommentLoaded = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
       state.detailedOffer = action.payload;

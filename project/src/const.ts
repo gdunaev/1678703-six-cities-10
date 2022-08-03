@@ -90,6 +90,7 @@ export const ActionType = {
   LOAD_FAIL: 'loadFail',
   LOAD_OTHER_OFFERS: 'loadOtherOffers',
   LOAD_COMMENTS: 'loadComments',
+  SET_COMMENT_LOADED_STATUS: 'setCommentLoadedStatus',
 };
 
 export const PERCENT_RATING = 20;
