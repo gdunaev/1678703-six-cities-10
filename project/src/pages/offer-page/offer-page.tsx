@@ -1,17 +1,20 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { FormOffer } from '../../components/form-offer/form-offer';
-import { offers } from '../../mocks/offers';
 import { getRating } from '../../utils';
 import { ImagesOffer } from '../../components/images-offer/images-offer';
 import { QUANTITY_IMAGES, AppRoute } from '../../const';
 import {NotFoundPage} from '../not-found-page/not-found-page';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
-import {OfferCard} from '../../components/offer-card/offer-card';
+import { OfferCard } from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
 import { Header } from '../../components/header/header';
-import {useAppSelector} from '../../hooks/index';
-import {useState} from 'react';
-
+import { useAppSelector, } from '../../hooks/index';
+import { useState, useEffect } from 'react';
+import { fetchDetailedOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
+import { store } from '../../store';
+import { LoadingScreen } from '../../components/loading-screen/loading-screen';
+import { AuthorizationStatus, QUANTITY_PLACES_NEARBY } from '../../const';
+import { Offer } from '../../types/offer';
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -31,64 +34,67 @@ function getImagesSection(images: string[]): JSX.Element {
   return <div className="property__gallery"></div>;
 }
 
-
 export function OfferPage(): JSX.Element {
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus.status);
   const { id } = useParams();
-  const [isNavigationLogin, setNavigationLogin] = useState(false);
-  const currentOffer = offers.find((offer) => String(offer.id) === id);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus.status
+  );
 
-  if (!currentOffer) {
-    return <NotFoundPage />;
+  const isErrorLoading = useAppSelector((state) => state.isErrorLoading);
+  const detailedOffer = useAppSelector((state) => state.detailedOffer);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
+
+
+  const [isNavigationLogin, setNavigationLogin] = useState(false);
+  const currentId = Number(id);
+
+  useEffect(() => {
+    if (!detailedOffer || detailedOffer.id !== currentId) {
+      store.dispatch(fetchDetailedOfferAction(id as string));
+      store.dispatch(fetchOffersNearbyAction(id as string));
+    }
+  }, []);
+
+
+  if (!detailedOffer && !isErrorLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (!detailedOffer && isErrorLoading) {
+    return (
+      <NotFoundPage />
+    );
   }
 
   if (isNavigationLogin && !authorizationStatus) {
     return <Navigate to={AppRoute.Login} />;
   }
 
-  const {
-    isPremium,
-    price,
-    maxAdults,
-    bedrooms,
-    title,
-    type,
-    rating,
-    images,
-    goods,
-    host,
-    description,
-    city,
-  } = currentOffer;
+  const {isPremium,price,maxAdults,bedrooms,title,type,rating,images,goods,host,description,city} = detailedOffer as Offer;
 
   const cityName = city.name;
-
   const ratingStyle = getRating(rating);
   const housingType = type.charAt(0).toUpperCase() + type.slice(1);
   const isGoods = goods.length !== 0;
+  const arrayOffersNearby = offersNearby ? offersNearby.slice(0, QUANTITY_PLACES_NEARBY) : [];
+  const offersNearbyMap = arrayOffersNearby.slice();
+  offersNearbyMap.push(detailedOffer as Offer);
 
-  const otherOffers = offers.filter((offer) => offer.city.name === cityName && offer.id !== Number(currentOffer.id));
-
-  const otherOffersMap = otherOffers.slice();
-  otherOffersMap.push(currentOffer);
-
-  const getOtherOffersComponent = () => {
-    if (otherOffers.length === 0) {
+  const getOffersNearbyComponent = () => {
+    if (arrayOffersNearby.length === 0) {
       return '';
     }
-    return otherOffers.map((otherOffer) => (
-      <OfferCard
-        key={otherOffer.id}
-        offer={otherOffer}
-        isOtherOffer
-      />
+    return arrayOffersNearby.map((offerNearby) => (
+      <OfferCard key={offerNearby.id} offer={offerNearby} isOtherOffer />
     ));
   };
+
 
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);
   };
+
 
   return (
     <>
@@ -117,15 +123,12 @@ export function OfferPage(): JSX.Element {
       </div>
 
       <div className="page">
-
-        <Header mainPage={false} favoritePage={false}/>
+        <Header mainPage={false} favoritePage={false} />
 
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-
               {getImagesSection(images)}
-
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
@@ -180,8 +183,8 @@ export function OfferPage(): JSX.Element {
 
                   {isGoods && (
                     <ul className="property__inside-list">
-                      {goods.map((good, currentId) => {
-                        const keyValue = `${currentId}-${good}`;
+                      {goods.map((good, goodId) => {
+                        const keyValue = `${goodId}-${good}`;
                         return (
                           <li key={keyValue} className="property__inside-item">
                             {good}
@@ -213,17 +216,21 @@ export function OfferPage(): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-
                   <ReviewsList id={id} />
 
-                  {authorizationStatus && <FormOffer />}
-
+                  {authorizationStatus === AuthorizationStatus.Auth && (
+                    <FormOffer id={id}/>
+                  )}
                 </section>
               </div>
             </div>
 
-            <MapOffers offers={otherOffersMap} cityName={cityName} currentOffer={currentOffer} main={false}/>
-
+            <MapOffers
+              offers={offersNearbyMap}
+              cityName={cityName}
+              currentOffer={detailedOffer}
+              main={false}
+            />
           </section>
           <div className="container">
             <section className="near-places places">
@@ -231,9 +238,7 @@ export function OfferPage(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-
-                {getOtherOffersComponent()}
-
+                {getOffersNearbyComponent()}
               </div>
             </section>
           </div>

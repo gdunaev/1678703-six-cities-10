@@ -44,6 +44,12 @@ export function MapOffers(props: MapProps): JSX.Element {
     if (map) {
       map.setView(new LatLng(currentCity.location.latitude, currentCity.location.longitude), currentCity.location.zoom);
 
+      map.eachLayer((layer) => {
+        if (layer instanceof Marker){
+          map.removeLayer(layer);
+        }
+      });
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -59,7 +65,7 @@ export function MapOffers(props: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer, cityName]);
+  }, [map, offers, selectedOffer, currentCity]);
 
   return <section className={main ? 'cities__map map' : 'property__map map'} ref={mapRef}></section>;
 }

@@ -1,6 +1,9 @@
 import {Review} from '../review/review';
-import { comments } from '../../mocks/comments';
 import {getCommentsSorting} from '../../utils';
+import {useAppSelector} from '../../hooks/index';
+import {fetchCommentsAction} from '../../store/api-actions';
+import { useEffect } from 'react';
+import {store} from '../../store/index';
 
 type ReviewsListProps = {
   id: string | undefined;
@@ -10,8 +13,18 @@ type ReviewsListProps = {
 export function ReviewsList(props: ReviewsListProps): JSX.Element {
 
   const {id} = props;
-  const commentsOffer = comments.filter((comment) => String(comment.id) === id);
-  const sortinedComments = getCommentsSorting(commentsOffer);
+  const comments = useAppSelector((state) => state.comments);
+
+  // eslint-disable-next-line no-console
+  // console.log('11', comments);
+
+  useEffect(() => {
+    if (!comments || comments.id !== id) {
+      store.dispatch(fetchCommentsAction(id as string));
+    }
+  }, []);
+
+  const sortinedComments = comments ? getCommentsSorting(comments.data) : [];
   const commentsQuantity = sortinedComments.length ? sortinedComments.length : 0;
 
 

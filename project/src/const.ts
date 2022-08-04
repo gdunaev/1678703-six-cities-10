@@ -21,6 +21,9 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  DetailOffer = '/hotels/id',
+  OffersNearby = '/hotels/id/nearby',
+  CommentsOffer = '/comments/id',
 }
 
 export enum AuthorizationStatus {
@@ -83,14 +86,19 @@ export const ActionType = {
   LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
   SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
+  LOAD_OFFER: 'loadOffer',
+  ERROR_LOADING: 'errorLoading',
+  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
+  LOAD_COMMENTS: 'loadComments',
+  SET_COMMENT_LOADING_STATUS: 'setCommentLoadingStatus',
 };
 
 export const PERCENT_RATING = 20;
-export const QUANTITY_OTHER_PLACES = 3;
+export const QUANTITY_PLACES_NEARBY = 3;
 export const DEFAULT_CITY = 'Paris';
 
 export const QUANTITY_IMAGES = 6;
-export const QUANTITY_COMMENTS = 3;
+export const QUANTITY_COMMENTS = 10;
 export const TEXT_SIGN_IN = 'Sign In';
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
