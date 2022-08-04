@@ -7,10 +7,10 @@ import {
   selectOfferId,
   loadFavoritesOffers,
   setDataLoadedStatus,
-  commentLoadingStatus,
+  setCommentLoadingStatus,
   loadOffer,
-  loadFail,
-  loadOtherOffers,
+  errorLoading,
+  loadOffersNearby,
   loadComments,
 } from './action';
 import { DEFAULT_CITY, SortingType, AuthorizationStatus} from '../const';
@@ -35,8 +35,8 @@ type InitalState = {
   isDataLoaded: boolean;
   isCommentLoading: boolean;
   detailedOffer: Offer | undefined;
-  isLoadFail: boolean;
-  otherOffers: Offers | undefined;
+  isErrorLoading: boolean;
+  offersNearby: Offers | undefined;
   comments: commentsType | undefined;
 };
 
@@ -53,8 +53,8 @@ const initialState: InitalState = {
   isDataLoaded: false,
   isCommentLoading: false,
   detailedOffer: undefined,
-  isLoadFail: false,
-  otherOffers: undefined,
+  isErrorLoading: false,
+  offersNearby: undefined,
   comments: undefined,
 };
 
@@ -78,17 +78,17 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
     })
-    .addCase(commentLoadingStatus, (state, action) => {
+    .addCase(setCommentLoadingStatus, (state, action) => {
       state.isCommentLoading = action.payload;
     })
     .addCase(loadOffer, (state, action) => {
       state.detailedOffer = action.payload;
     })
-    .addCase(loadFail, (state, action) => {
-      state.isLoadFail = action.payload;
+    .addCase(errorLoading, (state, action) => {
+      state.isErrorLoading = action.payload;
     })
-    .addCase(loadOtherOffers, (state, action) => {
-      state.otherOffers = action.payload;
+    .addCase(loadOffersNearby, (state, action) => {
+      state.offersNearby = action.payload;
     })
     .addCase(loadComments, (state, action) => {
       state.comments = action.payload;

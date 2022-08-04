@@ -38,11 +38,11 @@ export const loadOffer = createAction(ActionType.LOAD_OFFER, (value) => ({
   payload: value,
 }));
 
-export const loadFail = createAction(ActionType.LOAD_FAIL, (value) => ({
+export const errorLoading = createAction(ActionType.ERROR_LOADING, (value) => ({
   payload: value,
 }));
 
-export const loadOtherOffers = createAction(ActionType.LOAD_OTHER_OFFERS, (value) => ({
+export const loadOffersNearby = createAction(ActionType.LOAD_OFFERS_NEARBY, (value) => ({
   payload: value,
 }));
 
@@ -50,6 +50,6 @@ export const loadComments = createAction(ActionType.LOAD_COMMENTS, (value) => ({
   payload: value,
 }));
 
-export const commentLoadingStatus = createAction(ActionType.COMMENT_LOADING_STATUS, (value) => ({
+export const setCommentLoadingStatus = createAction(ActionType.SET_COMMENT_LOADING_STATUS, (value) => ({
   payload: value,
 }));

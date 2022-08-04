@@ -22,7 +22,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   DetailOffer = '/hotels/id',
-  OtherOffers = '/hotels/id/nearby',
+  OffersNearby = '/hotels/id/nearby',
   CommentsOffer = '/comments/id',
 }
 
@@ -87,14 +87,14 @@ export const ActionType = {
   SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
   LOAD_OFFER: 'loadOffer',
-  LOAD_FAIL: 'loadFail',
-  LOAD_OTHER_OFFERS: 'loadOtherOffers',
+  ERROR_LOADING: 'errorLoading',
+  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
   LOAD_COMMENTS: 'loadComments',
-  COMMENT_LOADING_STATUS: 'commentLoadingStatus',
+  SET_COMMENT_LOADING_STATUS: 'setCommentLoadingStatus',
 };
 
 export const PERCENT_RATING = 20;
-export const QUANTITY_OTHER_PLACES = 3;
+export const QUANTITY_PLACES_NEARBY = 3;
 export const DEFAULT_CITY = 'Paris';
 
 export const QUANTITY_IMAGES = 6;

@@ -10,10 +10,10 @@ import { MapOffers } from '../../components/map/map-offers';
 import { Header } from '../../components/header/header';
 import { useAppSelector, } from '../../hooks/index';
 import { useState, useEffect } from 'react';
-import { fetchDetailedOfferAction, fetchOtherOffersAction} from '../../store/api-actions';
+import { fetchDetailedOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import { store } from '../../store';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
-import { AuthorizationStatus, QUANTITY_OTHER_PLACES } from '../../const';
+import { AuthorizationStatus, QUANTITY_PLACES_NEARBY } from '../../const';
 import { Offer } from '../../types/offer';
 
 function getImagesSection(images: string[]): JSX.Element {
@@ -41,9 +41,9 @@ export function OfferPage(): JSX.Element {
     (state) => state.authorizationStatus.status
   );
 
-  const isLoadFail = useAppSelector((state) => state.isLoadFail);
+  const isErrorLoading = useAppSelector((state) => state.isErrorLoading);
   const detailedOffer = useAppSelector((state) => state.detailedOffer);
-  const otherOffers = useAppSelector((state) => state.otherOffers);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
 
 
   const [isNavigationLogin, setNavigationLogin] = useState(false);
@@ -52,16 +52,16 @@ export function OfferPage(): JSX.Element {
   useEffect(() => {
     if (!detailedOffer || detailedOffer.id !== currentId) {
       store.dispatch(fetchDetailedOfferAction(id as string));
-      store.dispatch(fetchOtherOffersAction(id as string));
+      store.dispatch(fetchOffersNearbyAction(id as string));
     }
   }, []);
 
 
-  if (!detailedOffer && !isLoadFail) {
+  if (!detailedOffer && !isErrorLoading) {
     return <LoadingScreen />;
   }
 
-  if (!detailedOffer && isLoadFail) {
+  if (!detailedOffer && isErrorLoading) {
     return (
       <NotFoundPage />
     );
@@ -71,36 +71,22 @@ export function OfferPage(): JSX.Element {
     return <Navigate to={AppRoute.Login} />;
   }
 
-  const {
-    isPremium,
-    price,
-    maxAdults,
-    bedrooms,
-    title,
-    type,
-    rating,
-    images,
-    goods,
-    host,
-    description,
-    city,
-  } = detailedOffer as Offer;
+  const {isPremium,price,maxAdults,bedrooms,title,type,rating,images,goods,host,description,city} = detailedOffer as Offer;
 
   const cityName = city.name;
   const ratingStyle = getRating(rating);
   const housingType = type.charAt(0).toUpperCase() + type.slice(1);
   const isGoods = goods.length !== 0;
-  const arrayOtherOffers = otherOffers ? otherOffers.slice(0, QUANTITY_OTHER_PLACES) : [];
-  const otherOffersMap = arrayOtherOffers.slice();
-  otherOffersMap.push(detailedOffer as Offer);
+  const arrayOffersNearby = offersNearby ? offersNearby.slice(0, QUANTITY_PLACES_NEARBY) : [];
+  const offersNearbyMap = arrayOffersNearby.slice();
+  offersNearbyMap.push(detailedOffer as Offer);
 
-
-  const getOtherOffersComponent = () => {
-    if (arrayOtherOffers.length === 0) {
+  const getOffersNearbyComponent = () => {
+    if (arrayOffersNearby.length === 0) {
       return '';
     }
-    return arrayOtherOffers.map((otherOffer) => (
-      <OfferCard key={otherOffer.id} offer={otherOffer} isOtherOffer />
+    return arrayOffersNearby.map((offerNearby) => (
+      <OfferCard key={offerNearby.id} offer={offerNearby} isOtherOffer />
     ));
   };
 
@@ -240,7 +226,7 @@ export function OfferPage(): JSX.Element {
             </div>
 
             <MapOffers
-              offers={otherOffersMap}
+              offers={offersNearbyMap}
               cityName={cityName}
               currentOffer={detailedOffer}
               main={false}
@@ -252,7 +238,7 @@ export function OfferPage(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-                {getOtherOffersComponent()}
+                {getOffersNearbyComponent()}
               </div>
             </section>
           </div>

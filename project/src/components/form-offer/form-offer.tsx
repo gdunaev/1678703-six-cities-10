@@ -1,8 +1,8 @@
 
 import { useState, ChangeEvent, FormEvent, } from 'react';
 import { store } from '../../store';
-import {setCommentAction, } from '../../store/api-actions';
-import {commentLoadingStatus} from '../../store/action';
+import {addCommentAction, } from '../../store/api-actions';
+import {setCommentLoadingStatus} from '../../store/action';
 import { useAppSelector, } from '../../hooks/index';
 
 type FormOfferProps = {
@@ -29,7 +29,7 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
     setFormData({...formData, 'comment': evt.target.value});
   };
 
-  const useStateForm = () => {
+  const resetFormData = () => {
     setFormData(Object.assign(formData, { comment: '' }, {rating: 0}));
   };
 
@@ -38,10 +38,10 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
     const comment = {
       id: currentId,
       formData,
-      useStateForm,
+      resetFormData,
     };
-    store.dispatch(commentLoadingStatus(true));
-    store.dispatch(setCommentAction(comment));
+    store.dispatch(setCommentLoadingStatus(true));
+    store.dispatch(addCommentAction(comment));
   };
 
   return (

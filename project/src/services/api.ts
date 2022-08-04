@@ -5,7 +5,7 @@ import {StatusCodes } from 'http-status-codes';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from '../store/index';
-import {commentLoadingStatus} from '../store/action';
+import {setCommentLoadingStatus} from '../store/action';
 import {APIRoute} from '../const';
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -44,7 +44,7 @@ export const createAPI = (): AxiosInstance => {
         const method = error.response.config.method;
 
         if(url && url.includes(commentUrl) && method === 'post') {
-          store.dispatch(commentLoadingStatus(false));
+          store.dispatch(setCommentLoadingStatus(false));
         }
         toast.warn(error.response.data.error);
       }

@@ -59,7 +59,7 @@ export function MapOffers(props: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer, cityName]);
+  }, [map, offers, selectedOffer, currentCity]);
 
   return <section className={main ? 'cities__map map' : 'property__map map'} ref={mapRef}></section>;
 }
