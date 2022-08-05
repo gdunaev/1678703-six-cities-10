@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Navigate} from 'react-router-dom';
-import {useState} from 'react';
+import {useState, memo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
 
@@ -12,7 +12,7 @@ type HeaderProps = {
   };
 
 
-export function Header(props: HeaderProps): JSX.Element{
+function Header(props: HeaderProps): JSX.Element{
 
   const {mainPage, favoritePage} = props;
   const [navigation, setNavigation] = useState(false);
@@ -21,6 +21,9 @@ export function Header(props: HeaderProps): JSX.Element{
   const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
   const quantityFavoritesOffers = favoritesOffers ? String(favoritesOffers.length) : '0';
   const dispatch = useAppDispatch();
+
+  // eslint-disable-next-line no-console
+  console.log('11', mainPage, favoritePage);
 
   if (isNavigationLogin) {
     if(status !== AuthorizationStatus.Auth) {
@@ -91,3 +94,5 @@ export function Header(props: HeaderProps): JSX.Element{
     </header>
   );
 }
+
+export default memo(Header, (prevProps, nextProps) => prevProps.mainPage === nextProps.mainPage && prevProps.favoritePage === nextProps.favoritePage);

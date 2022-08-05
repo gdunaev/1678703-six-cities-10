@@ -7,7 +7,7 @@ import {NotFoundPage} from '../not-found-page/not-found-page';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
-import { Header } from '../../components/header/header';
+import Header from '../../components/header/header';
 import { useAppSelector, } from '../../hooks/index';
 import { useState, useEffect } from 'react';
 import { fetchDetailedOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';

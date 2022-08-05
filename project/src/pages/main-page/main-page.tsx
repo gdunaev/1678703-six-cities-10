@@ -4,7 +4,7 @@ import { ArrayCities } from '../../const';
 import { MapOffers } from '../../components/map/map-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { changeCity } from '../../store/action';
-import { Header } from '../../components/header/header';
+import Header from '../../components/header/header';
 
 export function MainPage(): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
