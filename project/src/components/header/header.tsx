@@ -22,9 +22,6 @@ function Header(props: HeaderProps): JSX.Element{
   const quantityFavoritesOffers = favoritesOffers ? String(favoritesOffers.length) : '0';
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line no-console
-  console.log('11', mainPage, favoritePage);
-
   if (isNavigationLogin) {
     if(status !== AuthorizationStatus.Auth) {
       return <Navigate to={AppRoute.Login} />;

@@ -21,7 +21,7 @@ export function OffersList(props: OffersListProps): JSX.Element{
         <OfferCard
           key={offer.id}
           offer={offer}
-          isOtherOffer={false}
+          fromOfferPage={false}
         />
       ))}
     </div>

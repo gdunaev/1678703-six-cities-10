@@ -14,7 +14,7 @@ import {browserHistory} from '../../browser-history';
 
 export function App(): JSX.Element {
 
-  const {isDataLoaded} = useAppSelector((state) => state);
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
   if (!isDataLoaded) {
     return (

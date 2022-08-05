@@ -10,12 +10,12 @@ import {selectOfferId} from '../../store/action';
 
 type OfferCardProps = {
   offer: Offer;
-  isOtherOffer: boolean;
+  fromOfferPage: boolean;
 }
 
 
 export function OfferCard(props: OfferCardProps): JSX.Element{
-  const { offer, isOtherOffer, } = props;
+  const { offer, fromOfferPage, } = props;
   const {
     id,
     price,
@@ -48,26 +48,32 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
   }
 
   const handleMouseOver = () => {
-    dispatch(selectOfferId(id));
+    if(!fromOfferPage) {
+      dispatch(selectOfferId(id));
+    }
   };
 
   const handleMouseOut = () => {
-    dispatch(selectOfferId(id));
+    if(!fromOfferPage) {
+      dispatch(selectOfferId(id));
+    }
   };
 
   const handleCardClick = () => {
-    setNavigationOffer(true);
+    if(!fromOfferPage) {
+      setNavigationOffer(true);
+    }
   };
 
 
   return (
-    <article className={`${isOtherOffer ? 'near-places__card' : 'cities__card'} ${'place-card'}`} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <article className={`${fromOfferPage ? 'near-places__card' : 'cities__card'} ${'place-card'}`} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <div className={`place-card__mark ${!isPremium && 'visually-hidden'}`}>
         <span>Premium</span>
       </div>
       <div
         className={`${
-          isOtherOffer ? 'near-places__image-wrapper' : 'cities__image-wrapper'
+          fromOfferPage ? 'near-places__image-wrapper' : 'cities__image-wrapper'
         } ${'place-card__image-wrapper'}`}
       >
         <Link to="#">
@@ -97,7 +103,7 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              `${isOtherOffer ? 'In' : 'To'} ${'bookmarks'}
+              `${fromOfferPage ? 'In' : 'To'} ${'bookmarks'}
             </span>
           </button>
         </div>

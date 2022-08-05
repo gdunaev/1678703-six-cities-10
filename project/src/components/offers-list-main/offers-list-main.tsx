@@ -14,7 +14,6 @@ export function OffersListMain(props: OffersListMainProps): JSX.Element{
 
   const {quantityOffers, cityName, offers} = props;
 
-
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>

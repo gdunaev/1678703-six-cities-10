@@ -33,7 +33,6 @@ export function MapOffers(props: MapProps): JSX.Element {
   const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
   const selectedOffer = currentOffer ? currentOffer : offers.find((value) => value.id === selectedOfferId);
 
-
   const mapRef = useRef(null);
 
   const currentCity = ArrayCities.find((value) => value.name === cityName) || ArrayCities[0];

@@ -86,7 +86,7 @@ export function OfferPage(): JSX.Element {
       return '';
     }
     return arrayOffersNearby.map((offerNearby) => (
-      <OfferCard key={offerNearby.id} offer={offerNearby} isOtherOffer />
+      <OfferCard key={offerNearby.id} offer={offerNearby} fromOfferPage />
     ));
   };
 
