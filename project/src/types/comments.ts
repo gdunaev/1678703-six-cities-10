@@ -26,4 +26,9 @@ export type SendingCommentType = {
     resetFormData: ()=> void;
   };
 
+export type FetchingCommentType = {
+    id: string;
+    data: CommentsType;
+  };
+
 export type CommentsType = CommentType[];
