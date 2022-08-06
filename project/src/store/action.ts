@@ -14,9 +14,9 @@ export const offersSorting = createAction(ActionType.OFFERS_SORTING, (value) => 
   payload: value,
 }));
 
-export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION, (value) => ({
-  payload: value,
-}));
+// export const requireAuthorization = createAction(ActionType.REQUIRE_AUTHORIZATION, (value) => ({
+//   payload: value,
+// }));
 
 export const selectOfferId = createAction(ActionType.SELECT_OFFER_ID, (value) => ({
   payload: value,

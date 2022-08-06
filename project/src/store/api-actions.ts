@@ -2,9 +2,9 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import {Offers, Offer} from '../types/offer';
-import {loadOffers, requireAuthorization, setDataLoadedStatus, redirectToRoute, loadOffer, errorLoading, loadOffersNearby, loadComments, setCommentLoadingStatus} from './action';
+import {loadOffers, setDataLoadedStatus, redirectToRoute, loadOffer, errorLoading, loadOffersNearby, loadComments, setCommentLoadingStatus} from './action';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
+import {APIRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { CommentsType, SendingCommentType } from '../types/comments';
@@ -95,10 +95,11 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data: {email}} = await api.get(APIRoute.Login);
-      dispatch(requireAuthorization({status: AuthorizationStatus.Auth, email: email}));
+      // const {data: {email}} =
+      await api.get(APIRoute.Login);
+      // dispatch(requireAuthorization({status: AuthorizationStatus.Auth, email: email}));
     } catch {
-      dispatch(requireAuthorization({status: AuthorizationStatus.NoAuth, email: ''}));
+      // dispatch(requireAuthorization({status: AuthorizationStatus.NoAuth, email: ''}));
     }
   },
 );
@@ -112,7 +113,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
-    dispatch(requireAuthorization({status: AuthorizationStatus.Auth, email: email}));
+    // dispatch(requireAuthorization({status: AuthorizationStatus.Auth, email: email}));
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
@@ -123,9 +124,9 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, {extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    // dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );

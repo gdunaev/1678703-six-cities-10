@@ -1,6 +1,12 @@
 import {Cities} from './types/city';
 import { Offers } from './types/offer';
 
+export enum NameSpace {
+  Data = 'DATA',
+  General = 'GENERAL',
+  User = 'USER',
+}
+
 export enum AppRoute {
   Main = '/',
   OfferId = '/offer/:id',

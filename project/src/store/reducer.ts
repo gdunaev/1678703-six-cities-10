@@ -3,7 +3,7 @@ import {
   changeCity,
   loadOffers,
   offersSorting,
-  requireAuthorization,
+  // requireAuthorization,
   selectOfferId,
   loadFavoritesOffers,
   setDataLoadedStatus,
@@ -13,14 +13,14 @@ import {
   loadOffersNearby,
   loadComments,
 } from './action';
-import { DEFAULT_CITY, SortingType, AuthorizationStatus} from '../const';
+import { DEFAULT_CITY, SortingType} from '../const';
 import { Offers, Offer} from '../types/offer';
 import {CommentsType} from '../types/comments';
 
-type authorizationStatus = {
-  status: string;
-  email: string;
-};
+// type authorizationStatus = {
+//   status: string;
+//   email: string;
+// };
 type commentsType = {
   id: string;
   data: CommentsType;
@@ -29,7 +29,7 @@ type InitalState = {
   offers: Offers | undefined;
   city: string;
   sorting: string;
-  authorizationStatus: authorizationStatus;
+  // authorizationStatus: authorizationStatus;
   selectedOfferId: number;
   favoritesOffers: Offers | undefined;
   isDataLoaded: boolean;
@@ -44,10 +44,10 @@ const initialState: InitalState = {
   offers: undefined,
   city: DEFAULT_CITY,
   sorting: SortingType.Popular,
-  authorizationStatus: {
-    status: AuthorizationStatus.Unknown,
-    email: '',
-  },
+  // authorizationStatus: {
+  //   status: AuthorizationStatus.Unknown,
+  //   email: '',
+  // },
   selectedOfferId: -1,
   favoritesOffers: undefined,
   isDataLoaded: false,
@@ -66,9 +66,9 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
+    // .addCase(requireAuthorization, (state, action) => {
+    //   state.authorizationStatus = action.payload;
+    // })
     .addCase(selectOfferId, (state, action) => {
       state.selectedOfferId = action.payload;
     })
