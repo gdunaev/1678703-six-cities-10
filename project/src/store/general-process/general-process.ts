@@ -1,32 +1,27 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {isAnswerCorrect} from '../../game';
-import {NameSpace, FIRST_GAME_STEP} from '../../const';
-import {GameProcess} from '../../types/state';
+import {NameSpace, DEFAULT_CITY, SortingType} from '../../const';
+import { GeneralProcess } from '../../types/state';
 
-const initialState: GameProcess = {
-  mistakes: 0,
-  step: FIRST_GAME_STEP,
+const initialState: GeneralProcess = {
+  city: DEFAULT_CITY,
+  sorting: SortingType.Popular,
+  selectedOfferId: -1,
 };
 
-const STEP_COUNT = 1;
-
-export const gameProcess = createSlice({
-  name: NameSpace.Game,
+export const generalProcess = createSlice({
+  name: NameSpace.General,
   initialState,
   reducers: {
-    incrementStep: (state) => {
-      state.step = state.step + STEP_COUNT;
+    changeCity: (state, action) => {
+      state.city = action.payload;
     },
-    checkUserAnswer: (state, action) => {
-      const {question, userAnswer} = action.payload;
-
-      state.mistakes += Number(!isAnswerCorrect(question, userAnswer));
+    selectOfferId: (state, action) => {
+      state.selectedOfferId = action.payload;
     },
-    resetGame: (state) => {
-      state.mistakes = 0;
-      state.step = FIRST_GAME_STEP;
+    offersSorting: (state, action) => {
+      state.sorting = action.payload;
     },
   },
 });
 
-export const {incrementStep, checkUserAnswer, resetGame} = gameProcess.actions;
+export const {changeCity, selectOfferId, offersSorting} = generalProcess.actions;

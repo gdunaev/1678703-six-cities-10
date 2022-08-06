@@ -26,7 +26,8 @@ export type DataProcess = {
   comments: FetchingCommentType | undefined;
 };
 
-export type GameProcess = {
-  mistakes: number,
-  step: number,
+export type GeneralProcess = {
+  city: string;
+  sorting: string;
+  selectedOfferId: number;
 };
