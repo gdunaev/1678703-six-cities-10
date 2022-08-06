@@ -7,6 +7,7 @@ import {Offers} from '../../types/offer';
 import { ArrayCities } from '../../const';
 import {useAppSelector} from '../../hooks/index';
 import {Offer} from '../../types/offer';
+import {getSelectedOfferId} from '../../store/general-process/selectors';
 
 type MapProps = {
   cityName: string;
@@ -30,7 +31,7 @@ const currentCustomIcon = new Icon({
 export function MapOffers(props: MapProps): JSX.Element {
   const {cityName, offers, main, currentOffer} = props;
 
-  const selectedOfferId = useAppSelector((state) => state.selectedOfferId);
+  const selectedOfferId = useAppSelector(getSelectedOfferId);
   const selectedOffer = currentOffer ? currentOffer : offers.find((value) => value.id === selectedOfferId);
 
   const mapRef = useRef(null);

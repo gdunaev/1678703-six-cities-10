@@ -35,7 +35,7 @@ export const userProcess = createSlice({
       .addCase(logoutAction.fulfilled, (state, action) => {
 
         // eslint-disable-next-line no-console
-        console.log('11', action);
+        // console.log('11', action);
         state.authorizationStatus.status = AuthorizationStatus.NoAuth;
       });
   }

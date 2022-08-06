@@ -5,10 +5,12 @@ import { MapOffers } from '../../components/map/map-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { changeCity } from '../../store/action';
 import Header from '../../components/header/header';
+import { getOffers } from '../../store/data-process/selectors';
+import { getCity } from '../../store/general-process/selectors';
 
 export function MainPage(): JSX.Element {
-  const cityName = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const cityName = useAppSelector(getCity);
+  const offers = useAppSelector(getOffers);
   const dispatch = useAppDispatch();
 
   const selectedOffers = offers

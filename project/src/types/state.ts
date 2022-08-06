@@ -2,7 +2,7 @@ import {store} from '../store/index';
 import {Offers, Offer} from '../types/offer';
 import {FetchingCommentType} from '../types/comments';
 
-type authorizationStatus = {
+export type AuthorizationType = {
   status: string;
   email: string;
 };
@@ -12,7 +12,7 @@ export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export type UserProcess = {
-  authorizationStatus: authorizationStatus
+  authorizationStatus: AuthorizationType
 };
 
 export type DataProcess = {

@@ -4,6 +4,8 @@ import {Navigate} from 'react-router-dom';
 import {useState, memo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
+import {getFavoritesOffers} from '../../store/data-process/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 
 type HeaderProps = {
@@ -17,8 +19,8 @@ function Header(props: HeaderProps): JSX.Element{
   const {mainPage, favoritePage} = props;
   const [navigation, setNavigation] = useState(false);
   const [isNavigationLogin, setNavigationLogin] = useState(false);
-  const {status, email} = useAppSelector((state) => state.authorizationStatus);
-  const favoritesOffers = useAppSelector((state) => state.favoritesOffers);
+  const {status, email} = useAppSelector(getAuthorizationStatus);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
   const quantityFavoritesOffers = favoritesOffers ? String(favoritesOffers.length) : '0';
   const dispatch = useAppDispatch();
 

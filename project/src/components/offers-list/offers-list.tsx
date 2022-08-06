@@ -2,7 +2,7 @@ import {OfferCard} from '../offer-card/offer-card';
 import {Offers} from '../../types/offer';
 import {useAppSelector} from '../../hooks/index';
 import {getOffersSorting} from '../../utils';
-
+import {getSorting} from '../../store/general-process/selectors';
 
 type OffersListProps = {
   offers: Offers;
@@ -12,7 +12,7 @@ type OffersListProps = {
 export function OffersList(props: OffersListProps): JSX.Element{
 
   const {offers} = props;
-  const sorting = useAppSelector((state) => state.sorting);
+  const sorting = useAppSelector(getSorting);
   const sortedOffers = getOffersSorting(sorting, offers);
 
   return (
