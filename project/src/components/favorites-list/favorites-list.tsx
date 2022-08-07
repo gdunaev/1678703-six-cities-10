@@ -11,7 +11,7 @@ type FavoritesListProps = {
 export function FavoritesList(props: FavoritesListProps): JSX.Element {
 
   const {currentCity, currentOffers} = props;
-  // console.log('22', currentCity, currentOffers)
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

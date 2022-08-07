@@ -30,4 +30,5 @@ export type GeneralProcess = {
   city: string;
   sorting: string;
   selectedOfferId: number;
+  isCommentLoading: boolean;
 };

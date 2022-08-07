@@ -6,6 +6,7 @@ const initialState: GeneralProcess = {
   city: DEFAULT_CITY,
   sorting: SortingType.Popular,
   selectedOfferId: -1,
+  isCommentLoading: false,
 };
 
 export const generalProcess = createSlice({
@@ -21,7 +22,10 @@ export const generalProcess = createSlice({
     offersSorting: (state, action) => {
       state.sorting = action.payload;
     },
+    setCommentLoadingStatus: (state, action) => {
+      state.isCommentLoading = action.payload;
+    },
   },
 });
 
-export const {changeCity, selectOfferId, offersSorting} = generalProcess.actions;
+export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus} = generalProcess.actions;

@@ -1,5 +1,5 @@
 
-import {offersSorting} from '../../store/action';
+import {offersSorting} from '../../store/general-process/general-process';
 import {useAppDispatch} from '../../hooks/index';
 import { SortingType } from '../../const';
 import {MouseEvent} from 'react';

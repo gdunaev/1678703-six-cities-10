@@ -85,19 +85,7 @@ export const ArrayCities: Cities = [
 ];
 
 export const ActionType = {
-  CHANGE_CITY: 'changeCity',
-  LOAD_OFFERS: 'loadOffers',
-  OFFERS_SORTING: 'offersSorting',
-  REQUIRE_AUTHORIZATION: 'requireAuthorization',
-  SELECT_OFFER_ID: 'selectOfferId',
-  LOAD_FAVORITES_OFFERS: 'loadFavoritesOffers',
-  SET_DATA_LOADED_STATUS: 'setDataLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
-  LOAD_OFFER: 'loadOffer',
-  ERROR_LOADING: 'errorLoading',
-  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
-  LOAD_COMMENTS: 'loadComments',
-  SET_COMMENT_LOADING_STATUS: 'setCommentLoadingStatus',
 };
 
 export const PERCENT_RATING = 20;

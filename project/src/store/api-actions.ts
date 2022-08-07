@@ -24,8 +24,6 @@ export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCom
     };
     resetFormData();
     return comments;
-    // dispatch(loadComments(comments));
-    // dispatch(setCommentLoadingStatus(false));
   },
 );
 
@@ -42,7 +40,6 @@ export const fetchCommentsAction = createAsyncThunk<FetchingCommentType, string,
       id,
       data
     };
-    // dispatch(loadComments(comments));
     return comments;
   },
 );
@@ -56,7 +53,6 @@ export const fetchOffersNearbyAction = createAsyncThunk<Offers, string, {
   async (id, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.OffersNearby.replace('id', id));
     return data;
-    // dispatch(loadOffersNearby(data));
   },
 );
 
@@ -67,13 +63,8 @@ export const fetchDetailedOfferAction = createAsyncThunk<Offer, string, {
 }>(
   'data/fetchDetailedOffer',
   async (id, {extra: api}) => {
-    // try {
     const {data} = await api.get<Offer>(APIRoute.DetailOffer.replace('id', id));
     return data;
-    //   dispatch(loadOffer(data));
-    // } catch {
-    //   dispatch(errorLoading(true));
-    // }
   },
 );
 
@@ -86,9 +77,6 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.Favorites);
     return data;
-    // dispatch(setDataLoadedStatus(false));
-    // dispatch(loadOffers(data));
-    // dispatch(setDataLoadedStatus(true));
   },
 );
 
@@ -101,9 +89,6 @@ export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.Hotels);
     return data;
-    // dispatch(setDataLoadedStatus(false));
-    // dispatch(loadOffers(data));
-    // dispatch(setDataLoadedStatus(true));
   },
 );
 
@@ -114,13 +99,8 @@ export const checkAuthAction = createAsyncThunk<string, undefined, {
 }>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    // try {
     const {data: {email}} = await api.get(APIRoute.Login);
     return email;
-    // dispatch(requireAuthorization({status: AuthorizationStatus.Auth, email: email}));
-    // } catch {
-    // dispatch(requireAuthorization({status: AuthorizationStatus.NoAuth, email: ''}));
-    // }
   },
 );
 
@@ -133,7 +113,6 @@ export const loginAction = createAsyncThunk<string, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
-    // dispatch(requireAuthorization({status: AuthorizationStatus.Auth, email: email}));
     dispatch(redirectToRoute(AppRoute.Main));
     return email;
   },
@@ -148,6 +127,5 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    // dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );

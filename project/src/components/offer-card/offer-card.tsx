@@ -5,7 +5,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
-import {selectOfferId} from '../../store/action';
+import {selectOfferId} from '../../store/general-process/general-process';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 
@@ -44,7 +44,7 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
     return <Navigate to={AppRoute.Offer + id} />;
   }
 
-  if (isNavigationLogin && authorizationStatus !== AuthorizationStatus.Auth) {
+  if (isNavigationLogin && authorizationStatus.status !== AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Login} />;
   }
 

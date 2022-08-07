@@ -3,7 +3,7 @@ import { City } from '../../components/city/city';
 import { ArrayCities } from '../../const';
 import { MapOffers } from '../../components/map/map-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/general-process/general-process';
 import Header from '../../components/header/header';
 import { getOffers } from '../../store/data-process/selectors';
 import { getCity } from '../../store/general-process/selectors';

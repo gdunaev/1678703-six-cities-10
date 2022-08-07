@@ -2,7 +2,7 @@
 import { useState, ChangeEvent, FormEvent, } from 'react';
 import { store } from '../../store';
 import {addCommentAction, } from '../../store/api-actions';
-import {setCommentLoadingStatus} from '../../store/action';
+import {setCommentLoadingStatus} from '../../store/general-process/general-process';
 import { useAppSelector, } from '../../hooks/index';
 import {getCommentLoadingStatus} from '../../store/data-process/selectors';
 
