@@ -5,17 +5,14 @@ import { MapOffers } from '../../components/map/map-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { changeCity } from '../../store/general-process/general-process';
 import Header from '../../components/header/header';
-import { getOffers } from '../../store/data-process/selectors';
+import { filterOffers } from '../../store/data-process/selectors';
 import { getCity } from '../../store/general-process/selectors';
 
 export function MainPage(): JSX.Element {
   const cityName = useAppSelector(getCity);
-  const offers = useAppSelector(getOffers);
   const dispatch = useAppDispatch();
 
-  const selectedOffers = offers
-    ? offers.filter((offer) => offer.city.name === cityName)
-    : [];
+  const selectedOffers = useAppSelector(filterOffers);
 
   let quantityOffers = 0;
   if (selectedOffers) {
