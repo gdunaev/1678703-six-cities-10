@@ -3,17 +3,16 @@ import { City } from '../../components/city/city';
 import { ArrayCities } from '../../const';
 import { MapOffers } from '../../components/map/map-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { changeCity } from '../../store/action';
-import { Header } from '../../components/header/header';
+import { changeCity } from '../../store/general-process/general-process';
+import Header from '../../components/header/header';
+import { filterOffers } from '../../store/data-process/selectors';
+import { getCity } from '../../store/general-process/selectors';
 
 export function MainPage(): JSX.Element {
-  const cityName = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const cityName = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
-  const selectedOffers = offers
-    ? offers.filter((offer) => offer.city.name === cityName)
-    : [];
+  const selectedOffers = useAppSelector(filterOffers);
 
   let quantityOffers = 0;
   if (selectedOffers) {

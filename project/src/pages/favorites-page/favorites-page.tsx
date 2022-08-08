@@ -3,7 +3,7 @@ import { offers } from '../../mocks/offers';
 import { Offers } from '../../types/offer';
 import {ArrayCities} from '../../const';
 import { FavoritesList } from '../../components/favorites-list/favorites-list';
-import { Header } from '../../components/header/header';
+import Header from '../../components/header/header';
 
 type FavoriteType = {
   city: string;

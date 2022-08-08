@@ -2,8 +2,9 @@
 import { useState, ChangeEvent, FormEvent, } from 'react';
 import { store } from '../../store';
 import {addCommentAction, } from '../../store/api-actions';
-import {setCommentLoadingStatus} from '../../store/action';
+import {setCommentLoadingStatus} from '../../store/general-process/general-process';
 import { useAppSelector, } from '../../hooks/index';
+import {getCommentLoadingStatus} from '../../store/data-process/selectors';
 
 type FormOfferProps = {
   id: string | undefined;
@@ -17,7 +18,7 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
     comment: '',
     rating: 0,
   });
-  const isCommentLoading = useAppSelector((state) => state.isCommentLoading);
+  const isCommentLoading = useAppSelector(getCommentLoadingStatus);
 
   const currentId = id ? id : '';
 

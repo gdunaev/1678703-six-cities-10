@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { OffersSorting } from '../offers-sorting/offers-sorting';
 import {useAppSelector} from '../../hooks/index';
+import {getSorting} from '../../store/general-process/selectors';
 
 
 export function OffersSortingForm(): JSX.Element {
   const [showOffersSorting, setShowingOffersSorting] = useState(false);
 
-  const sorting = useAppSelector((state) => state.sorting);
+  const sorting = useAppSelector(getSorting);
 
   const handleSelectSortingClick = () => {
     setShowingOffersSorting(true);

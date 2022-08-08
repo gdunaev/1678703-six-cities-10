@@ -7,7 +7,7 @@ import {NotFoundPage} from '../not-found-page/not-found-page';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
-import { Header } from '../../components/header/header';
+import Header from '../../components/header/header';
 import { useAppSelector, } from '../../hooks/index';
 import { useState, useEffect } from 'react';
 import { fetchDetailedOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
@@ -15,6 +15,10 @@ import { store } from '../../store';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 import { AuthorizationStatus, QUANTITY_PLACES_NEARBY } from '../../const';
 import { Offer } from '../../types/offer';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getErrorLoadingStatus } from '../../store/data-process/selectors';
+import { getDetailedOffer } from '../../store/data-process/selectors';
+import { getOffersNearby } from '../../store/data-process/selectors';
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -37,13 +41,11 @@ function getImagesSection(images: string[]): JSX.Element {
 export function OfferPage(): JSX.Element {
 
   const { id } = useParams();
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus.status
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus).status;
 
-  const isErrorLoading = useAppSelector((state) => state.isErrorLoading);
-  const detailedOffer = useAppSelector((state) => state.detailedOffer);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
+  const isErrorLoading = useAppSelector(getErrorLoadingStatus);
+  const detailedOffer = useAppSelector(getDetailedOffer);
+  const offersNearby = useAppSelector(getOffersNearby);
 
 
   const [isNavigationLogin, setNavigationLogin] = useState(false);
@@ -86,7 +88,7 @@ export function OfferPage(): JSX.Element {
       return '';
     }
     return arrayOffersNearby.map((offerNearby) => (
-      <OfferCard key={offerNearby.id} offer={offerNearby} isOtherOffer />
+      <OfferCard key={offerNearby.id} offer={offerNearby} fromOfferPage />
     ));
   };
 

@@ -4,6 +4,7 @@ import {useAppSelector} from '../../hooks/index';
 import {fetchCommentsAction} from '../../store/api-actions';
 import { useEffect } from 'react';
 import {store} from '../../store/index';
+import {getComments} from '../../store/data-process/selectors';
 
 type ReviewsListProps = {
   id: string | undefined;
@@ -13,10 +14,7 @@ type ReviewsListProps = {
 export function ReviewsList(props: ReviewsListProps): JSX.Element {
 
   const {id} = props;
-  const comments = useAppSelector((state) => state.comments);
-
-  // eslint-disable-next-line no-console
-  // console.log('11', comments);
+  const comments = useAppSelector(getComments);
 
   useEffect(() => {
     if (!comments || comments.id !== id) {

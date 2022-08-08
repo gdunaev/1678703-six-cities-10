@@ -5,7 +5,7 @@ import {StatusCodes } from 'http-status-codes';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from '../store/index';
-import {setCommentLoadingStatus} from '../store/action';
+import {setCommentLoadingStatus} from '../store/general-process/general-process';
 import {APIRoute} from '../const';
 
 const StatusCodeMapping: Record<number, boolean> = {
