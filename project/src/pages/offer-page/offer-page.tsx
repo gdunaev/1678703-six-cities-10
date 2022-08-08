@@ -56,7 +56,7 @@ export function OfferPage(): JSX.Element {
       store.dispatch(fetchDetailedOfferAction(id as string));
       store.dispatch(fetchOffersNearbyAction(id as string));
     }
-  }, []);
+  }, [currentId, detailedOffer]);
 
 
   if (!detailedOffer && !isErrorLoading) {

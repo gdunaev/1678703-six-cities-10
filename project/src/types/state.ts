@@ -31,4 +31,5 @@ export type GeneralProcess = {
   sorting: string;
   selectedOfferId: number;
   isCommentLoading: boolean;
+  isLoadedFavoritesOffers: boolean;
 };

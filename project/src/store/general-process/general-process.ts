@@ -7,6 +7,7 @@ const initialState: GeneralProcess = {
   sorting: SortingType.Popular,
   selectedOfferId: -1,
   isCommentLoading: false,
+  isLoadedFavoritesOffers: false,
 };
 
 export const generalProcess = createSlice({
@@ -25,7 +26,12 @@ export const generalProcess = createSlice({
     setCommentLoadingStatus: (state, action) => {
       state.isCommentLoading = action.payload;
     },
+    setFavoritesOffersStatus: (state, action) => {
+      // eslint-disable-next-line no-console
+      console.log('22', action.payload);
+      state.isLoadedFavoritesOffers = action.payload;
+    },
   },
 });
 
-export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus} = generalProcess.actions;
+export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus, setFavoritesOffersStatus} = generalProcess.actions;

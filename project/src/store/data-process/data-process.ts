@@ -6,7 +6,7 @@ import { DataProcess } from '../../types/state';
 const initialState: DataProcess = {
   offers: undefined,
   favoritesOffers: undefined,
-  isDataLoaded: false,
+  isDataLoaded: true,
   isCommentLoading: false,
   detailedOffer: undefined,
   isErrorLoading: false,
@@ -33,15 +33,17 @@ export const processData = createSlice({
       })
       .addCase(fetchFavoritesOffersAction.pending, (state, action) => {
         state.favoritesOffers = action.payload;
-        state.isDataLoaded = false;
+        // state.isDataLoaded = false;
+        // state.isErrorLoading = false;
       })
       .addCase(fetchFavoritesOffersAction.fulfilled, (state, action) => {
         state.favoritesOffers = action.payload;
-        state.isDataLoaded = true;
+        // state.isDataLoaded = true;
       })
       .addCase(fetchFavoritesOffersAction.rejected, (state, ) => {
         state.favoritesOffers = undefined;
-        state.isDataLoaded = true;
+        // state.isDataLoaded = true;
+        // state.isErrorLoading = true;
       })
       .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
         state.offersNearby = action.payload;

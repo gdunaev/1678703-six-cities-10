@@ -76,6 +76,9 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
   'data/fetchFavoritesOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.Favorites);
+
+    // eslint-disable-next-line no-console
+    console.log('fav', data);
     return data;
   },
 );
