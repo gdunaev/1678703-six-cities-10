@@ -142,7 +142,7 @@ export function OfferPage(): JSX.Element {
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
                   <button
-                    className="property__bookmark-button button"
+                    className="property__bookmark-button property__bookmark-button--active button"
                     type="button"
                     onClick={handleFavoriteStatusClick}
                   >

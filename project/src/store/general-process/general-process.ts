@@ -1,13 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, DEFAULT_CITY, SortingType} from '../../const';
-import { GeneralProcess } from '../../types/state';
+import { GeneralProcessType } from '../../types/state';
 
-const initialState: GeneralProcess = {
+const initialState: GeneralProcessType = {
   city: DEFAULT_CITY,
   sorting: SortingType.Popular,
   selectedOfferId: -1,
   isCommentLoading: false,
   isLoadedFavoritesOffers: false,
+  offers: undefined,
 };
 
 export const generalProcess = createSlice({
@@ -26,12 +27,12 @@ export const generalProcess = createSlice({
     setCommentLoadingStatus: (state, action) => {
       state.isCommentLoading = action.payload;
     },
-    setFavoritesOffersStatus: (state, action) => {
+    setFavoriteOfferStatus: (state, action) => {
       // eslint-disable-next-line no-console
-      console.log('22', action.payload);
-      state.isLoadedFavoritesOffers = action.payload;
+      console.log('22', action.payload, state.offers);
+      // state.isLoadedFavoritesOffers = action.payload;
     },
   },
 });
 
-export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus, setFavoritesOffersStatus} = generalProcess.actions;
+export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus, setFavoriteOfferStatus} = generalProcess.actions;

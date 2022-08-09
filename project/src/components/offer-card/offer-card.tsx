@@ -7,6 +7,8 @@ import {useState} from 'react';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {selectOfferId} from '../../store/general-process/general-process';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import { store } from '../../store';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
 
 
 type OfferCardProps = {
@@ -38,6 +40,13 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
 
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);
+    if(authorizationStatus.status === AuthorizationStatus.Auth) {
+      const statusId = {
+        id: String(id),
+        status: isFavorite ? '1' : '0',
+      };
+      store.dispatch(changeFavoriteStatusAction(statusId));
+    }
   };
 
   if (isNavigationOffer) {

@@ -8,6 +8,8 @@ import {APIRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { CommentsType, SendingCommentType, FetchingCommentType } from '../types/comments';
+import { FavoriteStatusType } from '../types/favorite';
+import {setFavoriteOfferStatus} from '../store/general-process/general-process';
 
 
 export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCommentType, {
@@ -15,7 +17,7 @@ export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCom
   state: State,
   extra: AxiosInstance
 }>(
-  'comment/setComment',
+  'comment/addComment',
   async ({id, formData:{comment, rating}, resetFormData}, {extra: api}) => {
     const {data} = await api.post<CommentsType>(APIRoute.CommentsOffer.replace('id', id), {comment, rating});
     const comments = {
@@ -80,6 +82,20 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
     // eslint-disable-next-line no-console
     console.log('fav', data);
     return data;
+  },
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk<void, FavoriteStatusType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/changeFavoriteStatus',
+  async ({id, status}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Offer>(APIRoute.FavoritesStatus.replace('id', id).replace('status', status));
+
+    dispatch(setFavoriteOfferStatus(data));
+    // return data;
   },
 );
 
