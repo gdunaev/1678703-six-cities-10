@@ -27,12 +27,7 @@ export const generalProcess = createSlice({
     setCommentLoadingStatus: (state, action) => {
       state.isCommentLoading = action.payload;
     },
-    setFavoriteOfferStatus: (state, action) => {
-      // eslint-disable-next-line no-console
-      console.log('22', action.payload, state.offers);
-      // state.isLoadedFavoritesOffers = action.payload;
-    },
   },
 });
 
-export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus, setFavoriteOfferStatus} = generalProcess.actions;
+export const {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus} = generalProcess.actions;

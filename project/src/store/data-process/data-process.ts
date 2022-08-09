@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import {fetchOffersAction, fetchFavoritesOffersAction, fetchOffersNearbyAction, fetchCommentsAction, fetchDetailedOfferAction, addCommentAction} from '../api-actions';
+import {changeFavoriteStatusAction, fetchOffersAction, fetchFavoritesOffersAction, fetchOffersNearbyAction, fetchCommentsAction, fetchDetailedOfferAction, addCommentAction} from '../api-actions';
 import { DataProcessType } from '../../types/state';
 
 
@@ -13,17 +13,29 @@ const initialState: DataProcessType = {
   isErrorLoading: false,
   offersNearby: undefined,
   comments: undefined,
-  // favoriteOffer: undefined,
+  favoriteOffer: undefined,
 };
 
 export const processData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    test: (state, action) => {
+      state.offers = action.payload;
+    },
+    test2: (state, action) => {
+      state.offers = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isDataLoaded = false;
+      })
+      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
+        // eslint-disable-next-line no-console
+        // console.log('22', state.offers);
+        state.favoriteOffer = action.payload;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
@@ -66,8 +78,7 @@ export const processData = createSlice({
         state.comments = action.payload;
         state.isCommentLoading = false;
       });
-    // .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-    //   state.favoriteOffer = action.payload;
-    // });
   }
 });
+
+export const {test} = processData.actions;

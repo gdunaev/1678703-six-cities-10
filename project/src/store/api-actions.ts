@@ -9,7 +9,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { CommentsType, SendingCommentType, FetchingCommentType } from '../types/comments';
 import { FavoriteStatusType } from '../types/favorite';
-import {setFavoriteOfferStatus} from '../store/general-process/general-process';
+import {test} from '../store/data-process/data-process';
 
 
 export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCommentType, {
@@ -85,17 +85,26 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
   },
 );
 
-export const changeFavoriteStatusAction = createAsyncThunk<void, FavoriteStatusType, {
+export const changeFavoriteStatusAction = createAsyncThunk<Offer, FavoriteStatusType, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/changeFavoriteStatus',
-  async ({id, status}, {dispatch, extra: api}) => {
+  async ({id, status, offers, favoritesOffers}, {dispatch, extra: api}) => {
     const {data} = await api.post<Offer>(APIRoute.FavoritesStatus.replace('id', id).replace('status', status));
-
-    dispatch(setFavoriteOfferStatus(data));
-    // return data;
+    if(offers){
+      const index = offers.findIndex((item)=> item.id === Number(id));
+      const test2 = [...offers.slice(0, index - 1), data, ...offers.slice(index + 1)];
+      dispatch(test(test2));
+    }
+    if(favoritesOffers){
+      if(status === '1') {
+        favoritesOffers.push(data);
+        // dispatch(test(test2));
+      }
+    }
+    return data;
   },
 );
 
