@@ -89,6 +89,9 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
+export const MAX_LENGTH_COMMENT = 300;
+export const MIN_LENGTH_COMMENT = 50;
+
 export const PERCENT_RATING = 20;
 export const QUANTITY_PLACES_NEARBY = 3;
 export const DEFAULT_CITY = 'Paris';

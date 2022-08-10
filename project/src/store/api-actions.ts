@@ -9,7 +9,6 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { CommentsType, SendingCommentType, FetchingCommentType } from '../types/comments';
 import { FavoriteStatusType } from '../types/favorite';
-// import {test} from '../store/data-process/data-process';
 
 
 export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCommentType, {
