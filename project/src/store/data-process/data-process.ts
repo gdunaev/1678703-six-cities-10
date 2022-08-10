@@ -33,8 +33,6 @@ export const processData = createSlice({
         state.isDataLoaded = false;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
-        // eslint-disable-next-line no-console
-        // console.log('22', state.offers);
         state.favoriteOffer = action.payload;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {

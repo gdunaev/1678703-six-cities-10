@@ -9,7 +9,7 @@ import {selectOfferId} from '../../store/general-process/general-process';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import { store } from '../../store';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
-import {getOffers, getFavoritesOffers} from '../../store/data-process/selectors';
+// import {getOffers, getFavoritesOffers} from '../../store/data-process/selectors';
 
 
 type OfferCardProps = {
@@ -21,8 +21,8 @@ type OfferCardProps = {
 export function OfferCard(props: OfferCardProps): JSX.Element{
   const { offer, fromOfferPage, } = props;
 
-  const offers = useAppSelector(getOffers);
-  const favoritesOffers = useAppSelector(getFavoritesOffers);
+  // const offers = useAppSelector(getOffers);
+  // const favoritesOffers = useAppSelector(getFavoritesOffers);
   // // eslint-disable-next-line no-console
   // // console.log('22', favoriteOffer);
 
@@ -61,8 +61,6 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
       const statusId = {
         id: String(id),
         status: isFavorite ? '0' : '1',
-        offers,
-        favoritesOffers
       };
       store.dispatch(changeFavoriteStatusAction(statusId));
     }
