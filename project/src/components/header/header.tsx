@@ -26,7 +26,7 @@ function Header(props: HeaderProps): JSX.Element{
 
   if (isNavigationLogin) {
     if(status !== AuthorizationStatus.Auth) {
-      return <Navigate to={AppRoute.Login} />;
+      return <Navigate to={AppRoute.Login} state={{page: 'login'}}/>;
     }
     return <Navigate to={AppRoute.Favorites} />;
   }

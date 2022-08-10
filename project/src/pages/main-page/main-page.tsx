@@ -9,10 +9,10 @@ import { filterOffers } from '../../store/data-process/selectors';
 import { getCity } from '../../store/general-process/selectors';
 import { MainEmpty } from '../../components/main-empty/main-empty';
 
+
 export function MainPage(): JSX.Element {
   const cityName = useAppSelector(getCity);
   const dispatch = useAppDispatch();
-
   const selectedOffers = useAppSelector(filterOffers);
 
   let quantityOffers = 0;
@@ -26,6 +26,7 @@ export function MainPage(): JSX.Element {
   const handleChangeCity = (currentCity: string) => {
     dispatch(changeCity(currentCity));
   };
+
 
   return (
     <>

@@ -79,7 +79,7 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
     const {data} = await api.get<Offers>(APIRoute.Favorites);
 
     // eslint-disable-next-line no-console
-    console.log('fav', data);
+    // console.log('fav', data);
     return data;
   },
 );
