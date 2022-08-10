@@ -19,7 +19,6 @@ export function Favorite(props: FavoriteProps): JSX.Element {
     const statusId = {
       id: String(id),
       status: '0',
-      isNeedOffers: false,
     };
     store.dispatch(changeFavoriteStatusAction(statusId));
   };

@@ -19,6 +19,7 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getErrorLoadingStatus } from '../../store/data-process/selectors';
 import { getDetailedOffer } from '../../store/data-process/selectors';
 import { getOffersNearby } from '../../store/data-process/selectors';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -41,22 +42,17 @@ function getImagesSection(images: string[]): JSX.Element {
 export function OfferPage(): JSX.Element {
 
   const { id } = useParams();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus).status;
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isErrorLoading = useAppSelector(getErrorLoadingStatus);
   const detailedOffer = useAppSelector(getDetailedOffer);
   const offersNearby = useAppSelector(getOffersNearby);
-
-
   const [isNavigationLogin, setNavigationLogin] = useState(false);
-  const currentId = Number(id);
+
 
   useEffect(() => {
-    if (!detailedOffer || detailedOffer.id !== currentId) {
-      store.dispatch(fetchDetailedOfferAction(id as string));
-      store.dispatch(fetchOffersNearbyAction(id as string));
-    }
-  }, [currentId, detailedOffer]);
+    store.dispatch(fetchDetailedOfferAction(id as string));
+    store.dispatch(fetchOffersNearbyAction(id as string));
+  }, []);
 
 
   if (!detailedOffer && !isErrorLoading) {
@@ -69,11 +65,11 @@ export function OfferPage(): JSX.Element {
     );
   }
 
-  if (isNavigationLogin && !authorizationStatus) {
+  if (isNavigationLogin && authorizationStatus.status !== AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Login} />;
   }
 
-  const {isPremium,price,maxAdults,bedrooms,title,type,rating,images,goods,host,description,city} = detailedOffer as Offer;
+  const {isPremium,price,maxAdults,bedrooms,title,type,rating,images,goods,host,description,city, isFavorite} = detailedOffer as Offer;
 
   const cityName = city.name;
   const ratingStyle = getRating(rating);
@@ -95,8 +91,18 @@ export function OfferPage(): JSX.Element {
 
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);
+    if(authorizationStatus.status === AuthorizationStatus.Auth) {
+      const statusId = {
+        id: String(id),
+        status: isFavorite ? '0' : '1',
+      };
+      store.dispatch(changeFavoriteStatusAction(statusId));
+      store.dispatch(fetchDetailedOfferAction(id as string));
+    }
   };
 
+  // eslint-disable-next-line no-console
+  // console.log('22', isFavorite);
 
   return (
     <>
@@ -142,7 +148,7 @@ export function OfferPage(): JSX.Element {
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
                   <button
-                    className="property__bookmark-button property__bookmark-button--active button"
+                    className={`property__bookmark-button button ${isFavorite && 'property__bookmark-button--active'}`}
                     type="button"
                     onClick={handleFavoriteStatusClick}
                   >
@@ -220,7 +226,7 @@ export function OfferPage(): JSX.Element {
                 <section className="property__reviews reviews">
                   <ReviewsList id={id} />
 
-                  {authorizationStatus === AuthorizationStatus.Auth && (
+                  {authorizationStatus.status === AuthorizationStatus.Auth && (
                     <FormOffer id={id}/>
                   )}
                 </section>

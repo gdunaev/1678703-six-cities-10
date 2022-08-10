@@ -45,7 +45,6 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
       const statusId = {
         id: String(id),
         status: isFavorite ? '0' : '1',
-        isNeedOffers: true,
       };
       store.dispatch(changeFavoriteStatusAction(statusId));
     }
