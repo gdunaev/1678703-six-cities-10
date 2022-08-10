@@ -43,8 +43,8 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
   };
 
   const resetFormData = () => {
-
-    setFormData(Object.assign(formData, { comment: '' }, {rating: 0}));
+    setFormData({...formData, 'comment': '', 'rating': 0});
+    setDisabled(true);
   };
 
   const handleCommentSubmit = (evt: FormEvent<HTMLFormElement>) => {
