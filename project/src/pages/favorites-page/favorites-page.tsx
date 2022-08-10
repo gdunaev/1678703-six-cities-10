@@ -9,8 +9,6 @@ import {LoadingScreen} from '../../components/loading-screen/loading-screen';
 import { useEffect } from 'react';
 import {store} from '../../store/index';
 import {fetchFavoritesOffersAction} from '../../store/api-actions';
-// import {setFavoritesOffersStatus} from '../../store/general-process/general-process';
-// import {useTest} from './test2';
 
 type FavoriteType = {
   city: string;
@@ -73,11 +71,7 @@ const getFavoritesSection = (offersFavorite: FavoriteType[]) => {
 
 export function FavoritesPage(): JSX.Element{
 
-  // const offers = useAppSelector(getFavoritesOffers);
   const favoritesOffers = getFavorites(useAppSelector(getFavoritesOffers));
-
-  // eslint-disable-next-line no-console
-  console.log('11', favoritesOffers);
 
   useEffect(() => {
     store.dispatch(fetchFavoritesOffersAction());

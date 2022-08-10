@@ -9,7 +9,6 @@ import {selectOfferId} from '../../store/general-process/general-process';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import { store } from '../../store';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
-// import {getOffers, getFavoritesOffers} from '../../store/data-process/selectors';
 
 
 type OfferCardProps = {
@@ -20,18 +19,6 @@ type OfferCardProps = {
 
 export function OfferCard(props: OfferCardProps): JSX.Element{
   const { offer, fromOfferPage, } = props;
-
-  // const offers = useAppSelector(getOffers);
-  // const favoritesOffers = useAppSelector(getFavoritesOffers);
-  // // eslint-disable-next-line no-console
-  // // console.log('22', favoriteOffer);
-
-  // let currentOffer = offer;
-  // if(favoriteOffer && favoriteOffer.id === offer.id) {
-  //   currentOffer = favoriteOffer;
-  //   // eslint-disable-next-line no-console
-  //   console.log('33', currentOffer);
-  // }
 
   const {
     id,
@@ -50,9 +37,6 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
   const [isNavigationLogin, setNavigationLogin] = useState(false);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  // const favoriteOffer = useAppSelector(getFavoriteOffer);
-
-
   const dispatch = useAppDispatch();
 
   const handleFavoriteStatusClick = () => {
@@ -61,6 +45,7 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
       const statusId = {
         id: String(id),
         status: isFavorite ? '0' : '1',
+        isNeedOffers: true,
       };
       store.dispatch(changeFavoriteStatusAction(statusId));
     }

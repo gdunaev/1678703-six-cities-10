@@ -2,6 +2,8 @@
 import {Link} from 'react-router-dom';
 import {getRating} from '../../utils';
 import {Offer} from '../../types/offer';
+import { store } from '../../store';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
 
 type FavoriteProps = {
   offer: Offer;
@@ -10,9 +12,17 @@ type FavoriteProps = {
 export function Favorite(props: FavoriteProps): JSX.Element {
 
   const {offer} = props;
-  const {previewImage, price, title, type, rating} = offer;
-
+  const {previewImage, price, title, type, rating, id} = offer;
   const ratingStyle = getRating(rating);
+
+  const handleFavoriteStatusClick = () => {
+    const statusId = {
+      id: String(id),
+      status: '0',
+      isNeedOffers: false,
+    };
+    store.dispatch(changeFavoriteStatusAction(statusId));
+  };
 
   return (
     <article className="favorites__card place-card">
@@ -36,6 +46,7 @@ export function Favorite(props: FavoriteProps): JSX.Element {
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
+            onClick={handleFavoriteStatusClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
