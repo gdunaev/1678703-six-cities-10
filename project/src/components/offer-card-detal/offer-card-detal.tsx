@@ -7,6 +7,9 @@ import {useState} from 'react';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
+import { getOffers, getFavoritesOffers } from '../../store/data-process/selectors';
+import {_updateData} from '../../store/data-process/update-data';
+import {updateOffers} from '../../store/data-process/data-process';
 
 
 type OfferCardDetalProps = {
@@ -23,6 +26,8 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
   const [isNavigationLogin_, setNavigationLogin_] = useState(false);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const offers = useAppSelector(getOffers);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
   const dispatch = useAppDispatch();
 
   const {
@@ -45,12 +50,23 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
     return <Navigate to={AppRoute.Login} />;
   }
 
+  const updateData = (update: Offer) => {
+    // eslint-disable-next-line no-console
+    // console.log('111', );
+    const test = _updateData(id, update, offers, favoritesOffers);
+    if(test.offers) {
+      dispatch(updateOffers(test.offers));
+    }
+    return '';
+  };
+
   const handleFavoriteStatusClick = () => {
     setNavigationLogin_(true);
     if(authorizationStatus.status === AuthorizationStatus.Auth) {
       const statusId = {
         id: String(id),
         status: isFavorite ? '0' : '1',
+        updateData,
       };
       dispatch(changeFavoriteStatusAction(statusId));
     }

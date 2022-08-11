@@ -8,7 +8,6 @@ const initialState: GeneralProcessType = {
   selectedOfferId: -1,
   isCommentLoading: false,
   isLoadedFavoritesOffers: false,
-  offers: undefined,
 };
 
 export const generalProcess = createSlice({

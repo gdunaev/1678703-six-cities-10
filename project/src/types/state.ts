@@ -33,5 +33,4 @@ export type GeneralProcessType = {
   selectedOfferId: number;
   isCommentLoading: boolean;
   isLoadedFavoritesOffers: boolean;
-  offers: Offers | undefined;
 };

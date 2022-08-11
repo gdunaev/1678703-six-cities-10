@@ -17,8 +17,7 @@ import { AuthorizationStatus, QUANTITY_PLACES_NEARBY } from '../../const';
 import { Offer } from '../../types/offer';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getErrorLoadingStatus } from '../../store/data-process/selectors';
-import { getDetailedOffer } from '../../store/data-process/selectors';
-import { getOffersNearby } from '../../store/data-process/selectors';
+import { getDetailedOffer, getOffersNearby } from '../../store/data-process/selectors';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
 
 function getImagesSection(images: string[]): JSX.Element {
@@ -91,12 +90,19 @@ export function OfferPage(): JSX.Element {
   };
 
 
+  const updateData = (newOffer: Offer) => {
+    // eslint-disable-next-line no-console
+    console.log('111', newOffer);
+    return '';
+  };
+
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);
     if(authorizationStatus.status === AuthorizationStatus.Auth) {
       const statusId = {
         id: String(id),
         status: isFavorite ? '0' : '1',
+        updateData,
       };
       store.dispatch(changeFavoriteStatusAction(statusId));
       store.dispatch(fetchDetailedOfferAction(id as string));

@@ -19,7 +19,14 @@ const initialState: DataProcessType = {
 export const processData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    updateOffers: (state, action) => {
+      state.offers = action.payload;
+    },
+    updateFavoritesOffers: (state, action) => {
+      state.favoritesOffers = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -67,3 +74,4 @@ export const processData = createSlice({
   }
 });
 
+export const {updateOffers, updateFavoritesOffers} = processData.actions;

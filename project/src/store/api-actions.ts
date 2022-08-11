@@ -77,9 +77,19 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
   'data/fetchFavoritesOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.Favorites);
+    return data;
+  },
+);
 
-    // eslint-disable-next-line no-console
-    // console.log('fav', data);
+
+export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchOffers',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Offers>(APIRoute.Hotels);
     return data;
   },
 );
@@ -90,22 +100,9 @@ export const changeFavoriteStatusAction = createAsyncThunk<Offer, FavoriteStatus
   extra: AxiosInstance
 }>(
   'data/changeFavoriteStatus',
-  async ({id, status}, {dispatch, extra: api}) => {
+  async ({id, status, updateData}, {dispatch, extra: api}) => {
     const {data} = await api.post<Offer>(APIRoute.FavoritesStatus.replace('id', id).replace('status', status));
-    dispatch(fetchOffersAction());
-    dispatch(fetchFavoritesOffersAction());
-    return data;
-  },
-);
-
-export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'data/fetchOffers',
-  async (_arg, {extra: api}) => {
-    const {data} = await api.get<Offers>(APIRoute.Hotels);
+    updateData(data);
     return data;
   },
 );

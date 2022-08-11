@@ -5,6 +5,7 @@ import {FetchingCommentType} from '../../types/comments';
 import { createSelector } from '@reduxjs/toolkit';
 import {getCity} from '../general-process/selectors';
 
+
 export const getOffers = (state: State): Offers | undefined => state[NameSpace.Data].offers;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.Data].isDataLoaded;
 export const getFavoritesOffers = (state: State): Offers | undefined => state[NameSpace.Data].favoritesOffers;
