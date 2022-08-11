@@ -50,9 +50,11 @@ export function OfferPage(): JSX.Element {
 
 
   useEffect(() => {
-    store.dispatch(fetchDetailedOfferAction(id as string));
-    store.dispatch(fetchOffersNearbyAction(id as string));
-  }, []);
+    if(!detailedOffer || detailedOffer.id !== Number(id)) {
+      store.dispatch(fetchDetailedOfferAction(id as string));
+      store.dispatch(fetchOffersNearbyAction(id as string));
+    }
+  }, [id]);
 
 
   if (!detailedOffer && !isErrorLoading) {
@@ -100,9 +102,6 @@ export function OfferPage(): JSX.Element {
       store.dispatch(fetchDetailedOfferAction(id as string));
     }
   };
-
-  // eslint-disable-next-line no-console
-  // console.log('22', isFavorite);
 
   return (
     <>
@@ -246,7 +245,9 @@ export function OfferPage(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
+
                 {getOffersNearbyComponent()}
+
               </div>
             </section>
           </div>

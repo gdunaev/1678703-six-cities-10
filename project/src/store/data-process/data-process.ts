@@ -19,14 +19,7 @@ const initialState: DataProcessType = {
 export const processData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    test: (state, action) => {
-      state.offers = action.payload;
-    },
-    test2: (state, action) => {
-      state.offers = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
@@ -45,17 +38,12 @@ export const processData = createSlice({
       })
       .addCase(fetchFavoritesOffersAction.pending, (state, action) => {
         state.favoritesOffers = action.payload;
-        // state.isDataLoaded = false;
-        // state.isErrorLoading = false;
       })
       .addCase(fetchFavoritesOffersAction.fulfilled, (state, action) => {
         state.favoritesOffers = action.payload;
-        // state.isDataLoaded = true;
       })
       .addCase(fetchFavoritesOffersAction.rejected, (state, ) => {
         state.favoritesOffers = undefined;
-        // state.isDataLoaded = true;
-        // state.isErrorLoading = true;
       })
       .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
@@ -79,4 +67,3 @@ export const processData = createSlice({
   }
 });
 
-export const {test} = processData.actions;
