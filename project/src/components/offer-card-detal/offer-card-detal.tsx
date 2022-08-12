@@ -62,6 +62,11 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
   };
 
   const handleFavoriteStatusClick = () => {
+
+
+    // eslint-disable-next-line no-console
+    console.log('11');
+
     setNavigationLogin_(true);
     if(authorizationStatus.status === AuthorizationStatus.Auth) {
       const statusId = {
