@@ -8,7 +8,7 @@ import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
 import Header from '../../components/header/header';
-import { useAppSelector, } from '../../hooks/index';
+import { useAppSelector, useAppDispatch} from '../../hooks/index';
 import { useState, useEffect } from 'react';
 import { fetchDetailedOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import { store } from '../../store';
@@ -19,6 +19,10 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getErrorLoadingStatus } from '../../store/data-process/selectors';
 import { getDetailedOffer, getOffersNearby } from '../../store/data-process/selectors';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
+import {updateOffersAndFavoritesOffers} from '../../store/data-process/update-data';
+import {updateOffers, updateFavoritesOffers} from '../../store/data-process/data-process';
+import { getOffers, getFavoritesOffers } from '../../store/data-process/selectors';
+
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -46,7 +50,9 @@ export function OfferPage(): JSX.Element {
   const detailedOffer = useAppSelector(getDetailedOffer);
   const offersNearby = useAppSelector(getOffersNearby);
   const [isNavigationLogin, setNavigationLogin] = useState(false);
-
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector(getOffers);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
 
   useEffect(() => {
     if(!detailedOffer || detailedOffer.id !== Number(id)) {
@@ -90,11 +96,20 @@ export function OfferPage(): JSX.Element {
   };
 
 
-  const updateData = (newOffer: Offer) => {
-    // eslint-disable-next-line no-console
-    console.log('111', newOffer);
+  const updateData = (update: Offer) => {
+    const result = updateOffersAndFavoritesOffers(Number(id), update, offers, favoritesOffers);
+    if(result.offers) {
+      dispatch(updateOffers(result.offers));
+    }
+    if(result.favoritesOffers) {
+      dispatch(updateFavoritesOffers(result.favoritesOffers));
+    }
     return '';
   };
+
+
+  // eslint-disable-next-line no-console
+  console.log('111', isFavorite);
 
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);

@@ -1,13 +1,12 @@
 import {Offer, Offers} from '../../types/offer';
 
 
-export const _updateData = (id: number, update: Offer, offers: Offers | undefined, favoritesOffers: Offers | undefined) => {
+export const updateOffersAndFavoritesOffers = (id: number, update: Offer, offers: Offers | undefined, favoritesOffers: Offers | undefined) => {
 
-  const test = {
+  const updatedOffersAll = {
     offers,
+    favoritesOffers
   };
-  // eslint-disable-next-line no-console
-  console.log('333', id);
 
   if(offers){
     const index = offers.findIndex((item) => item.id === id);
@@ -16,21 +15,23 @@ export const _updateData = (id: number, update: Offer, offers: Offers | undefine
       update,
       ...offers.slice(index + 1),
     ];
-    // eslint-disable-next-line no-console
-    console.log('111', updatedOffers);
-    test.offers = updatedOffers;
+    updatedOffersAll.offers = updatedOffers;
   }
+
+  let updatedFavoritesOffers = [];
+
   if(favoritesOffers){
-    const index = favoritesOffers.findIndex((item) => item.id === id);
-    const updatedFavoritesOffers = favoritesOffers.slice();
+    updatedFavoritesOffers = favoritesOffers.slice();
+    const index = updatedFavoritesOffers.findIndex((item) => item.id === id);
     if(index === -1) {
       updatedFavoritesOffers.push(update);
     } else {
       updatedFavoritesOffers.splice(index, 1);
     }
-    // eslint-disable-next-line no-console
-    console.log('222', index, updatedFavoritesOffers);
-    // dispatch(updateFavoritesOffers(updatedFavoritesOffers));
+  } else {
+    updatedFavoritesOffers.push(update);
   }
-  return test;
+  updatedOffersAll.favoritesOffers = updatedFavoritesOffers;
+
+  return updatedOffersAll;
 };

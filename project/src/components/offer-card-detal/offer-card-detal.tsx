@@ -8,8 +8,8 @@ import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
 import { getOffers, getFavoritesOffers } from '../../store/data-process/selectors';
-import {_updateData} from '../../store/data-process/update-data';
-import {updateOffers} from '../../store/data-process/data-process';
+import {updateOffersAndFavoritesOffers} from '../../store/data-process/update-data';
+import {updateOffers, updateFavoritesOffers} from '../../store/data-process/data-process';
 
 
 type OfferCardDetalProps = {
@@ -51,11 +51,12 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
   }
 
   const updateData = (update: Offer) => {
-    // eslint-disable-next-line no-console
-    // console.log('111', );
-    const test = _updateData(id, update, offers, favoritesOffers);
-    if(test.offers) {
-      dispatch(updateOffers(test.offers));
+    const result = updateOffersAndFavoritesOffers(id, update, offers, favoritesOffers);
+    if(result.offers) {
+      dispatch(updateOffers(result.offers));
+    }
+    if(result.favoritesOffers) {
+      dispatch(updateFavoritesOffers(result.favoritesOffers));
     }
     return '';
   };
