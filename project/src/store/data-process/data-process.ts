@@ -26,6 +26,9 @@ export const processData = createSlice({
     updateFavoritesOffers: (state, action) => {
       state.favoritesOffers = action.payload;
     },
+    updateDetailedOffer: (state, action) => {
+      state.detailedOffer = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -74,4 +77,4 @@ export const processData = createSlice({
   }
 });
 
-export const {updateOffers, updateFavoritesOffers} = processData.actions;
+export const {updateOffers, updateFavoritesOffers, updateDetailedOffer} = processData.actions;

@@ -20,7 +20,7 @@ import { getErrorLoadingStatus } from '../../store/data-process/selectors';
 import { getDetailedOffer, getOffersNearby } from '../../store/data-process/selectors';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
 import {updateOffersAndFavoritesOffers} from '../../store/data-process/update-data';
-import {updateOffers, updateFavoritesOffers} from '../../store/data-process/data-process';
+import {updateOffers, updateFavoritesOffers, updateDetailedOffer} from '../../store/data-process/data-process';
 import { getOffers, getFavoritesOffers } from '../../store/data-process/selectors';
 
 
@@ -108,9 +108,6 @@ export function OfferPage(): JSX.Element {
   };
 
 
-  // eslint-disable-next-line no-console
-  console.log('111', isFavorite);
-
   const handleFavoriteStatusClick = () => {
     setNavigationLogin(true);
     if(authorizationStatus.status === AuthorizationStatus.Auth) {
@@ -119,8 +116,9 @@ export function OfferPage(): JSX.Element {
         status: isFavorite ? '0' : '1',
         updateData,
       };
+      const copy = Object.assign({}, detailedOffer, {isFavorite: !isFavorite});
       store.dispatch(changeFavoriteStatusAction(statusId));
-      store.dispatch(fetchDetailedOfferAction(id as string));
+      dispatch(updateDetailedOffer(copy));
     }
   };
 
