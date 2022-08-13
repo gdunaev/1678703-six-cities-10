@@ -97,14 +97,13 @@ export function OfferPage(): JSX.Element {
 
 
   const updateData = (update: Offer) => {
-    const result = updateOffersAndFavoritesOffers(Number(id), update, offers, favoritesOffers);
+    const result = updateOffersAndFavoritesOffers(Number(id), update, offers, favoritesOffers, undefined);
     if(result.offers) {
       dispatch(updateOffers(result.offers));
     }
     if(result.favoritesOffers) {
       dispatch(updateFavoritesOffers(result.favoritesOffers));
     }
-    return '';
   };
 
 

@@ -29,6 +29,9 @@ export const processData = createSlice({
     updateDetailedOffer: (state, action) => {
       state.detailedOffer = action.payload;
     },
+    updateOffersNearby: (state, action) => {
+      state.offersNearby = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -77,4 +80,4 @@ export const processData = createSlice({
   }
 });
 
-export const {updateOffers, updateFavoritesOffers, updateDetailedOffer} = processData.actions;
+export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby} = processData.actions;

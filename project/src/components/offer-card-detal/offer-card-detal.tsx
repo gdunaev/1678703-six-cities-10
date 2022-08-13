@@ -7,9 +7,9 @@ import {useState} from 'react';
 import {useAppSelector, useAppDispatch} from '../../hooks/index';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
-import { getOffers, getFavoritesOffers } from '../../store/data-process/selectors';
+import { getOffers, getFavoritesOffers, getOffersNearby } from '../../store/data-process/selectors';
 import {updateOffersAndFavoritesOffers} from '../../store/data-process/update-data';
-import {updateOffers, updateFavoritesOffers} from '../../store/data-process/data-process';
+import {updateOffers, updateFavoritesOffers, updateOffersNearby} from '../../store/data-process/data-process';
 
 
 type OfferCardDetalProps = {
@@ -28,6 +28,7 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(getOffers);
   const favoritesOffers = useAppSelector(getFavoritesOffers);
+  const offersNearby = useAppSelector(getOffersNearby);
   const dispatch = useAppDispatch();
 
   const {
@@ -51,22 +52,19 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
   }
 
   const updateData = (update: Offer) => {
-    const result = updateOffersAndFavoritesOffers(id, update, offers, favoritesOffers);
+    const result = updateOffersAndFavoritesOffers(id, update, offers, favoritesOffers, offersNearby);
     if(result.offers) {
       dispatch(updateOffers(result.offers));
     }
     if(result.favoritesOffers) {
       dispatch(updateFavoritesOffers(result.favoritesOffers));
     }
-    return '';
+    if(result.offersNearby) {
+      dispatch(updateOffersNearby(result.offersNearby));
+    }
   };
 
   const handleFavoriteStatusClick = () => {
-
-
-    // eslint-disable-next-line no-console
-    console.log('11');
-
     setNavigationLogin_(true);
     if(authorizationStatus.status === AuthorizationStatus.Auth) {
       const statusId = {

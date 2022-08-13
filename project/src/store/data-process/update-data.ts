@@ -1,11 +1,12 @@
 import {Offer, Offers} from '../../types/offer';
 
 
-export const updateOffersAndFavoritesOffers = (id: number, update: Offer, offers: Offers | undefined, favoritesOffers: Offers | undefined) => {
+export const updateOffersAndFavoritesOffers = (id: number, update: Offer, offers: Offers | undefined, favoritesOffers: Offers | undefined, offersNearby: Offers | undefined) => {
 
   const updatedOffersAll = {
     offers,
-    favoritesOffers
+    favoritesOffers,
+    offersNearby
   };
 
   if(offers){
@@ -32,6 +33,16 @@ export const updateOffersAndFavoritesOffers = (id: number, update: Offer, offers
     updatedFavoritesOffers.push(update);
   }
   updatedOffersAll.favoritesOffers = updatedFavoritesOffers;
+
+  if(offersNearby){
+    const index = offersNearby.findIndex((item) => item.id === id);
+    const updatedOffersNearby = [
+      ...offersNearby.slice(0, index),
+      update,
+      ...offersNearby.slice(index + 1),
+    ];
+    updatedOffersAll.offersNearby = updatedOffersNearby;
+  }
 
   return updatedOffersAll;
 };
