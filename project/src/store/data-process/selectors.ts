@@ -9,6 +9,7 @@ import {getCity} from '../general-process/selectors';
 export const getOffers = (state: State): Offers | undefined => state[NameSpace.Data].offers;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.Data].isDataLoaded;
 export const getFavoritesOffers = (state: State): Offers | undefined => state[NameSpace.Data].favoritesOffers;
+export const getLoadedFavoritesOffersStatus = (state: State): boolean => state[NameSpace.Data].isFavoritesOffersLoaded;
 
 export const getCommentLoadingStatus = (state: State): boolean => state[NameSpace.Data].isCommentLoading;
 export const getComments = (state: State): FetchingCommentType | undefined => state[NameSpace.Data].comments;

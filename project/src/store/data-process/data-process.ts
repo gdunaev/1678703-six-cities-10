@@ -14,6 +14,7 @@ const initialState: DataProcessType = {
   offersNearby: undefined,
   comments: undefined,
   favoriteOffer: undefined,
+  isFavoritesOffersLoaded: true,
 };
 
 export const processData = createSlice({
@@ -50,12 +51,14 @@ export const processData = createSlice({
         state.isDataLoaded = true;
       })
       .addCase(fetchFavoritesOffersAction.pending, (state, action) => {
-        state.favoritesOffers = action.payload;
+        state.isFavoritesOffersLoaded = false;
       })
       .addCase(fetchFavoritesOffersAction.fulfilled, (state, action) => {
         state.favoritesOffers = action.payload;
+        state.isFavoritesOffersLoaded = true;
       })
       .addCase(fetchFavoritesOffersAction.rejected, (state, ) => {
+        state.isFavoritesOffersLoaded = true;
         state.favoritesOffers = undefined;
       })
       .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {

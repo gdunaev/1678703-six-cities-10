@@ -25,6 +25,7 @@ export type DataProcessType = {
   offersNearby: Offers | undefined;
   comments: FetchingCommentType | undefined;
   favoriteOffer: Offer | undefined;
+  isFavoritesOffersLoaded: boolean;
 };
 
 export type GeneralProcessType = {

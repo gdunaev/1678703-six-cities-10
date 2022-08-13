@@ -4,9 +4,9 @@ import {ArrayCities} from '../../const';
 import { FavoritesList } from '../../components/favorites-list/favorites-list';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks/index';
-import {getFavoritesOffers, getLoadedDataStatus} from '../../store/data-process/selectors';
+import {getFavoritesOffers, getLoadedFavoritesOffersStatus} from '../../store/data-process/selectors';
 import {LoadingScreen} from '../../components/loading-screen/loading-screen';
-import { useEffect } from 'react';
+import { useEffect, } from 'react';
 import {store} from '../../store/index';
 import {fetchFavoritesOffersAction} from '../../store/api-actions';
 
@@ -16,20 +16,20 @@ type FavoriteType = {
   offers: Offers | undefined;
 }
 
-const getFavorites = (offers: Offers | undefined) => {
+const getFavorites = (favoritesOffers: Offers | undefined) => {
 
   const favorites: FavoriteType[] = [];
 
-  if (offers) {
+  if (favoritesOffers) {
     for (const city of ArrayCities) {
 
-      if (!offers.find((offer: Offer) => offer.city.name === city.name)) {
+      if (!favoritesOffers.find((offer: Offer) => offer.city.name === city.name)) {
         continue;
       }
       favorites.push({
         city: city.name,
         id: city.id,
-        offers: offers.filter((offer: Offer) => offer.city.name === city.name),
+        offers: favoritesOffers.filter((offer: Offer) => offer.city.name === city.name),
       });
     }
   }
@@ -37,13 +37,13 @@ const getFavorites = (offers: Offers | undefined) => {
   return favorites;
 };
 
-const getFavoritesSection = (offersFavorite: FavoriteType[]) => {
-  if (offersFavorite.length !== 0) {
+const getFavoritesSection = (favoritesOffers: FavoriteType[]) => {
+  if (favoritesOffers.length !== 0) {
     return (
       <section className="favorites">
         <h1 className="favorites__title">Saved listing</h1>
         <ul className="favorites__list">
-          {offersFavorite.map((favorite) => (
+          {favoritesOffers.map((favorite) => (
             <FavoritesList
               key={favorite.id}
               currentOffers={favorite.offers}
@@ -72,14 +72,13 @@ const getFavoritesSection = (offersFavorite: FavoriteType[]) => {
 export function FavoritesPage(): JSX.Element{
 
   const favoritesOffers = getFavorites(useAppSelector(getFavoritesOffers));
+  const isFavoritesOffersLoaded = useAppSelector(getLoadedFavoritesOffersStatus);
 
   useEffect(() => {
     store.dispatch(fetchFavoritesOffersAction());
   }, []);
 
-  const isDataLoaded = useAppSelector(getLoadedDataStatus);
-
-  if (!isDataLoaded) {
+  if (!isFavoritesOffersLoaded) {
     return (
       <LoadingScreen />
     );
