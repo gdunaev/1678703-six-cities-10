@@ -3,7 +3,6 @@ import {getToken} from './token';
 import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import {StatusCodes } from 'http-status-codes';
 import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { store } from '../store/index';
 import {setCommentLoadingStatus} from '../store/general-process/general-process';
 import {APIRoute} from '../const';
@@ -46,7 +45,9 @@ export const createAPI = (): AxiosInstance => {
         if(url && url.includes(commentUrl) && method === 'post') {
           store.dispatch(setCommentLoadingStatus(false));
         }
-        toast.warn(error.response.data.error);
+        if(error.response.status !== StatusCodes.UNAUTHORIZED) {
+          toast.warn(error.response.data.error);
+        }
       }
 
       throw error;

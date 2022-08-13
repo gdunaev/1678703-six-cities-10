@@ -4,13 +4,16 @@ import {FormEvent, useRef} from 'react';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import { validatePassword } from '../../utils';
+import { changeCity } from '../../store/general-process/general-process';
+import { getRandomInteger } from '../../utils';
+import { ArrayCities } from '../../const';
 
 export function LoginPage(): JSX.Element{
 
   const dispatch = useAppDispatch();
-
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const randomCityName = ArrayCities[getRandomInteger(0, ArrayCities.length - 1)].name;
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -27,6 +30,9 @@ export function LoginPage(): JSX.Element{
     }
   };
 
+  const handleChangeCity = () => {
+    dispatch(changeCity(randomCityName));
+  };
 
   return (
     <>
@@ -39,7 +45,7 @@ export function LoginPage(): JSX.Element{
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <Link className="header__logo-link" to="/">
+                <Link className="header__logo-link" to= "/">
                   <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
                 </Link>
               </div>
@@ -65,8 +71,8 @@ export function LoginPage(): JSX.Element{
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to="#">
-                  <span>Amsterdam</span>
+                <Link className="locations__item-link" to="/" onClick={handleChangeCity}>
+                  <span>{randomCityName}</span>
                 </Link>
               </div>
             </section>

@@ -1,12 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, DEFAULT_CITY, SortingType} from '../../const';
-import { GeneralProcess } from '../../types/state';
+import { GeneralProcessType } from '../../types/state';
 
-const initialState: GeneralProcess = {
+const initialState: GeneralProcessType = {
   city: DEFAULT_CITY,
   sorting: SortingType.Popular,
   selectedOfferId: -1,
   isCommentLoading: false,
+  isLoadedFavoritesOffers: false,
 };
 
 export const generalProcess = createSlice({

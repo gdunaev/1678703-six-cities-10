@@ -4,8 +4,8 @@ import {Navigate} from 'react-router-dom';
 import {useState, memo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
-import {getFavoritesOffers} from '../../store/data-process/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {HeaderDetal} from '../header-detal/header-detal';
 
 
 type HeaderProps = {
@@ -20,13 +20,11 @@ function Header(props: HeaderProps): JSX.Element{
   const [navigation, setNavigation] = useState(false);
   const [isNavigationLogin, setNavigationLogin] = useState(false);
   const {status, email} = useAppSelector(getAuthorizationStatus);
-  const favoritesOffers = useAppSelector(getFavoritesOffers);
-  const quantityFavoritesOffers = favoritesOffers ? String(favoritesOffers.length) : '0';
   const dispatch = useAppDispatch();
 
   if (isNavigationLogin) {
     if(status !== AuthorizationStatus.Auth) {
-      return <Navigate to={AppRoute.Login} />;
+      return <Navigate to={AppRoute.Login} state={{page: 'login'}}/>;
     }
     return <Navigate to={AppRoute.Favorites} />;
   }
@@ -77,7 +75,9 @@ function Header(props: HeaderProps): JSX.Element{
                   <span className="header__user-name user__name">
                     {status === AuthorizationStatus.Auth ? email : 'Sign in'}
                   </span>
-                  <span className="header__favorite-count">{status === AuthorizationStatus.Auth ? quantityFavoritesOffers : '0'}</span>
+
+                  <HeaderDetal status={status}/>
+
                 </Link>
               </li>
               { status === AuthorizationStatus.Auth &&

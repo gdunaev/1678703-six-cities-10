@@ -5,6 +5,7 @@ import {addCommentAction, } from '../../store/api-actions';
 import {setCommentLoadingStatus} from '../../store/general-process/general-process';
 import { useAppSelector, } from '../../hooks/index';
 import {getCommentLoadingStatus} from '../../store/data-process/selectors';
+import {MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT} from '../../const';
 
 type FormOfferProps = {
   id: string | undefined;
@@ -18,6 +19,8 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
     comment: '',
     rating: 0,
   });
+  const [isDisabled, setDisabled] = useState(true);
+
   const isCommentLoading = useAppSelector(getCommentLoadingStatus);
 
   const currentId = id ? id : '';
@@ -28,10 +31,20 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
 
   const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({...formData, 'comment': evt.target.value});
+    checkedCommentLength(evt.target.value);
+  };
+
+  const checkedCommentLength = (comment: string) => {
+    if(comment.length >= MIN_LENGTH_COMMENT && comment.length <= MAX_LENGTH_COMMENT) {
+      setDisabled(false);
+      return;
+    }
+    setDisabled(true);
   };
 
   const resetFormData = () => {
-    setFormData(Object.assign(formData, { comment: '' }, {rating: 0}));
+    setFormData({...formData, 'comment': '', 'rating': 0});
+    setDisabled(true);
   };
 
   const handleCommentSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -89,7 +102,7 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled = {isCommentLoading}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled = {isCommentLoading || isDisabled}>Submit</button>
       </div>
     </form>
   );

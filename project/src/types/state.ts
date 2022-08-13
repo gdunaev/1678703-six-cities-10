@@ -11,11 +11,11 @@ export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type UserProcess = {
+export type UserProcessType = {
   authorizationStatus: AuthorizationType
 };
 
-export type DataProcess = {
+export type DataProcessType = {
   offers: Offers | undefined;
   isDataLoaded: boolean;
   favoritesOffers: Offers | undefined;
@@ -24,11 +24,14 @@ export type DataProcess = {
   isErrorLoading: boolean;
   offersNearby: Offers | undefined;
   comments: FetchingCommentType | undefined;
+  favoriteOffer: Offer | undefined;
+  isFavoritesOffersLoaded: boolean;
 };
 
-export type GeneralProcess = {
+export type GeneralProcessType = {
   city: string;
   sorting: string;
   selectedOfferId: number;
   isCommentLoading: boolean;
+  isLoadedFavoritesOffers: boolean;
 };

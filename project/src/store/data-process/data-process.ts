@@ -1,27 +1,46 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
-import {fetchOffersAction, fetchFavoritesOffersAction, fetchOffersNearbyAction, fetchCommentsAction, fetchDetailedOfferAction, addCommentAction} from '../api-actions';
-import { DataProcess } from '../../types/state';
+import {changeFavoriteStatusAction, fetchOffersAction, fetchFavoritesOffersAction, fetchOffersNearbyAction, fetchCommentsAction, fetchDetailedOfferAction, addCommentAction} from '../api-actions';
+import { DataProcessType } from '../../types/state';
 
-const initialState: DataProcess = {
+
+const initialState: DataProcessType = {
   offers: undefined,
   favoritesOffers: undefined,
-  isDataLoaded: false,
+  isDataLoaded: true,
   isCommentLoading: false,
   detailedOffer: undefined,
   isErrorLoading: false,
   offersNearby: undefined,
   comments: undefined,
+  favoriteOffer: undefined,
+  isFavoritesOffersLoaded: true,
 };
 
 export const processData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    updateOffers: (state, action) => {
+      state.offers = action.payload;
+    },
+    updateFavoritesOffers: (state, action) => {
+      state.favoritesOffers = action.payload;
+    },
+    updateDetailedOffer: (state, action) => {
+      state.detailedOffer = action.payload;
+    },
+    updateOffersNearby: (state, action) => {
+      state.offersNearby = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isDataLoaded = false;
+      })
+      .addCase(changeFavoriteStatusAction.fulfilled, (state, action) => {
+        state.favoriteOffer = action.payload;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
@@ -32,16 +51,15 @@ export const processData = createSlice({
         state.isDataLoaded = true;
       })
       .addCase(fetchFavoritesOffersAction.pending, (state, action) => {
-        state.favoritesOffers = action.payload;
-        state.isDataLoaded = false;
+        state.isFavoritesOffersLoaded = false;
       })
       .addCase(fetchFavoritesOffersAction.fulfilled, (state, action) => {
         state.favoritesOffers = action.payload;
-        state.isDataLoaded = true;
+        state.isFavoritesOffersLoaded = true;
       })
       .addCase(fetchFavoritesOffersAction.rejected, (state, ) => {
+        state.isFavoritesOffersLoaded = true;
         state.favoritesOffers = undefined;
-        state.isDataLoaded = true;
       })
       .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
@@ -64,3 +82,5 @@ export const processData = createSlice({
       });
   }
 });
+
+export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby} = processData.actions;

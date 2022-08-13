@@ -1,4 +1,4 @@
-import {Cities} from './types/city';
+import {CitiesType} from './types/city';
 import { Offers } from './types/offer';
 
 export enum NameSpace {
@@ -31,6 +31,7 @@ export enum APIRoute {
   OffersNearby = '/hotels/id/nearby',
   CommentsOffer = '/comments/id',
   Favorites = '/favorite',
+  FavoritesStatus = '/favorite/id/status',
 }
 
 export enum AuthorizationStatus {
@@ -39,7 +40,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const ArrayCities: Cities = [
+export const ArrayCities: CitiesType = [
   {name: 'Paris',
     id: 1,
     location: {
@@ -87,6 +88,9 @@ export const ArrayCities: Cities = [
 export const ActionType = {
   REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
+
+export const MAX_LENGTH_COMMENT = 300;
+export const MIN_LENGTH_COMMENT = 50;
 
 export const PERCENT_RATING = 20;
 export const QUANTITY_PLACES_NEARBY = 3;

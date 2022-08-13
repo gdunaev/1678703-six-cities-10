@@ -4,13 +4,15 @@ import {Favorite} from '../favorite/favorite';
 import {Offers} from '../../types/offer';
 
 type FavoritesListProps = {
-  currentOffers: Offers;
+  currentOffers: Offers | undefined;
   currentCity: string;
 };
 
 export function FavoritesList(props: FavoritesListProps): JSX.Element {
 
   const {currentCity, currentOffers} = props;
+
+  const isOffers = !!currentOffers;
 
   return (
     <li className="favorites__locations-items">
@@ -23,7 +25,7 @@ export function FavoritesList(props: FavoritesListProps): JSX.Element {
       </div>
       <div className="favorites__places">
 
-        {currentOffers.map((offer) => (
+        {isOffers && currentOffers.map((offer) => (
           <Favorite key={offer.id} offer={offer} />
         ))}
 

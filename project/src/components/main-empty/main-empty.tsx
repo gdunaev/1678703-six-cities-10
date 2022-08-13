@@ -1,25 +1,10 @@
-import { OffersListMain } from '../../components/offers-list-main/offers-list-main';
-import { City } from '../../components/city/city';
-import { MapOffers } from '../../components/map/map-offers';
+import {City} from '../../components/city/city';
 import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
-import { filterOffers } from '../../store/data-process/selectors';
 import { getCity } from '../../store/general-process/selectors';
-import { MainEmpty } from '../../components/main-empty/main-empty';
 
-
-export function MainPage(): JSX.Element {
+export function MainEmpty(): JSX.Element {
   const cityName = useAppSelector(getCity);
-  const selectedOffers = useAppSelector(filterOffers);
-
-  let quantityOffers = 0;
-  if (selectedOffers) {
-    quantityOffers = selectedOffers.length;
-    if(selectedOffers.length === 0) {
-      return <MainEmpty/>;
-    }
-  }
-
 
   return (
     <>
@@ -50,26 +35,19 @@ export function MainPage(): JSX.Element {
       <div className="page page--gray page--main">
         <Header mainPage favoritePage={false} />
 
-        <main className="page__main page__main--index">
+        <main className="page__main page__main--index page__main--index-empty">
 
           <City cityName={cityName}/>
 
           <div className="cities">
-            <div className="cities__places-container container">
-              <OffersListMain
-                quantityOffers={quantityOffers}
-                offers={selectedOffers}
-                cityName={cityName}
-              />
-
-              <div className="cities__right-section">
-                <MapOffers
-                  offers={selectedOffers}
-                  currentOffer={undefined}
-                  cityName={cityName}
-                  main
-                />
-              </div>
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment in {cityName}</p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
             </div>
           </div>
         </main>

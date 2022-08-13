@@ -8,6 +8,7 @@ import {APIRoute, AppRoute} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { CommentsType, SendingCommentType, FetchingCommentType } from '../types/comments';
+import { FavoriteStatusType } from '../types/favorite';
 
 
 export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCommentType, {
@@ -15,7 +16,7 @@ export const addCommentAction = createAsyncThunk<FetchingCommentType, SendingCom
   state: State,
   extra: AxiosInstance
 }>(
-  'comment/setComment',
+  'comment/addComment',
   async ({id, formData:{comment, rating}, resetFormData}, {extra: api}) => {
     const {data} = await api.post<CommentsType>(APIRoute.CommentsOffer.replace('id', id), {comment, rating});
     const comments = {
@@ -80,6 +81,7 @@ export const fetchFavoritesOffersAction = createAsyncThunk<Offers, undefined, {
   },
 );
 
+
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch,
   state: State,
@@ -88,6 +90,19 @@ export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   'data/fetchOffers',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Offers>(APIRoute.Hotels);
+    return data;
+  },
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk<Offer, FavoriteStatusType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/changeFavoriteStatus',
+  async ({id, status, updateData}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Offer>(APIRoute.FavoritesStatus.replace('id', id).replace('status', status));
+    updateData(data);
     return data;
   },
 );

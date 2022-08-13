@@ -8,7 +8,7 @@ import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { OfferCard } from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
 import Header from '../../components/header/header';
-import { useAppSelector, } from '../../hooks/index';
+import { useAppSelector, useAppDispatch} from '../../hooks/index';
 import { useState, useEffect } from 'react';
 import { fetchDetailedOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
 import { store } from '../../store';
@@ -17,8 +17,12 @@ import { AuthorizationStatus, QUANTITY_PLACES_NEARBY } from '../../const';
 import { Offer } from '../../types/offer';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getErrorLoadingStatus } from '../../store/data-process/selectors';
-import { getDetailedOffer } from '../../store/data-process/selectors';
-import { getOffersNearby } from '../../store/data-process/selectors';
+import { getDetailedOffer, getOffersNearby } from '../../store/data-process/selectors';
+import {changeFavoriteStatusAction} from '../../store/api-actions';
+import {updateOffersAndFavoritesOffers} from '../../store/data-process/update-data';
+import {updateOffers, updateFavoritesOffers, updateDetailedOffer} from '../../store/data-process/data-process';
+import { getOffers, getFavoritesOffers } from '../../store/data-process/selectors';
+
 
 function getImagesSection(images: string[]): JSX.Element {
   if (images.length !== 0) {
@@ -41,22 +45,21 @@ function getImagesSection(images: string[]): JSX.Element {
 export function OfferPage(): JSX.Element {
 
   const { id } = useParams();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus).status;
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isErrorLoading = useAppSelector(getErrorLoadingStatus);
   const detailedOffer = useAppSelector(getDetailedOffer);
   const offersNearby = useAppSelector(getOffersNearby);
-
-
   const [isNavigationLogin, setNavigationLogin] = useState(false);
-  const currentId = Number(id);
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector(getOffers);
+  const favoritesOffers = useAppSelector(getFavoritesOffers);
 
   useEffect(() => {
-    if (!detailedOffer || detailedOffer.id !== currentId) {
+    if(!detailedOffer || detailedOffer.id !== Number(id)) {
       store.dispatch(fetchDetailedOfferAction(id as string));
       store.dispatch(fetchOffersNearbyAction(id as string));
     }
-  }, []);
+  }, [id]);
 
 
   if (!detailedOffer && !isErrorLoading) {
@@ -69,11 +72,11 @@ export function OfferPage(): JSX.Element {
     );
   }
 
-  if (isNavigationLogin && !authorizationStatus) {
+  if (isNavigationLogin && authorizationStatus.status !== AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Login} />;
   }
 
-  const {isPremium,price,maxAdults,bedrooms,title,type,rating,images,goods,host,description,city} = detailedOffer as Offer;
+  const {isPremium,price,maxAdults,bedrooms,title,type,rating,images,goods,host,description,city, isFavorite} = detailedOffer as Offer;
 
   const cityName = city.name;
   const ratingStyle = getRating(rating);
@@ -93,10 +96,30 @@ export function OfferPage(): JSX.Element {
   };
 
 
-  const handleFavoriteStatusClick = () => {
-    setNavigationLogin(true);
+  const updateData = (update: Offer) => {
+    const result = updateOffersAndFavoritesOffers(Number(id), update, offers, favoritesOffers, undefined);
+    if(result.offers) {
+      dispatch(updateOffers(result.offers));
+    }
+    if(result.favoritesOffers) {
+      dispatch(updateFavoritesOffers(result.favoritesOffers));
+    }
   };
 
+
+  const handleFavoriteStatusClick = () => {
+    setNavigationLogin(true);
+    if(authorizationStatus.status === AuthorizationStatus.Auth) {
+      const statusId = {
+        id: String(id),
+        status: isFavorite ? '0' : '1',
+        updateData,
+      };
+      const copy = Object.assign({}, detailedOffer, {isFavorite: !isFavorite});
+      store.dispatch(changeFavoriteStatusAction(statusId));
+      dispatch(updateDetailedOffer(copy));
+    }
+  };
 
   return (
     <>
@@ -142,7 +165,7 @@ export function OfferPage(): JSX.Element {
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{title}</h1>
                   <button
-                    className="property__bookmark-button button"
+                    className={`property__bookmark-button button ${isFavorite && 'property__bookmark-button--active'}`}
                     type="button"
                     onClick={handleFavoriteStatusClick}
                   >
@@ -220,7 +243,7 @@ export function OfferPage(): JSX.Element {
                 <section className="property__reviews reviews">
                   <ReviewsList id={id} />
 
-                  {authorizationStatus === AuthorizationStatus.Auth && (
+                  {authorizationStatus.status === AuthorizationStatus.Auth && (
                     <FormOffer id={id}/>
                   )}
                 </section>
@@ -240,7 +263,9 @@ export function OfferPage(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
+
                 {getOffersNearbyComponent()}
+
               </div>
             </section>
           </div>
