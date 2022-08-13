@@ -1,17 +1,10 @@
 import {City} from '../../components/city/city';
-import { ArrayCities } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { changeCity } from '../../store/general-process/general-process';
+import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import { getCity } from '../../store/general-process/selectors';
 
 export function MainEmpty(): JSX.Element {
   const cityName = useAppSelector(getCity);
-  const dispatch = useAppDispatch();
-
-  const handleChangeCity = (currentCity: string) => {
-    dispatch(changeCity(currentCity));
-  };
 
   return (
     <>
@@ -43,21 +36,9 @@ export function MainEmpty(): JSX.Element {
         <Header mainPage favoritePage={false} />
 
         <main className="page__main page__main--index page__main--index-empty">
-          <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                {ArrayCities.map((element) => (
-                  <City
-                    key={element.name}
-                    city={element.name}
-                    activ={element.name === cityName}
-                    onChangeCity={handleChangeCity}
-                  />
-                ))}
-              </ul>
-            </section>
-          </div>
+
+          <City/>
+
           <div className="cities">
             <div className="cities__places-container cities__places-container--empty container">
               <section className="cities__no-places">

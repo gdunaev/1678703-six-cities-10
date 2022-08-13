@@ -1,4 +1,4 @@
-import {Cities} from './types/city';
+import {CitiesType} from './types/city';
 import { Offers } from './types/offer';
 
 export enum NameSpace {
@@ -40,7 +40,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const ArrayCities: Cities = [
+export const ArrayCities: CitiesType = [
   {name: 'Paris',
     id: 1,
     location: {

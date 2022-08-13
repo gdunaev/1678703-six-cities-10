@@ -1,9 +1,7 @@
 import { OffersListMain } from '../../components/offers-list-main/offers-list-main';
 import { City } from '../../components/city/city';
-import { ArrayCities } from '../../const';
 import { MapOffers } from '../../components/map/map-offers';
-import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { changeCity } from '../../store/general-process/general-process';
+import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import { filterOffers } from '../../store/data-process/selectors';
 import { getCity } from '../../store/general-process/selectors';
@@ -12,7 +10,6 @@ import { MainEmpty } from '../../components/main-empty/main-empty';
 
 export function MainPage(): JSX.Element {
   const cityName = useAppSelector(getCity);
-  const dispatch = useAppDispatch();
   const selectedOffers = useAppSelector(filterOffers);
 
   let quantityOffers = 0;
@@ -22,10 +19,6 @@ export function MainPage(): JSX.Element {
       return <MainEmpty/>;
     }
   }
-
-  const handleChangeCity = (currentCity: string) => {
-    dispatch(changeCity(currentCity));
-  };
 
 
   return (
@@ -58,21 +51,9 @@ export function MainPage(): JSX.Element {
         <Header mainPage favoritePage={false} />
 
         <main className="page__main page__main--index">
-          <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabs__list">
-                {ArrayCities.map((element) => (
-                  <City
-                    key={element.name}
-                    city={element.name}
-                    activ={element.name === cityName}
-                    onChangeCity={handleChangeCity}
-                  />
-                ))}
-              </ul>
-            </section>
-          </div>
+
+          <City/>
+
           <div className="cities">
             <div className="cities__places-container container">
               <OffersListMain
