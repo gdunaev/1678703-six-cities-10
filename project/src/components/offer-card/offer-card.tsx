@@ -3,6 +3,7 @@ import {Offer} from '../../types/offer';
 import {useAppDispatch} from '../../hooks/index';
 import {selectOfferId} from '../../store/general-process/general-process';
 import {OfferCardDetal} from '../offer-card-detal/offer-card-detal';
+import {memo} from 'react';
 
 
 type OfferCardProps = {
@@ -45,7 +46,7 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
           fromOfferPage ? 'near-places__image-wrapper' : 'cities__image-wrapper'
         } ${'place-card__image-wrapper'}`}
       >
-        <Link to="#">
+        <Link to="">
           <img
             className="place-card__image"
             src={previewImage}
@@ -61,3 +62,5 @@ export function OfferCard(props: OfferCardProps): JSX.Element{
     </article>
   );
 }
+
+export default memo(OfferCard, (prevProps, nextProps) => prevProps.offer === nextProps.offer && prevProps.fromOfferPage === nextProps.fromOfferPage);

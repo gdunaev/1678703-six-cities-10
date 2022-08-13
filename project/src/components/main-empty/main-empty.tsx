@@ -37,7 +37,7 @@ export function MainEmpty(): JSX.Element {
 
         <main className="page__main page__main--index page__main--index-empty">
 
-          <City/>
+          <City cityName={cityName}/>
 
           <div className="cities">
             <div className="cities__places-container cities__places-container--empty container">

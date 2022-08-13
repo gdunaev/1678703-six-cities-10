@@ -52,7 +52,7 @@ export function MainPage(): JSX.Element {
 
         <main className="page__main page__main--index">
 
-          <City/>
+          <City cityName={cityName}/>
 
           <div className="cities">
             <div className="cities__places-container container">

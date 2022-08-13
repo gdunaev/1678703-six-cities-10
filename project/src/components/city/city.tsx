@@ -1,13 +1,20 @@
 import {Link} from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { useAppDispatch } from '../../hooks/index';
 import { changeCity } from '../../store/general-process/general-process';
 import { ArrayCities } from '../../const';
-import { getCity } from '../../store/general-process/selectors';
 import { CityType } from '../../types/city';
+import {memo} from 'react';
 
 
-export function City (): JSX.Element {
-  const cityName = useAppSelector(getCity);
+type CityProps = {
+  cityName: string;
+};
+
+export function City (props: CityProps): JSX.Element {
+  const {cityName} = props;
+
+  // eslint-disable-next-line no-console
+  // console.log('111', cityName);
   const dispatch = useAppDispatch();
 
 
@@ -20,7 +27,7 @@ export function City (): JSX.Element {
 
     return (
       <li className="locations__item" onClick={handleChangeCity} key={element.name}>
-        <Link className={`locations__item-link tabs__item ${activClassName}`} to="#" >
+        <Link className={`locations__item-link tabs__item ${activClassName}`} to="" >
           <span>{element.name}</span>
         </Link>
       </li>
@@ -44,3 +51,5 @@ export function City (): JSX.Element {
     </>
   );
 }
+
+export default memo(City, (prevProps, nextProps) => prevProps.cityName === nextProps.cityName);
