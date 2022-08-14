@@ -7,7 +7,6 @@ const initialState: GeneralProcessType = {
   sorting: SortingType.Popular,
   selectedOfferId: -1,
   isCommentLoading: false,
-  isLoadedFavoritesOffers: false,
 };
 
 export const generalProcess = createSlice({

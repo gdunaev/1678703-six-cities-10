@@ -1,58 +1,37 @@
 import {generalProcess} from './general-process';
-import {DEFAULT_CITY, SortingType} from '../../const';
-// import {makeFakeArtistQuestion, makeFakeGenreQuestion} from '../../utils/mocks';
-
-// const mockArtistQuestion = makeFakeArtistQuestion();
-// const mockFakeGenreQuestion = makeFakeGenreQuestion();
+import {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus} from './general-process';
+import { GeneralProcessType } from '../../types/state';
+import {makeFakeInitialState} from '../../utils/mocks';
 
 describe('Reducer: generalProcess', () => {
-  it('without additional parameters should return initial state', () => {
-    expect(generalProcess.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
-      .toEqual({city: DEFAULT_CITY, sorting: SortingType.Popular, selectedOfferId: -1,
-        isCommentLoading: false, isLoadedFavoritesOffers: false,});
+
+  let state: GeneralProcessType;
+
+  beforeEach(() => {
+    state = makeFakeInitialState();
   });
 
-  // it('should increment current step by a given value', () => {
-  //   const state = {step: 0, mistakes: 0};
-  //   expect(gameProcess.reducer(state, incrementStep()))
-  //     .toEqual({step: 1, mistakes: 0});
-  // });
+  it('without additional parameters should return initial state', () => {
+    expect(generalProcess.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+      .toEqual(makeFakeInitialState);
+  });
+  it('should update the name of the city by change the city', () => {
+    expect(generalProcess.reducer(state, changeCity(makeFakeInitialState().city)))
+      .toEqual(makeFakeInitialState());
+  });
 
-  // it('should increase number of mistakes with the wrong answer', () => {
-  //   const state = {step: 0, mistakes: 0};
-  //   const wrongArtistQuestionAnswer = 'unknown';
-  //   const wrongGenreQuestionAnswer = mockFakeGenreQuestion
-  //     .answers
-  //     .map((answer) => answer.genre !== mockFakeGenreQuestion.genre);
+  it('should update id selected offer by select offer', () => {
+    expect(generalProcess.reducer(state, selectOfferId(makeFakeInitialState().selectedOfferId)))
+      .toEqual(makeFakeInitialState());
+  });
 
-  //   expect(gameProcess.reducer(state, checkUserAnswer({question: mockArtistQuestion, userAnswer: wrongArtistQuestionAnswer})))
-  //     .toEqual({step: 0, mistakes: 1});
+  it('should update sorting name by change type sorting', () => {
+    expect(generalProcess.reducer(state, offersSorting(makeFakeInitialState().sorting)))
+      .toEqual(makeFakeInitialState());
+  });
 
-  //   expect(gameProcess.reducer(state, checkUserAnswer({question: mockFakeGenreQuestion, userAnswer: wrongGenreQuestionAnswer})))
-  //     .toEqual({step: 0, mistakes: 1});
-  // });
-
-  // it('should not increase mistakes with the correct answer', () => {
-  //   const state = {step: 0, mistakes: 0};
-  //   const {artist: correctlyArtistQuestionAnswer} = mockArtistQuestion.song;
-  //   const correctlyGenreQuestionAnswer = mockFakeGenreQuestion
-  //     .answers.map((answer) => answer.genre === mockFakeGenreQuestion.genre);
-
-  //   expect(gameProcess.reducer(state, checkUserAnswer({question: mockArtistQuestion, userAnswer: correctlyArtistQuestionAnswer})))
-  //     .toEqual({step: 0, mistakes: 0});
-
-  //   expect(gameProcess.reducer(state, checkUserAnswer({question: mockFakeGenreQuestion, userAnswer: correctlyGenreQuestionAnswer})))
-  //     .toEqual({step:0, mistakes: 0});
-  // });
-
-  // it('should have reset game', () => {
-  //   expect(gameProcess.reducer({step: 5, mistakes: 1}, resetGame()))
-  //     .toEqual({step: 0, mistakes: 0});
-
-  //   expect(gameProcess.reducer({step: 0, mistakes: 0}, resetGame()))
-  //     .toEqual({step: 0, mistakes: 0});
-
-  //   expect(gameProcess.reducer({step: 2, mistakes: 0}, resetGame()))
-  //     .toEqual({step: 0, mistakes: 0});
-  // });
+  it('should update comment loading status by load comment', () => {
+    expect(generalProcess.reducer(state, setCommentLoadingStatus(makeFakeInitialState().isCommentLoading)))
+      .toEqual(makeFakeInitialState());
+  });
 });
