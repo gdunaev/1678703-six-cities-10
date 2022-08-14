@@ -1,4 +1,4 @@
-import {OfferCard} from '../offer-card/offer-card';
+import OfferCard from '../offer-card/offer-card';
 import {Offers} from '../../types/offer';
 import {useAppSelector} from '../../hooks/index';
 import {getOffersSorting} from '../../utils';

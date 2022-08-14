@@ -12,7 +12,7 @@ type OfferCardProps = {
 }
 
 
-export function OfferCard(props: OfferCardProps): JSX.Element{
+function OfferCard(props: OfferCardProps): JSX.Element{
   const { offer, fromOfferPage, } = props;
 
   const {

@@ -4,7 +4,7 @@ import {getRating} from '../../utils';
 import {AppRoute} from '../../const';
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';
-import {OfferCardDetalButton} from '../offer-card-detal-button/offer-card-detal-button';
+import {OfferCardButton} from '../offer-card-button/offer-card-button';
 
 
 type OfferCardDetalProps = {
@@ -47,7 +47,7 @@ export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
 
-        <OfferCardDetalButton isFavorite={isFavorite} fromOfferPage={fromOfferPage} id={id}/>
+        <OfferCardButton isFavorite={isFavorite} fromOfferPage={fromOfferPage} id={id}/>
 
       </div>
       <div className="place-card__rating rating">

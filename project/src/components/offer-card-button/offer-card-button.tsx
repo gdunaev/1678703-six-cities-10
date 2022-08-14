@@ -10,14 +10,14 @@ import {updateOffersAndFavoritesOffers} from '../../store/data-process/update-da
 import {updateOffers, updateFavoritesOffers, updateOffersNearby} from '../../store/data-process/data-process';
 
 
-type OfferCardDetalButtonProps = {
+type OfferCardButtonProps = {
   fromOfferPage: boolean;
   isFavorite: boolean;
   id: number;
 }
 
 
-export function OfferCardDetalButton(props: OfferCardDetalButtonProps): JSX.Element{
+export function OfferCardButton(props: OfferCardButtonProps): JSX.Element{
   const { isFavorite, fromOfferPage, id} = props;
 
   const [isNavigationLogin_, setNavigationLogin_] = useState(false);
