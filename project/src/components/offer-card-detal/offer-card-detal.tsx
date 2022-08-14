@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
-import {getRating} from '../../utils';
+import {getRating} from '../../utils/utils';
 import {AppRoute} from '../../const';
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';

@@ -1,4 +1,4 @@
-import {getRating} from '../../utils';
+import {getRating} from '../../utils/utils';
 import dayjs from 'dayjs';
 import {ReviewType} from '../../types/offer';
 

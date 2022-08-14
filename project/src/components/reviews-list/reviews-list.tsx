@@ -1,5 +1,5 @@
 import {Review} from '../review/review';
-import {getCommentsSorting} from '../../utils';
+import {getCommentsSorting} from '../../utils/utils';
 import {useAppSelector} from '../../hooks/index';
 import {fetchCommentsAction} from '../../store/api-actions';
 import { useEffect } from 'react';

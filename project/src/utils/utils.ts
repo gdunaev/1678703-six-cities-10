@@ -1,7 +1,7 @@
-import {SortingType, PERCENT_RATING} from './const';
-import {Offers, Offer} from './types/offer';
-import {CommentsType, CommentType} from './types/comments';
-import {QUANTITY_COMMENTS} from './const';
+import {SortingType, PERCENT_RATING} from '../const';
+import {Offers, Offer} from '../types/offer';
+import {CommentsType, CommentType} from '../types/comments';
+import {QUANTITY_COMMENTS} from '../const';
 
 
 let typeLowHigh = true;

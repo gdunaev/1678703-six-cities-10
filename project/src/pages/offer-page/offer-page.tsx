@@ -1,6 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { FormOffer } from '../../components/form-offer/form-offer';
-import { getRating } from '../../utils';
+import { getRating } from '../../utils/utils';
 import { ImagesOffer } from '../../components/images-offer/images-offer';
 import { QUANTITY_IMAGES, AppRoute } from '../../const';
 import {NotFoundPage} from '../not-found-page/not-found-page';

@@ -1,7 +1,7 @@
 import OfferCard from '../offer-card/offer-card';
 import {Offers} from '../../types/offer';
 import {useAppSelector} from '../../hooks/index';
-import {getOffersSorting} from '../../utils';
+import {getOffersSorting} from '../../utils/utils';
 import {getSorting} from '../../store/general-process/selectors';
 
 type OffersListProps = {
