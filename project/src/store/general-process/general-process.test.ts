@@ -1,7 +1,7 @@
 import {generalProcess} from './general-process';
 import {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus} from './general-process';
 import { GeneralProcessType } from '../../types/state';
-import {makeFakeInitialState} from '../../utils/mocks';
+import {makeFakeInitialStateGeneralProcess} from '../../utils/mocks';
 import {DEFAULT_CITY, SortingType} from '../../const';
 
 
@@ -17,7 +17,7 @@ describe('Reducer: generalProcess', () => {
   };
 
   beforeEach(() => {
-    state = makeFakeInitialState();
+    state = makeFakeInitialStateGeneralProcess();
   });
 
   it('without additional parameters should return initial state', () => {

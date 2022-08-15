@@ -17,7 +17,7 @@ const initialState: DataProcessType = {
   isFavoritesOffersLoaded: true,
 };
 
-export const processData = createSlice({
+export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
@@ -83,4 +83,4 @@ export const processData = createSlice({
   }
 });
 
-export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby} = processData.actions;
+export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby} = dataProcess.actions;
