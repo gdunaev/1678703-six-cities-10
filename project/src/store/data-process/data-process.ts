@@ -75,6 +75,7 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchDetailedOfferAction.rejected, (state) => {
         state.isErrorLoading = true;
+        state.detailedOffer = undefined;
       })
       .addCase(addCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
@@ -83,4 +84,4 @@ export const dataProcess = createSlice({
   }
 });
 
-export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby} = dataProcess.actions;
+export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby, } = dataProcess.actions;
