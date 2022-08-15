@@ -1,7 +1,7 @@
 import {UserProcessType} from '../../types/state';
 import {userProcess} from './user-process';
 import {AuthorizationStatus} from '../../const';
-import {checkAuthAction, } from '../api-actions';//loginAction, logoutAction
+import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 
 describe('Reducer: user', () => {
   let state: UserProcessType;
@@ -31,21 +31,21 @@ describe('Reducer: user', () => {
     });
   });
 
-  // describe('loginAction test', () => {
-  //   it('should update authorizationStatus to "AUTH" if loginAction fulfilled', () => {
-  //     expect(userProcess.reducer(state, { type: loginAction.fulfilled.type }))
-  //       .toEqual({authorizationStatus: AuthorizationStatus.Auth});
-  //   });
-  //   it('should update authorizationStatus to "NO_AUTH" if loginAction rejected', () => {
-  //     expect(userProcess.reducer(state, { type: loginAction.rejected.type }))
-  //       .toEqual({authorizationStatus: AuthorizationStatus.NoAuth});
-  //   });
-  // });
+  describe('loginAction test', () => {
+    it('should update authorizationStatus to "AUTH" if loginAction fulfilled', () => {
+      expect(userProcess.reducer(state, { type: loginAction.fulfilled.type, payload: 'test email' }))
+        .toEqual({authorizationStatus: {status: AuthorizationStatus.Auth, email: 'test email'}});
+    });
+    it('should update authorizationStatus to "NO_AUTH" if loginAction rejected', () => {
+      expect(userProcess.reducer(state, { type: loginAction.rejected.type, payload: '' }))
+        .toEqual({authorizationStatus: {status: AuthorizationStatus.NoAuth, email: ''}});
+    });
+  });
 
-  // describe('logoutAction test', () => {
-  //   it('should update authorizationStatus to "NO_AUTH" if logoutAction fulfilled', () => {
-  //     expect(userProcess.reducer(state, { type: logoutAction.fulfilled.type }))
-  //       .toEqual({authorizationStatus: AuthorizationStatus.NoAuth});
-  //   });
-  // });
+  describe('logoutAction test', () => {
+    it('should update authorizationStatus to "NO_AUTH" if logoutAction fulfilled', () => {
+      expect(userProcess.reducer(state, { type: logoutAction.fulfilled.type, payload: ''}))
+        .toEqual({authorizationStatus: {status: AuthorizationStatus.NoAuth, email: ''}});
+    });
+  });
 });
