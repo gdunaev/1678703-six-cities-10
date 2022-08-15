@@ -2,10 +2,19 @@ import {generalProcess} from './general-process';
 import {changeCity, selectOfferId, offersSorting, setCommentLoadingStatus} from './general-process';
 import { GeneralProcessType } from '../../types/state';
 import {makeFakeInitialState} from '../../utils/mocks';
+import {DEFAULT_CITY, SortingType} from '../../const';
+
 
 describe('Reducer: generalProcess', () => {
 
   let state: GeneralProcessType;
+
+  const initialState: GeneralProcessType = {
+    city: DEFAULT_CITY,
+    sorting: SortingType.Popular,
+    selectedOfferId: -1,
+    isCommentLoading: false,
+  };
 
   beforeEach(() => {
     state = makeFakeInitialState();
@@ -13,25 +22,29 @@ describe('Reducer: generalProcess', () => {
 
   it('without additional parameters should return initial state', () => {
     expect(generalProcess.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
-      .toEqual(makeFakeInitialState);
+      .toEqual(initialState);
   });
   it('should update the name of the city by change the city', () => {
-    expect(generalProcess.reducer(state, changeCity(makeFakeInitialState().city)))
-      .toEqual(makeFakeInitialState());
+    state.city = 'some city';
+    expect(generalProcess.reducer(state, changeCity(state.city)))
+      .toEqual(state);
   });
 
   it('should update id selected offer by select offer', () => {
-    expect(generalProcess.reducer(state, selectOfferId(makeFakeInitialState().selectedOfferId)))
-      .toEqual(makeFakeInitialState());
+    state.selectedOfferId = 999;
+    expect(generalProcess.reducer(state, selectOfferId(state.selectedOfferId)))
+      .toEqual(state);
   });
 
   it('should update sorting name by change type sorting', () => {
-    expect(generalProcess.reducer(state, offersSorting(makeFakeInitialState().sorting)))
-      .toEqual(makeFakeInitialState());
+    state.sorting = 'some sorting';
+    expect(generalProcess.reducer(state, offersSorting(state.sorting)))
+      .toEqual(state);
   });
 
   it('should update comment loading status by load comment', () => {
-    expect(generalProcess.reducer(state, setCommentLoadingStatus(makeFakeInitialState().isCommentLoading)))
-      .toEqual(makeFakeInitialState());
+    state.isCommentLoading = true;
+    expect(generalProcess.reducer(state, setCommentLoadingStatus(state.isCommentLoading)))
+      .toEqual(state);
   });
 });
