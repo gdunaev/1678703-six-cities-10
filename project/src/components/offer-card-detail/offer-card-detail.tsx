@@ -7,14 +7,14 @@ import {useState} from 'react';
 import {OfferCardButton} from '../offer-card-button/offer-card-button';
 
 
-type OfferCardDetalProps = {
+type OfferCardDetailProps = {
   offer: Offer;
   fromOfferPage: boolean;
   fromFavoritePage: boolean;
 }
 
 
-export function OfferCardDetal(props: OfferCardDetalProps): JSX.Element{
+export function OfferCardDetail(props: OfferCardDetailProps): JSX.Element{
   const { offer, fromOfferPage, fromFavoritePage} = props;
 
   const [isNavigationOffer, setNavigationOffer] = useState(false);

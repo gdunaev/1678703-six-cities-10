@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
 import {useAppDispatch} from '../../hooks/index';
 import {selectOfferId} from '../../store/general-process/general-process';
-import {OfferCardDetal} from '../offer-card-detal/offer-card-detal';
+import {OfferCardDetail} from '../offer-card-detail/offer-card-detail';
 import {memo} from 'react';
 
 
@@ -57,7 +57,7 @@ function OfferCard(props: OfferCardProps): JSX.Element{
         </Link>
       </div>
 
-      <OfferCardDetal offer={offer} fromOfferPage={false} fromFavoritePage={false}/>
+      <OfferCardDetail offer={offer} fromOfferPage={false} fromFavoritePage={false}/>
 
     </article>
   );
