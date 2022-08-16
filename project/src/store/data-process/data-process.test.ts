@@ -2,7 +2,7 @@ import {dataProcess} from './data-process';
 import {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby, } from './data-process';
 import { DataProcessType } from '../../types/state';
 import {makeFakeInitialStateDataProcess, fakeOffers, fakeOffer, fakeComments} from '../../utils/mocks';
-import {fetchOffersAction, fetchFavoritesOffersAction, changeFavoriteStatusAction, fetchOffersNearbyAction, fetchDetailedOfferAction, fetchCommentsAction} from '../api-actions';
+import {addCommentAction, fetchOffersAction, fetchFavoritesOffersAction, changeFavoriteStatusAction, fetchOffersNearbyAction, fetchDetailedOfferAction, fetchCommentsAction} from '../api-actions';
 
 
 describe('Reducer: dataProcess', () => {
@@ -117,12 +117,19 @@ describe('Reducer: dataProcess', () => {
     });
 
     describe('fetchCommentsAction test', () => {
-      it('should update offers if fetchCommentsAction fulfilled', () => {
+      it('should update comments if fetchCommentsAction fulfilled', () => {
         state.comments = fakeComments();
         expect(dataProcess.reducer(state, { type: fetchCommentsAction.fulfilled.type, payload: state.comments }))
           .toEqual(state);
       });
     });
 
+    describe('addCommentAction test', () => {
+      it('should update comments if addCommentAction fulfilled', () => {
+        state.comments = fakeComments();
+        expect(dataProcess.reducer(state, { type: addCommentAction.fulfilled.type, payload: state.comments }))
+          .toEqual(state);
+      });
+    });
   });
 });

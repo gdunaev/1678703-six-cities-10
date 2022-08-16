@@ -1,5 +1,6 @@
 import {name, datatype, internet, system} from 'faker';
 import {GeneralProcessType, DataProcessType} from '../types/state';
+import {FetchingCommentType} from '../types/comments';
 
 export const makeFakeInitialStateGeneralProcess = (): GeneralProcessType => ({
   city: name.title(),
@@ -8,32 +9,34 @@ export const makeFakeInitialStateGeneralProcess = (): GeneralProcessType => ({
   isCommentLoading: false,
 });
 
-export const fakeComments = () => [
-  {
-    'comment': name.title(),
-    'date': 'April 2021',
-    'id': datatype.number(),
-    'rating': datatype.number(),
-    'user': {
-      'avatarUrl': internet.avatar(),
+export const fakeComments = (): FetchingCommentType => ({
+  id: name.title(),
+  data: [
+    {
+      'comment': name.title(),
+      'date': 'April 2021',
       'id': datatype.number(),
-      'isPro': true,
-      'name': name.title()
-    }
-  },
-  {
-    'comment': name.title(),
-    'date': 'April 2019',
-    'id': datatype.number(),
-    'rating': datatype.number(),
-    'user': {
-      'avatarUrl': internet.avatar(),
+      'rating': datatype.number(),
+      'user': {
+        'avatarUrl': internet.avatar(),
+        'id': datatype.number(),
+        'isPro': true,
+        'name': name.title()
+      }
+    },
+    {
+      'comment': name.title(),
+      'date': 'April 2019',
       'id': datatype.number(),
-      'isPro': true,
-      'name': name.title()
-    }
-  },
-];
+      'rating': datatype.number(),
+      'user': {
+        'avatarUrl': internet.avatar(),
+        'id': datatype.number(),
+        'isPro': true,
+        'name': name.title()
+      }
+    },
+  ]});
 
 export const fakeOffers = () => [
   {
