@@ -15,9 +15,6 @@ export function OffersList(props: OffersListProps): JSX.Element{
   const sorting = useAppSelector(getSorting);
   const sortedOffers = getOffersSorting(sorting, offers);
 
-  // eslint-disable-next-line no-console
-  // console.log('11',);
-
   return (
     <div className="cities__places-list places__list tabs__content">
       {sortedOffers.map((offer) => (

@@ -21,7 +21,7 @@ export function Favorite(props: FavoriteProps): JSX.Element {
             src={previewImage}
             width="150"
             height="110"
-            alt="Place"
+            alt="PlaceImg"
           />
         </Link>
       </div>

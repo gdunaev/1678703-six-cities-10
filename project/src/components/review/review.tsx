@@ -32,7 +32,7 @@ export function Review(props: ReviewsProps): JSX.Element {
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
+          <div className="reviews__stars rating__stars" data-testid={rating}>
             <span style={ratingStyle}></span>
             <span className="visually-hidden">Rating</span>
           </div>
@@ -40,7 +40,7 @@ export function Review(props: ReviewsProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>
+        <time className="reviews__time" dateTime={date} data-testid={date}>
           {monthDay}
         </time>
       </div>

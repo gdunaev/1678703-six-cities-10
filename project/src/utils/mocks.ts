@@ -38,6 +38,19 @@ export const fakeComments = (): FetchingCommentType => ({
     },
   ]});
 
+export const fakeComment = {
+  'comment': name.title(),
+  'date': 'April 2021',
+  'id': datatype.number(),
+  'rating': datatype.number(),
+  'user': {
+    'avatarUrl': internet.avatar(),
+    'id': datatype.number(),
+    'isPro': true,
+    'name': name.title()
+  }
+};
+
 export const fakeOffers = () => [
   {
     'bedrooms': datatype.number(),
@@ -156,3 +169,5 @@ export const makeFakeInitialStateDataProcess = (): DataProcessType => ({
   favoriteOffer: undefined,
   isFavoritesOffersLoaded: true,
 });
+
+export const fakeImg = () => (internet.avatar());

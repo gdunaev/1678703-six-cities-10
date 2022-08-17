@@ -6,7 +6,7 @@ import {NotFoundPage} from './not-found-page';
 
 
 describe('Component: NotFoundPage', () => {
-  it('should render correctly', () => {
+  it('should render correctly NotFoundPage', () => {
     const history = createMemoryHistory();
 
     render(
