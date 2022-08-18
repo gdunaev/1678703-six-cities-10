@@ -1,11 +1,11 @@
 import { useParams, Navigate } from 'react-router-dom';
 import { FormOffer } from '../../components/form-offer/form-offer';
-import { getRating } from '../../utils';
+import { getRating } from '../../utils/utils';
 import { ImagesOffer } from '../../components/images-offer/images-offer';
 import { QUANTITY_IMAGES, AppRoute } from '../../const';
 import {NotFoundPage} from '../not-found-page/not-found-page';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
-import { OfferCard } from '../../components/offer-card/offer-card';
+import OfferCard from '../../components/offer-card/offer-card';
 import { MapOffers } from '../../components/map/map-offers';
 import Header from '../../components/header/header';
 import { useAppSelector, useAppDispatch} from '../../hooks/index';

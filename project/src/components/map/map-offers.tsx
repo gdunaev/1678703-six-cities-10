@@ -1,7 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, LatLng} from 'leaflet';
 import {useMap} from '../../hooks/useMap';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import {UrlMarker} from '../../const';
 import 'leaflet/dist/leaflet.css';
 import {Offers} from '../../types/offer';
 import { ArrayCities } from '../../const';
@@ -17,13 +17,13 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: UrlMarker.Default,
   iconSize: [30, 45],
   iconAnchor: [15, 45]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: UrlMarker.Current,
   iconSize: [30, 45],
   iconAnchor: [15, 45]
 });

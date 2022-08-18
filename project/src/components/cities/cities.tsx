@@ -10,25 +10,22 @@ type CityProps = {
   cityName: string;
 };
 
-export function City (props: CityProps): JSX.Element {
+function Cities (props: CityProps): JSX.Element {
   const {cityName} = props;
-
-  // eslint-disable-next-line no-console
-  // console.log('111', cityName);
   const dispatch = useAppDispatch();
 
 
-  const getCityComponent = (element: CityType) => {
-    const activClassName = element.name === cityName ? 'tabs__item--active' : '';
+  const getCityComponent = (city: CityType) => {
+    const activClassName = city.name === cityName ? 'tabs__item--active' : '';
 
     const handleChangeCity = () => {
-      dispatch(changeCity(element.name));
+      dispatch(changeCity(city.name));
     };
 
     return (
-      <li className="locations__item" onClick={handleChangeCity} key={element.name}>
+      <li className="locations__item" onClick={handleChangeCity} key={city.name}>
         <Link className={`locations__item-link tabs__item ${activClassName}`} to="" >
-          <span>{element.name}</span>
+          <span>{city.name}</span>
         </Link>
       </li>
     );
@@ -40,9 +37,9 @@ export function City (props: CityProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            {ArrayCities.map((element) => (
+            {ArrayCities.map((city) => (
 
-              getCityComponent(element)
+              getCityComponent(city)
 
             ))}
           </ul>
@@ -52,4 +49,4 @@ export function City (props: CityProps): JSX.Element {
   );
 }
 
-export default memo(City, (prevProps, nextProps) => prevProps.cityName === nextProps.cityName);
+export default memo(Cities, (prevProps, nextProps) => prevProps.cityName === nextProps.cityName);

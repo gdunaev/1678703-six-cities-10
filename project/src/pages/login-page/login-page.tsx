@@ -3,9 +3,9 @@ import {useAppDispatch, } from '../../hooks/index';
 import {FormEvent, useRef} from 'react';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
-import { validatePassword } from '../../utils';
+import { validatePassword } from '../../utils/utils';
 import { changeCity } from '../../store/general-process/general-process';
-import { getRandomInteger } from '../../utils';
+import { getRandomInteger } from '../../utils/utils';
 import { ArrayCities } from '../../const';
 
 export function LoginPage(): JSX.Element{

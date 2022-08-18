@@ -1,7 +1,7 @@
 
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offer';
-import {OfferCardDetal} from '../offer-card-detal/offer-card-detal';
+import {OfferCardDetail} from '../offer-card-detail/offer-card-detail';
 
 type FavoriteProps = {
   offer: Offer;
@@ -21,12 +21,12 @@ export function Favorite(props: FavoriteProps): JSX.Element {
             src={previewImage}
             width="150"
             height="110"
-            alt="Place"
+            alt="PlaceImg"
           />
         </Link>
       </div>
 
-      <OfferCardDetal offer={offer} fromOfferPage={false} fromFavoritePage/>
+      <OfferCardDetail offer={offer} fromOfferPage={false} fromFavoritePage/>
 
     </article>
   );

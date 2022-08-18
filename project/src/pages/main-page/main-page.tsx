@@ -1,5 +1,5 @@
 import { OffersListMain } from '../../components/offers-list-main/offers-list-main';
-import { City } from '../../components/city/city';
+import Cities from '../../components/cities/cities';
 import { MapOffers } from '../../components/map/map-offers';
 import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
@@ -52,7 +52,7 @@ export function MainPage(): JSX.Element {
 
         <main className="page__main page__main--index">
 
-          <City cityName={cityName}/>
+          <Cities cityName={cityName}/>
 
           <div className="cities">
             <div className="cities__places-container container">

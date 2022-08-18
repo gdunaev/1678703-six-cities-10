@@ -17,7 +17,7 @@ const initialState: DataProcessType = {
   isFavoritesOffersLoaded: true,
 };
 
-export const processData = createSlice({
+export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
@@ -75,6 +75,7 @@ export const processData = createSlice({
       })
       .addCase(fetchDetailedOfferAction.rejected, (state) => {
         state.isErrorLoading = true;
+        state.detailedOffer = undefined;
       })
       .addCase(addCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
@@ -83,4 +84,4 @@ export const processData = createSlice({
   }
 });
 
-export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby} = processData.actions;
+export const {updateOffers, updateFavoritesOffers, updateDetailedOffer, updateOffersNearby, } = dataProcess.actions;

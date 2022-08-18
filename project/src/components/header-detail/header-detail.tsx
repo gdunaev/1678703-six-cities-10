@@ -3,12 +3,12 @@ import {useAppSelector} from '../../hooks/index';
 import {getFavoritesOffers} from '../../store/data-process/selectors';
 
 
-type HeaderProps = {
+type HeaderDetailProps = {
     status: string;
   };
 
 
-export function HeaderDetal(props: HeaderProps): JSX.Element{
+export function HeaderDetail(props: HeaderDetailProps): JSX.Element{
   const {status} = props;
   const favoritesOffers = useAppSelector(getFavoritesOffers);
   const quantityFavoritesOffers = favoritesOffers ? String(favoritesOffers.length) : '0';

@@ -5,7 +5,7 @@ import {useState, memo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {HeaderDetal} from '../header-detal/header-detal';
+import {HeaderDetail} from '../header-detail/header-detail';
 
 
 type HeaderProps = {
@@ -76,7 +76,7 @@ function Header(props: HeaderProps): JSX.Element{
                     {status === AuthorizationStatus.Auth ? email : 'Sign in'}
                   </span>
 
-                  <HeaderDetal status={status}/>
+                  <HeaderDetail status={status}/>
 
                 </Link>
               </li>

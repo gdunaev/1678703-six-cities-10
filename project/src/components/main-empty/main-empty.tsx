@@ -1,4 +1,4 @@
-import {City} from '../../components/city/city';
+import Cities from '../cities/cities';
 import { useAppSelector } from '../../hooks/index';
 import Header from '../../components/header/header';
 import { getCity } from '../../store/general-process/selectors';
@@ -37,7 +37,7 @@ export function MainEmpty(): JSX.Element {
 
         <main className="page__main page__main--index page__main--index-empty">
 
-          <City cityName={cityName}/>
+          <Cities cityName={cityName}/>
 
           <div className="cities">
             <div className="cities__places-container cities__places-container--empty container">
