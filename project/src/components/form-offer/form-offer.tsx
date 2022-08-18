@@ -5,7 +5,7 @@ import {addCommentAction, } from '../../store/api-actions';
 import {setCommentLoadingStatus} from '../../store/general-process/general-process';
 import { useAppSelector, } from '../../hooks/index';
 import {getCommentLoadingStatus} from '../../store/data-process/selectors';
-import {MAX_LENGTH_COMMENT, MIN_LENGTH_COMMENT} from '../../const';
+import {LengthComment} from '../../const';
 
 type FormOfferProps = {
   id: string | undefined;
@@ -35,7 +35,7 @@ export function FormOffer(props: FormOfferProps): JSX.Element {
   };
 
   const checkedCommentLength = (comment: string) => {
-    if(comment.length >= MIN_LENGTH_COMMENT && comment.length <= MAX_LENGTH_COMMENT) {
+    if(comment.length >= LengthComment.Min && comment.length <= LengthComment.Max) {
       setDisabled(false);
       return;
     }

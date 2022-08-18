@@ -90,8 +90,15 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
-export const MAX_LENGTH_COMMENT = 300;
-export const MIN_LENGTH_COMMENT = 50;
+export enum LengthComment {
+  Max = 300,
+  Min = 50,
+}
+
+export enum UrlMarker {
+  Default = 'img/pin.svg',
+  Current = 'img/pin-active.svg',
+}
 
 export const PERCENT_RATING = 20;
 export const QUANTITY_PLACES_NEARBY = 3;
@@ -100,9 +107,6 @@ export const DEFAULT_CITY = 'Paris';
 export const QUANTITY_IMAGES = 6;
 export const QUANTITY_COMMENTS = 10;
 export const TEXT_SIGN_IN = 'Sign In';
-
-export const URL_MARKER_DEFAULT = 'img/pin.svg';
-export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
