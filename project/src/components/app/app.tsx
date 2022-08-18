@@ -11,6 +11,7 @@ import { useAppSelector } from '../../hooks/index';
 import {HistoryRouter} from '../history-route/history-route';
 import {browserHistory} from '../../browser-history';
 import { getLoadedDataStatus } from '../../store/data-process/selectors';
+import {ScrollToTop} from '../../components/scroll-to-top/scroll-to-top';
 
 
 export function App(): JSX.Element {
@@ -25,6 +26,7 @@ export function App(): JSX.Element {
 
   return (
     <HistoryRouter history={browserHistory}>
+      <ScrollToTop/>
       <Routes>
         <Route
           path={AppRoute.Main}
