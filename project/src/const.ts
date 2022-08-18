@@ -13,7 +13,8 @@ export enum AppRoute {
   Offer = '/offer/',
   Favorites = '/favorites',
   Login = '/login',
-  NotFoundPage = '/not_found'
+  NotFoundPage = '/not_found',
+  Lose = '/lose',
 }
 
 export enum SortingType {
