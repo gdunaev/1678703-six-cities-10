@@ -76,7 +76,7 @@ function Header(props: HeaderProps): JSX.Element{
                     {status === AuthorizationStatus.Auth ? email : 'Sign in'}
                   </span>
 
-                  <HeaderDetail status={status}/>
+                  {status === AuthorizationStatus.Auth && <HeaderDetail/>}
 
                 </Link>
               </li>

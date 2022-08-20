@@ -1,5 +1,4 @@
 import {CitiesType} from './types/city';
-import { Offers } from './types/offer';
 
 export enum NameSpace {
   Data = 'DATA',
@@ -106,44 +105,7 @@ export const DEFAULT_CITY = 'Paris';
 
 export const QUANTITY_IMAGES = 6;
 export const QUANTITY_COMMENTS = 10;
-export const TEXT_SIGN_IN = 'Sign In';
 
 export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 
-export const DefaultOffers: Offers = [
-  {
-    'bedrooms': 0,
-    'city': {
-      'location': {
-        'latitude': 0,
-        'longitude': 0,
-        'zoom': 0
-      },
-      'name': ''
-    },
-    'description': '',
-    'goods': [''],
-    'host': {
-      'avatarUrl': '',
-      'id': 0,
-      'isPro': true,
-      'name': ''
-    },
-    'id': 0,
-    'images': [''],
-    'isFavorite': true,
-    'isPremium': true,
-    'location': {
-      'latitude': 0,
-      'longitude': 0,
-      'zoom': 0
-    },
-    'maxAdults': 0,
-    'previewImage': '',
-    'price': 0,
-    'rating': 0,
-    'title': '',
-    'type': ''
-  },
-];
