@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import {HistoryRouter} from '../history-route/history-route';
+import {HistoryRouter} from '../history-router/history-router';
 import { fakeImg } from '../../utils/mocks';
 import {ImagesOffer} from './images-offer';
 import {Provider} from 'react-redux';

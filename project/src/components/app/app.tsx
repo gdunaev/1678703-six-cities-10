@@ -8,7 +8,7 @@ import {FavoritesPage} from '../../pages/favorites-page/favorites-page';
 import {PrivateRoute} from '../private-route/private-route';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks/index';
-import {HistoryRouter} from '../history-route/history-route';
+import {HistoryRouter} from '../history-router/history-router';
 import {browserHistory} from '../../browser-history';
 import { getLoadedDataStatus } from '../../store/data-process/selectors';
 import {ScrollToTop} from '../../components/scroll-to-top/scroll-to-top';

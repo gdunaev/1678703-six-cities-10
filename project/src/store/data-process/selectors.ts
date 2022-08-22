@@ -18,8 +18,6 @@ export const getErrorLoadingStatus = (state: State): boolean => state[NameSpace.
 export const getDetailedOffer = (state: State): Offer | undefined => state[NameSpace.Data].detailedOffer;
 export const getOffersNearby = (state: State): Offers | undefined => state[NameSpace.Data].offersNearby;
 
-export const getFavoriteOffer = (state: State): Offer | undefined => state[NameSpace.Data].favoriteOffer;
-
 export const filterOffers = createSelector(
   [getOffers, getCity],
   (offers, cityName) => {

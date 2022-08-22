@@ -1,6 +1,8 @@
 
+import styles from './loading-screen.module.css';
+
 export function LoadingScreen(): JSX.Element{
   return (
-    <h1 style={{textAlign: 'center', margin: '200px'}}>Loading...</h1>
+    <h1 className={ styles.loading }>Loading...</h1>
   );
 }
